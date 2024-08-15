@@ -6,14 +6,22 @@ const Hero = () => {
     <div className="flex flex-col lg:flex-row lg:h-[92vh] bg-gradient-to-b from-[#FFFFFF] to-[#FFF9EA]">
       {/* Left Section */}
       <div className="flex flex-col justify-center items-center lg:w-1/2 p-4">
-        <div className="flex flex-wrap gap-2 items-center justify-center">
-          <img src="Line.svg" className="w-24 md:w-32 lg:w-48" alt="Decorative Line" />
+        <div className="flex items-center justify-center gap-2">
+          <img
+            src="Line.svg"
+            className="w-24 md:w-36 lg:w-48"
+            alt="Decorative Line"
+          />
           <img src="Flower.svg" alt="Decorative Flower" />
           <h1 className="font-Nunito text-base md:text-lg lg:text-xl font-extrabold tracking-widest whitespace-nowrap">
             FESTIVE DELIGHTS
           </h1>
           <img src="Flower.svg" alt="Decorative Flower" />
-          <img src="Line 2.svg" className="w-24 md:w-32 lg:w-48" alt="Decorative Line" />
+          <img
+            src="Line 2.svg"
+            className="w-24 md:w-24 lg:w-48"
+            alt="Decorative Line"
+          />
         </div>
 
         <div className="flex flex-col gap-4 text-center mt-4">
@@ -32,7 +40,9 @@ const Hero = () => {
       <div className="relative flex items-center justify-center lg:w-1/2 p-4 lg:mr-20">
         <div className="relative w-full flex flex-col gap-5 justify-center items-center">
           <img src="image.png" className="w-full h-auto" alt="Decorative Image" />
-          <button className="bg-[#E5BC8470] border rounded-xl w-full p-3 mb-20 lg:mb-0">Shop Now</button>
+          <button className="bg-[#E5BC8470] border rounded-xl w-full p-3 mb-20 lg:mb-0">
+            Shop Now
+          </button>
         </div>
       </div>
     </div>
