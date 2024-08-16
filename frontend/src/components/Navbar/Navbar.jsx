@@ -1,25 +1,73 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react';
 import { FiShoppingCart } from "react-icons/fi";
 import { FaRegUserCircle } from "react-icons/fa";
-const Navbar = () => {
-  return (
-    <div className='flex justify-between bg-gradient-to-b from-[#FFFFFF] to-[#FFF9EA] p-5'>
+import { GiHamburgerMenu } from "react-icons/gi";
 
-      <div className='ml-4'>
-        <img src='Logo.png'></img>
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef();
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleClickOutside = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
+
+  return (
+    <div className='flex justify-between items-center bg-gradient-to-b from-[#FFFFFF] to-[#FFF9EA] p-5'>
+      {/* Hamburger Icon for Small and Medium Screens */}
+      <div className='flex items-center lg:hidden'>
+        <GiHamburgerMenu className='w-8 h-8 text-amber-900 cursor-pointer' onClick={toggleMenu} />
       </div>
-      <div className='flex gap-24 font-Nunito'>
+
+      {/* Logo */}
+      <div className='ml-4'>
+        <img src='Logo.png' alt='Logo' />
+      </div>
+
+      {/* Desktop Menu for Large Screens */}
+      <div className='hidden lg:flex gap-24 font-Nunito'>
         <h1>Home</h1>
         <h1>Shop Now</h1>
         <h1>About Us</h1>
         <h1>Contact Us</h1>
       </div>
-      <div className='flex gap-10 h-6 mr-4'>
-        <FiShoppingCart className='w-8 h-8 text-amber-900' ></FiShoppingCart>
-        <FaRegUserCircle className='w-8 h-8 text-amber-900'></FaRegUserCircle>
-      </div>
-    </div>
-  )
-}
 
-export default Navbar
+      {/* Cart and Profile Icons */}
+      <div className='flex gap-10 h-6 mr-4'>
+        <FiShoppingCart className='w-8 h-8 text-amber-900' />
+        <FaRegUserCircle className='w-8 h-8 text-amber-900' />
+      </div>
+
+      {/* Mobile and Medium Screen Menu */}
+      {isOpen && (
+        <div ref={menuRef} className='absolute top-16 left-0 w-full bg-white shadow-md lg:hidden'>
+          <div className='flex flex-col items-center p-4'>
+            <h1 className='py-2'>Home</h1>
+            <h1 className='py-2'>Shop Now</h1>
+            <h1 className='py-2'>About Us</h1>
+            <h1 className='py-2'>Contact Us</h1>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Navbar;

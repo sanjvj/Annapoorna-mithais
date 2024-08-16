@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+@keyframes slide {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%); /* Adjusted to slide through half the container */
+    }
+}
+
+.logos {
+    overflow: hidden;
+    padding: 40px 0;
+    background: #AA8659    ;
+    position: relative;
+}
+
+.logos-slide-wrapper {
+    display: flex;
+    width: 200%; /* Ensures enough space for two full sets of logos */
+    animation: 35s slide infinite linear;
+}
+
+.logos-slide {
+    display: flex;
+    width: 50%; /* Each slide takes up half of the wrapper */
+    justify-content: space-around;
+}
+
+.logos-slide img {
+    height: 50px;
+    margin: 0 40px;
+    flex-shrink: 0;
+}
+
+.logos-slide-wrapper:hover {
+    animation-play-state: paused; /* Pauses the animation on hover */
+}
