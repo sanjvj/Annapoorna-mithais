@@ -1,0 +1,15 @@
+.food-display{
+    margin-top: 30px;
+}
+.food-display h2{
+    font-size: max(2vw,24px);
+    font-weight: 600;
+}
+.food-display img{
+    width: 250px;
+}
+
+.food-display-list{
+    display: flex;
+    gap: 50px;
+}
