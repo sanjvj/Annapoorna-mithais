@@ -13,8 +13,8 @@ const Home = () => {
       <Navbar></Navbar>
       <Hero></Hero>
       <Slider></Slider>
-      {/* <ExploreMenu category={category} setCategory={setCategory}></ExploreMenu>
-      <FoodDisplay category={category}></FoodDisplay> */}
+      <ExploreMenu></ExploreMenu>
+      {/* <FoodDisplay category={category}></FoodDisplay> */}
     </div>
   )
 }
