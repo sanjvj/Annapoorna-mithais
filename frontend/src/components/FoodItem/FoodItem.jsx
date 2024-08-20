@@ -16,8 +16,8 @@ const FoodItem = ({ id, name, price, description, image }) => {
           {description}
         </p>
         <p className=' font-Nunito font-bold text-lg text-yellow-600 mb-2'>₹{price}</p>
-        <button className='font-Nunito mt-2 bg-[#E9DEC6] text-black font-semibold py-2 px-4 rounded-lg w-full'>
-          Add to cart
+        <button className='flex gap-2 items-center justify-center font-Nunito mt-2 bg-[#E9DEC6] text-black font-semibold py-3 px-4 rounded-lg w-full'>
+        <span><img src='Cart.png' className='h-5'></img></span> Add to cart 
         </button>
       </div>
     </div>

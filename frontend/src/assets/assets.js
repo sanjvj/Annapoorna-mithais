@@ -1,45 +1,24 @@
-import menu_1 from './menu_1.png'
-import menu_2 from './menu_2.png'
-import menu_3 from './menu_3.png'
-import menu_4 from './menu_4.png'
-
-
 import food_1 from './food_1.svg'
 import food_2 from './food_2.svg'
 import food_3 from './food_3.svg'
 import food_4 from './food_4.svg'
-import food_5 from './food_5.png'
-import food_6 from './food_6.png'
-import food_7 from './food_7.png'
-import food_8 from './food_8.png'
-import food_9 from './food_9.png'
-import food_10 from './food_10.png'
-
-
 
 
 export const assets = {
     
 }
 
-export const menu_list = [
+export const slides = [
     {
-        menu_name: "Sweets",
-        menu_image: menu_1
-    },
-    {
-        menu_name: "Savouries",
-        menu_image: menu_2
-    },
-    {
-        menu_name: "Cakes",
-        menu_image: menu_3
-    },
-    {
-        menu_name: "Chocolates",
-        menu_image: menu_4
-    },
-    ]
+        url : ""
+    },{
+        url : ""
+    },{
+        url : ""
+    },{
+        url : ""
+    }
+]
 
 export const food_list = [
     {
