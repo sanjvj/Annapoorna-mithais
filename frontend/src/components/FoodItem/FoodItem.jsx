@@ -1,22 +1,27 @@
-import React from 'react'
-import './FoodItem.css'
-import { assets } from '../../assets/assets'
-const FoodItem = ({id,name,price,description,image}) => {
+import React from 'react';
+import { assets } from '../../assets/assets';
+
+const FoodItem = ({ id, name, price, description, image }) => {
   return (
-    <div className='food-item'>
-      <div className='food-item-img-container'>
-        <img className='food-item-image' src={image} alt='image of food item'></img>
+    <div className='bg-white rounded-lg overflow-hidden h-[500px] flex flex-col lg:mx-10'>
+      <div className='relative'>
+        <img className='w-full h-72 object-cover rounded-lg' src={image} alt='Food item' />
+        <span className='absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded'>
+          75% OFF
+        </span>
       </div>
-      <div className='food-item-info'>
-        <div className='food-item-name-rating'>
-            <p>{name}</p>
-            <img src={assets.rating_starts}></img>
-        </div>
-        <p className='food-item-desc'>{description}</p>
-        <p className='food-item-price'>${price}</p>
+      <div className='mt-3'>
+        <p className=' font-Nunito font-bold text-lg truncate'>{name}</p>
+        <p className='font-Nunito text-gray-600 text-sm overflow-hidden line-clamp-1 mb-2'>
+          {description}
+        </p>
+        <p className=' font-Nunito font-bold text-lg text-yellow-600 mb-2'>₹{price}</p>
+        <button className='font-Nunito mt-2 bg-[#E9DEC6] text-black font-semibold py-2 px-4 rounded-lg w-full'>
+          Add to cart
+        </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default FoodItem
+export default FoodItem;

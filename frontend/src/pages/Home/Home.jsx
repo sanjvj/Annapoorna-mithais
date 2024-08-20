@@ -14,7 +14,7 @@ const Home = () => {
       <Hero></Hero>
       <Slider></Slider>
       <ExploreMenu></ExploreMenu>
-      {/* <FoodDisplay category={category}></FoodDisplay> */}
+      <FoodDisplay category={category}></FoodDisplay>
     </div>
   )
 }
