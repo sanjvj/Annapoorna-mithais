@@ -91,13 +91,13 @@ const Hero = () => {
             className="w-full h-full rounded-2xl bg-center bg-cover duration-500"
             alt="Decorative Image"
           />
-          <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-6 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
+          <div className="hidden lg:group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-6 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
             <BsChevronCompactLeft
               onClick={prevSlide}
               size={30}
             ></BsChevronCompactLeft>
           </div>
-          <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-6 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
+          <div className="hidden lg:group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-6 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
             <BsChevronCompactRight
               onClick={nextSlide}
               size={30}
@@ -110,7 +110,7 @@ const Hero = () => {
                 key={index}
                 onClick={() => setCurrentIndex(index)}
                 className={`h-2 w-2 mx-1 rounded-full cursor-pointer transition-all duration-300 ${
-                  index === currentIndex ? "w-10 bg-[#F7AE1C]" : "bg-gray-300"
+                  index === currentIndex ? "w-8 bg-[#F7AE1C]" : "bg-gray-300"
                 }`}
               ></div>
             ))}

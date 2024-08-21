@@ -54,8 +54,8 @@ const Navbar = () => {
 
       {/* Cart and Profile Icons */}
       <div className="flex gap-10 h-6 mr-4">
-        <FiShoppingCart className="w-8 h-8 text-amber-900" />
-        <FaRegUserCircle className="w-8 h-8 text-amber-900" />
+        <FiShoppingCart className="lg:w-8 lg:h-8 text-amber-900" />
+        <FaRegUserCircle className="lg:w-8 lg:h-8 text-amber-900" />
       </div>
 
       {/* Mobile and Medium Screen Menu */}
