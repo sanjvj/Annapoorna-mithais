@@ -39,7 +39,7 @@ const Navbar = () => {
       {/* Hamburger Icon for Small and Medium Screens */}
       <div className="flex items-center lg:hidden">
         <GiHamburgerMenu
-          className="w-8 h-8 text-amber-900 cursor-pointer"
+          className="w-[24px] h-[24px] text-amber-900 cursor-pointe rounded-lg"
           onClick={toggleMenu}
         />
       </div>
