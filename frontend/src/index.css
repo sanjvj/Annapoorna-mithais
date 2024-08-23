@@ -2,3 +2,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .underline-animation {
+      @apply relative;
+    }
+    .underline-animation::after {
+      @apply absolute content-[''] sm:w-full h-0.5 bg-[#F7AE1C] left-0 bottom-[-5px] rounded-md scale-x-100 origin-bottom-right hover:origin-bottom-left transition-transform duration-500;
+    }
+  }
