@@ -35,7 +35,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex justify-between items-center bg-gradient-to-b from-[#FFFFFF] to-[#FFF9EA] p-5 border-b-2 border-[#E9D9C2] mb-10 lg:mb-0">
+    <div className="flex justify-between items-center bg-gradient-to-b from-[#FFFFFF] to-[#FFF9EA] p-5 border-b-2 border-[#E9D9C2] lg:mb-0">
       {/* Hamburger Icon for Small and Medium Screens */}
       <div className="flex items-center lg:hidden">
         <GiHamburgerMenu
