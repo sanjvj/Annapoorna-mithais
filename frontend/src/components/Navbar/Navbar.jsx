@@ -79,8 +79,8 @@ const Navbar = () => {
 
       {/* Cart and Profile Icons */}
       <div className="flex gap-10 h-6 mr-4">
-        <FiShoppingCart className="lg:w-[24px] lg:h-[24px] w-[18px] h-[18px] text-[#70513A]" />
-        <FaRegUserCircle className="lg:w-[24px] lg:h-[24px] w-[18px] h-[18px] text-[#70513A]" />
+        <img src="Cart.svg" className="lg:w-[24px] lg:h-[24px] w-[18px] h-[18px] text-[#70513A]" />
+        <img src="Profile.svg" className="lg:w-[24px] lg:h-[24px] w-[18px] h-[18px] text-[#70513A]" />
       </div>
 
       {/* Mobile and Medium Screen Menu */}
