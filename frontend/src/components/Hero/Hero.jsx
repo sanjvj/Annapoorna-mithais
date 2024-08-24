@@ -78,9 +78,20 @@ const Hero = () => {
             <p className="text-white font-bold">₹1400/kg</p>
           </div>
           <button className="bg-[#E9DEC6] text-[#6B4B34] font-bold rounded-full px-4 py-2 flex items-center gap-2">
-            <img src="Cart.svg" className="w-[20px] h-[20px]" ></img>
+            <img src="Cart.svg" className="w-[20px] h-[20px]" alt="Cart Icon" />
             Add to cart
           </button>
+        </div>
+        <div className="absolute top-14 right-16 flex space-x-1">
+          {slides.map((_, index) => (
+            <div
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`h-2 w-2 mx-1 rounded-full cursor-pointer transition-all duration-300 ${
+                index === currentIndex ? "w-12 bg-[#F7AE1C]" : "bg-gray-300"
+              }`}
+            />
+          ))}
         </div>
         <div className="hidden lg:group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-6 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
           <BsChevronCompactLeft onClick={prevSlide} size={30} />
@@ -88,21 +99,9 @@ const Hero = () => {
         <div className="hidden lg:group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-6 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
           <BsChevronCompactRight onClick={nextSlide} size={30} />
         </div>
-
-        <div className="absolute bottom-10 flex justify-center">
-          {slides.map((_, index) => (
-            <div
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`h-2 w-2 mx-1 rounded-full cursor-pointer transition-all duration-300 ${
-                index === currentIndex ? "w-8 bg-[#F7AE1C]" : "bg-gray-300"
-              }`}
-            />
-          ))}
-        </div>
       </div>
     </div>
   );
 };
 
-export default Hero;
+export default Hero;  
