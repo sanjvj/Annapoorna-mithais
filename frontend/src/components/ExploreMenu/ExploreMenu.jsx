@@ -4,7 +4,7 @@ import SearchBar from '../SearchBar'
 const ExploreMenu = () => {
   return (
     <div className='flex flex-col justify-center items-center gap-[10] '>
-      <div className="flex items-center justify-center gap-2 mt-16 mb-10">
+      <div className="flex items-center justify-center gap-2 mt-10 mb-10">
           <img
             src="Line.svg"
             className="w-36 md:w-48 lg:w-96"
@@ -21,7 +21,7 @@ const ExploreMenu = () => {
             alt="Decorative Line"
           />
         </div>
-        <SearchBar></SearchBar>
+        
     </div>
   )
 }
