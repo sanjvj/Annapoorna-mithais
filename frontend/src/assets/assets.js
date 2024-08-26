@@ -163,3 +163,10 @@ export const food_list = [
     },
     
 ];
+
+const story = [
+    {
+        _id : "1",
+        video : "video1",
+    }
+]

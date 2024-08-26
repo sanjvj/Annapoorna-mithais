@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FiShoppingCart } from "react-icons/fi";
-import { FaRegUserCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState('home');
+  const [selected, setSelected] = useState('');
   const menuRef = useRef();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -32,6 +32,7 @@ const Navbar = () => {
 
   const handleSelect = (page) => {
     setSelected(page);
+    navigate(`/${page}`)
   };
 
   return (
@@ -39,7 +40,7 @@ const Navbar = () => {
       {/* Hamburger Icon for Small and Medium Screens */}
       <div className="flex items-center lg:hidden">
         <GiHamburgerMenu
-          className="w-[24px] h-[24px] text-amber-900 cursor-pointe rounded-lg"
+          className="w-[24px] h-[24px] text-amber-900 cursor-pointer rounded-lg"
           onClick={toggleMenu}
         />
       </div>
@@ -52,8 +53,8 @@ const Navbar = () => {
       {/* Desktop Menu for Large Screens */}
       <div className="hidden lg:flex gap-24 font-Nunito">
         <h1
-          className={`text-[#70513A] text-sm cursor-pointer ${selected === 'home' ? 'underline-animation font-bold' : 'font-semibold'}`}
-          onClick={() => handleSelect('home')}
+          className={`text-[#70513A] text-sm cursor-pointer ${selected === '' ? 'underline-animation font-bold' : 'font-semibold'}`}
+          onClick={() => handleSelect('')}
         >
           Home
         </h1>
