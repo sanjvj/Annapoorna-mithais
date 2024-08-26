@@ -6,6 +6,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
   const { food_list } = useContext(StoreContext);
   const [selectedItem, setSelectedItem] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [selectedWeight, setSelectedWeight] = useState('1/2 KG'); // New state for weight
 
   const filteredFoodList = food_list.filter(item =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -14,6 +15,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
   const handleItemClick = (item) => {
     setSelectedItem(item);
     setQuantity(1);
+    setSelectedWeight('1/2 KG'); // Default weight
   };
 
   const handleCloseOverlay = () => {
@@ -24,10 +26,40 @@ const FoodDisplay = ({ category, searchTerm }) => {
     setQuantity(prev => Math.max(1, prev + change));
   };
 
+  const getWeightPrice = () => {
+    switch (selectedWeight) {
+      case '1/4 KG': return selectedItem.price * 0.25;
+      case '1/2 KG': return selectedItem.price * 0.5;
+      case '1 KG': return selectedItem.price;
+      default: return selectedItem.price;
+    }
+  };
+
+  const handleAddToCart = () => {
+    const cartItem = {
+      name: selectedItem.name,
+      quantity,
+      weight: selectedWeight,
+      price: getWeightPrice() * quantity,
+      image : selectedItem.image,
+    };
+  
+    // Retrieve existing cart from local storage
+    const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
+  
+    // Add new item to the cart
+    existingCart.push(cartItem);
+  
+    // Save the updated cart back to local storage
+    localStorage.setItem('cart', JSON.stringify(existingCart));
+  
+    alert('Item added to cart!');
+  };
+
   return (
     <div className='p-4' id='food-display'>
       {filteredFoodList.length > 0 ? (
-        <div className='grid gap-6 md:gap-8 lg:gap-10 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-14 mx-auto max-w-screen-2xl'>
+        <div className='grid gap-6 md:gap-8 lg:gap-10 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-14 mx-auto max-w-screen-xl'>
           {filteredFoodList.map((item, index) => (
             <FoodItem
               key={index}
@@ -53,15 +85,26 @@ const FoodDisplay = ({ category, searchTerm }) => {
                 <h2 className="text-xl font-bold">{selectedItem.name}</h2>
                 <p className="text-gray-700">{selectedItem.description}</p>
                 <p className="text-lg font-bold text-yellow-600">
-                  ₹{selectedItem.price * quantity} <span className="line-through text-gray-500">₹{selectedItem.offer * quantity}</span>
+                  ₹{getWeightPrice() * quantity} <span className="line-through text-gray-500">₹{selectedItem.offer * quantity}</span>
                 </p>
                 <div className="flex items-center gap-2 mt-4">
                   <button onClick={() => handleQuantityChange(-1)} className="bg-gray-200 px-2 py-1 rounded">-</button>
                   <span>{quantity}</span>
                   <button onClick={() => handleQuantityChange(1)} className="bg-gray-200 px-2 py-1 rounded">+</button>
                 </div>
+                <div className="flex gap-2 mt-4">
+                  {['1/4 KG', '1/2 KG', '1 KG'].map(weight => (
+                    <button
+                      key={weight}
+                      onClick={() => setSelectedWeight(weight)}
+                      className={`px-2 py-1 rounded ${selectedWeight === weight ? 'bg-yellow-500 text-white' : 'bg-gray-200'}`}
+                    >
+                      {weight}
+                    </button>
+                  ))}
+                </div>
                 <div className="flex gap-4 mt-4">
-                  <button className="bg-[#E9DEC6] text-black font-bold py-2 px-4 rounded-lg">Add to cart</button>
+                  <button className="bg-[#E9DEC6] text-black font-bold py-2 px-4 rounded-lg" onClick={handleAddToCart}>Add to cart</button>
                   <button className="bg-black text-white font-bold py-2 px-4 rounded-lg">Buy now</button>
                 </div>
               </div>

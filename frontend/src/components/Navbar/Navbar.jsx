@@ -80,7 +80,7 @@ const Navbar = () => {
 
       {/* Cart and Profile Icons */}
       <div className="flex gap-10 h-6 mr-4">
-        <img src="Cart.svg" className="lg:w-[24px] lg:h-[24px] w-[18px] h-[18px] text-[#70513A]" />
+        <img src="Cart.svg" className="lg:w-[24px] lg:h-[24px] w-[18px] h-[18px] text-[#70513A] cursor-pointer" onClick={()=>{navigate('/cart')}}/>
         <img src="Profile.svg" className="lg:w-[24px] lg:h-[24px] w-[18px] h-[18px] text-[#70513A]" />
       </div>
 
