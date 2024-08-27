@@ -48,11 +48,13 @@ const CartPage = () => {
     <Navbar></Navbar>
     <Slider />
         <div className="p-10 lg:border-2 rounded-lg lg:m-10">
-      <h2 className="text-[16px] font-Nunito font-bold mb-2">Your Cart</h2>
-      <p className='text-[12px] font-Nunito text-[#909090] mb-4'>Cart is looking good with these items!</p>
+      
       {cartItems.length > 0 ? (
         <div className="lg:flex justify-between">
+      
           <div className=" w-full lg:w-4/12">
+          <h2 className="text-[16px] font-Nunito font-extrabold mb-2">Your Cart</h2>
+      <p className='text-[12px] font-Nunito text-[#909090] mb-4'>Cart is looking good with these items!</p>
           <div className='w-full h-[80px] bg-[#F8F8F8] rounded-lg '>
           <div className='flex justify-between px-3 pt-3 mb'>
           <p className='font-Nunito font-bold text-[14px] flex'><span><img src='delivery.svg' className='w-[16px] h-[16px]'></img></span>Delivery</p>
@@ -81,14 +83,37 @@ const CartPage = () => {
               </div>
             ))}
           </div>
-          <div className="w-full lg:w-5/12 p-4 border rounded">
-            <h3 className="text-xl font-bold mb-4">Cart Summary</h3>
-            <p>Total Amount: ₹{calculateSubtotal()}</p>
-            <p>GST (12%): ₹{gst.toFixed(2)}</p>
-            <p>Special Offer: -₹{specialOffer}</p>
-            <p>Delivery Fee: FREE</p>
-            <h4 className="text-lg font-bold mt-4">Final Amount to Pay: ₹{total.toFixed(2)}</h4>
-            <button className="bg-black text-white font-bold py-2 px-4 rounded-lg mt-4">Place Your Order Now</button>
+          <div className="w-full lg:w-5/12">
+            <h3 className="text-[16px] font-extrabold font-Nunito mb-4">Cart Summary</h3>
+            <div className='bg-[#F8F8F8] w-full lg:w-10/12 p-6 rounded-lg'>
+            <div className='flex justify-between my-2'>
+            <p className='text-[#909090] text-[12px] font-semibold font-Nunito'>TOTAL AMOUNT</p>
+            <p className='font-bold font-Nunito text-[#606060] text-[14px]'>₹{calculateSubtotal()}</p>
+            </div>
+            <div className='flex justify-between mb-2'>
+            <p className='text-[#909090] text-[12px] font-semibold font-Nunito'>GST (12%) </p>
+            <p className='font-bold font-Nunito text-[#606060] text-[14px]'>₹{gst.toFixed(2)}</p>
+            </div>
+            <div className='flex justify-between mb-2'>
+            <p className='text-[#909090] text-[12px] font-semibold font-Nunito'>SPECIAL OFFER </p>
+            <p className='font-bold font-Nunito text-[#606060] text-[14px]'>-₹{specialOffer}</p>
+            </div>
+            <div className='flex justify-between mb-2'>
+            <p className='text-[#909090] text-[12px] font-semibold font-Nunito'>DELIVERY FEE </p>
+            <p className='font-Nunito text-[#D31B21] text-[14px] font-extrabold'>FREE</p>
+            </div>
+            <div className='flex justify-between p-4 mt-4 bg-[#EDEDED] rounded-lg'>
+            <h4 className="text-[12px] font-extrabold font-Nunito">FINAL AMOUNT TO PAY</h4>
+            <p className='text-[16px] font-extrabold font-Nunito'>₹{total.toFixed(2)}</p>
+            </div>
+            <div className='flex gap-1 mt-3'>
+              <img src='saving.svg'></img>
+              <p className='text-[#26A460] text-[14px] font-bold font-Nunito'>You saved ₹499 in this order!</p>
+            </div>
+            </div>
+           
+            <button className="bg-[#332D21] text-white font-bold py-3 px-4 rounded-lg mt-6 w-full lg:w-10/12">Place Your Order Now</button>
+            
           </div>
         </div>
       ) : (
