@@ -72,9 +72,9 @@ const CartPage = () => {
                 </div>
                 <div className="flex items-center">
                   <div className='bg-[#F8F8F8] w-[83px] items-center flex justify-center rounded-lg'>
-                  <button onClick={() => handleQuantityChange(index, -1)} className=" px-3 py-1 rounded">-</button>
-                  <span className="mx-2">{item.quantity}</span>
-                  <button onClick={() => handleQuantityChange(index, 1)} className="px-3 py-1 rounded">+</button>
+                  <button onClick={() => handleQuantityChange(index, -1)} className="font-Nunito font-extrabold px-3 py-1 rounded">-</button>
+                  <span className="mx-2 font-semibold font-Nunito">{item.quantity}</span>
+                  <button onClick={() => handleQuantityChange(index, 1)} className="px-3 py-1 rounded font-extrabold font-Nunito">+</button>
                   </div>
                   <img src='delete.svg' onClick={() => handleDeleteItem(index)} className="cursor-pointer px-2 py-1 ml-2"></img>
                 </div>
