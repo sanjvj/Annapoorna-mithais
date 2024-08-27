@@ -80,7 +80,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
           <div className="bg-white rounded-t-lg md:rounded-lg p-6 w-full md:w-2/3 lg:w-1/2 relative transform md:translate-y-0 translate-y-full md:h-auto h-1/2" onClick={(e) => e.stopPropagation()}>
             <button onClick={handleCloseOverlay} className="absolute top-4 right-4 text-gray-500 hover:text-gray-700">&times;</button>
             <div className="flex flex-col md:flex-row gap-4">
-              <img src={selectedItem.image} alt={selectedItem.name} className="w-full md:w-1/2 rounded-lg" />
+              <img src={selectedItem.image} alt={selectedItem.name} className="w-auto md:w-1/2 rounded-lg" />
               <div className="flex flex-col justify-between">
                 <h2 className="text-xl font-bold">{selectedItem.name}</h2>
                 <p className="text-gray-700">{selectedItem.description}</p>
