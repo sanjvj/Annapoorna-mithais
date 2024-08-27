@@ -1,12 +1,15 @@
 import React, { useContext, useState } from 'react';
 import { StoreContext } from '../../context/StoreContext';
 import FoodItem from '../FoodItem/FoodItem';
+import Toast from '../Toast'; // Ensure this import is correct
 
 const FoodDisplay = ({ category, searchTerm }) => {
   const { food_list } = useContext(StoreContext);
   const [selectedItem, setSelectedItem] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [selectedWeight, setSelectedWeight] = useState('1/2 KG');
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastKey, setToastKey] = useState(0); // Key to force re-render
 
   const filteredFoodList = food_list.filter(item =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -36,6 +39,8 @@ const FoodDisplay = ({ category, searchTerm }) => {
   };
 
   const handleAddToCart = () => {
+    if (!selectedItem) return; // Ensure an item is selected
+
     const cartItem = {
       name: selectedItem.name,
       quantity,
@@ -52,13 +57,16 @@ const FoodDisplay = ({ category, searchTerm }) => {
     const event = new Event('storage');
     window.dispatchEvent(event);
 
-    alert('Item added to cart!');
+    // Set the toast message and close the overlay
+    setToastMessage('Item added successfully!');
+    setToastKey(prevKey => prevKey + 1); // Update the key to force re-render
+    handleCloseOverlay();
   };
 
   return (
-    <div className='p-4' id='food-display'>
+    <div className="p-4" id="food-display">
       {filteredFoodList.length > 0 ? (
-        <div className='grid gap-6 md:gap-8 lg:gap-10 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-14 mx-auto max-w-screen-xl'>
+        <div className="grid gap-6 md:gap-8 lg:gap-10 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-14 mx-auto max-w-screen-xl">
           {filteredFoodList.map((item, index) => (
             <FoodItem
               key={index}
@@ -68,14 +76,14 @@ const FoodDisplay = ({ category, searchTerm }) => {
           ))}
         </div>
       ) : (
-        <div className='flex flex-col items-center justify-center mt-20'>
-          <h2 className='text-2xl font-bold text-gray-700 mb-4'>No Products Found</h2>
-          <p className='text-gray-500'>Try adjusting your search or filter to find what you're looking for!</p>
+        <div className="flex flex-col items-center justify-center mt-20">
+          <h2 className="text-2xl font-bold text-gray-700 mb-4">No Products Found</h2>
+          <p className="text-gray-500">Try adjusting your search or filter to find what you're looking for!</p>
         </div>
       )}
 
       {selectedItem && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-end md:items-center justify-center z-50" onClick={handleCloseOverlay}>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-end md:items-center justify-center z-50">
           <div className="bg-white rounded-t-lg md:rounded-lg p-6 w-full md:w-2/3 lg:w-1/2 relative transform md:translate-y-0 translate-y-full md:h-auto h-1/2" onClick={(e) => e.stopPropagation()}>
             <button onClick={handleCloseOverlay} className="absolute top-4 right-4 text-gray-500 hover:text-gray-700">&times;</button>
             <div className="flex flex-col md:flex-row gap-4">
@@ -111,6 +119,9 @@ const FoodDisplay = ({ category, searchTerm }) => {
           </div>
         </div>
       )}
+
+      {/* Toast Notification */}
+      <Toast key={toastKey} message={toastMessage} duration={1000} />
     </div>
   );
 };
