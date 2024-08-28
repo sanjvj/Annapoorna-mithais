@@ -6,7 +6,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
   const { food_list } = useContext(StoreContext);
   const [selectedItem, setSelectedItem] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const [selectedWeight, setSelectedWeight] = useState('1/2 KG'); // New state for weight
+  const [selectedWeight, setSelectedWeight] = useState('1/2 KG');
 
   const filteredFoodList = food_list.filter(item =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -15,7 +15,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
   const handleItemClick = (item) => {
     setSelectedItem(item);
     setQuantity(1);
-    setSelectedWeight('1/2 KG'); // Default weight
+    setSelectedWeight('1/2 KG');
   };
 
   const handleCloseOverlay = () => {
@@ -41,18 +41,17 @@ const FoodDisplay = ({ category, searchTerm }) => {
       quantity,
       weight: selectedWeight,
       price: getWeightPrice() * quantity,
-      image : selectedItem.image,
+      image: selectedItem.image,
     };
-  
-    // Retrieve existing cart from local storage
+
     const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
-  
-    // Add new item to the cart
     existingCart.push(cartItem);
-  
-    // Save the updated cart back to local storage
     localStorage.setItem('cart', JSON.stringify(existingCart));
-  
+
+    // Trigger a custom event to update the cart count in Navbar
+    const event = new Event('storage');
+    window.dispatchEvent(event);
+
     alert('Item added to cart!');
   };
 
