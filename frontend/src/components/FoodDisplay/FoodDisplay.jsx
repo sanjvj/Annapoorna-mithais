@@ -84,38 +84,42 @@ const FoodDisplay = ({ category, searchTerm }) => {
 
       {selectedItem && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-end md:items-center justify-center z-50">
-          <div className="bg-white rounded-t-lg md:rounded-lg p-6 w-full md:w-[636px] relative md:translate-y-0 md:h-[366px] h-[551px]" onClick={(e) => e.stopPropagation()}>
+          <div className="bg-white rounded-t-3xl md:rounded-lg p-6 w-auto md:w-[636px] relative md:translate-y-0 md:h-auto h-11/12" onClick={(e) => e.stopPropagation()}>
             <button onClick={handleCloseOverlay} className="absolute top-4 right-4 text-gray-500 hover:text-gray-700">&times;</button>
             <div className="flex flex-col md:flex-row  gap-4">
-              <img src={selectedItem.image} alt={selectedItem.name} className="w-auto h-[282px] md:w-[320px] md:h-[282px] rounded-lg" />
+              <img src={selectedItem.image} alt={selectedItem.name} className="w-full h-[282px] md:w-[320px] md:h-[282px] rounded-lg" />
               <div className="flex flex-col justify-start">
                 <h2 className="text-[16px] font-bold font-Nunito mb-2">{selectedItem.name}</h2>
-                <p className="text-[#909090] text-[12px] font-Nunito font-[400px] mb-8">{selectedItem.description}</p>
+                <p className="text-[#909090] text-[12px] font-Nunito font-[400px] mb-4">{selectedItem.description}</p>
                 
-                <div className="flex items-center gap-2 mt-4 justify-between">
-                <p className="text-lg font-bold text-yellow-600">
-                  ₹{getWeightPrice() * quantity} <span className="line-through text-gray-500">₹{selectedItem.offer * quantity}</span>
-                </p>
-                  <div className='bg-[#F8F8F8] border border-[#E6E6E6] px-2 rounded-lg'>
-                  <button onClick={() => handleQuantityChange(-1)} className=" px-2 py-1 rounded">-</button>
-                  <span>{quantity}</span>
-                  <button onClick={() => handleQuantityChange(1)} className=" px-2 py-1 rounded">+</button>
-                  </div>
-                </div>
+                
                 <div className="flex gap-2 mt-4">
                   {['1/4 KG', '1/2 KG', '1 KG'].map(weight => (
                     <button
                       key={weight}
                       onClick={() => setSelectedWeight(weight)}
-                      className={`px-2 py-1 rounded ${selectedWeight === weight ? 'bg-yellow-500 text-white' : 'bg-gray-200'}`}
+                      className={`px-[14px] py-[6px] font-Nunito font-extrabold text-[#606060] text-[12px] rounded ${selectedWeight === weight ? 'border-2 border-[#F7AE1C] bg-[#FFFCF4]' : 'border-2 border-[#E6E6E6]'}`}
                     >
                       {weight}
                     </button>
                   ))}
                 </div>
+
+                <div className="flex items-center gap-2 mt-4 justify-between mb-4">
+                <p className="text-[14px] font-bold text-[#606060] font-Nunito">
+                  ₹{getWeightPrice() * quantity} <p className="text-[14px] font-bold text-[#26A460] font-Nunito">With Offer ₹{selectedItem.offer * quantity}</p>
+                </p>
+                  <div className='bg-[#F8F8F8] border border-[#E6E6E6] px-2 rounded-lg'>
+                  <button onClick={() => handleQuantityChange(-1)} className=" px-2 py-1 rounded">-</button>
+                  <span className='mx-2 font-bold text-[#303030] text-[14px] font-Nunito'>{quantity}</span>
+                  <button onClick={() => handleQuantityChange(1)} className=" px-2 py-1 rounded">+</button>
+                  </div>
+                </div>
+
+                  
                 <div className="flex gap-4 mt-4">
-                  <button className="bg-[#E9DEC6] text-black font-bold py-2 px-4 rounded-lg" onClick={handleAddToCart}>Add to cart</button>
-                  <button className="bg-black text-white font-bold py-2 px-4 rounded-lg">Buy now</button>
+                  <button className="border border-[#6B4B34] text-[#6B4B34] font-bold py-2 px-4 rounded-xl flex gap-1 font-Nunito hover:bg-[#6B4B3420]" onClick={handleAddToCart}><span><img src='Cart.svg' className='mt-[2px]'></img></span>Add to cart</button>
+                  <button className="bg-[#332D21] text-white font-bold py-2 px-9 rounded-xl font-Nunito">Buy now</button>
                 </div>
               </div>
             </div>
