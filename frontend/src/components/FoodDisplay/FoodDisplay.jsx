@@ -10,7 +10,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
   const [selectedWeight, setSelectedWeight] = useState('1/2 KG');
   const [toastMessage, setToastMessage] = useState('');
   const [toastKey, setToastKey] = useState(0); // Key to force re-render
-
+   
   const filteredFoodList = food_list.filter(item =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -84,20 +84,23 @@ const FoodDisplay = ({ category, searchTerm }) => {
 
       {selectedItem && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-end md:items-center justify-center z-50">
-          <div className="bg-white rounded-t-lg md:rounded-lg p-6 w-full md:w-2/3 lg:w-1/2 relative transform md:translate-y-0 translate-y-full md:h-auto h-1/2" onClick={(e) => e.stopPropagation()}>
+          <div className="bg-white rounded-t-lg md:rounded-lg p-6 w-full md:w-[636px] relative md:translate-y-0 md:h-[366px] h-[551px]" onClick={(e) => e.stopPropagation()}>
             <button onClick={handleCloseOverlay} className="absolute top-4 right-4 text-gray-500 hover:text-gray-700">&times;</button>
-            <div className="flex flex-col md:flex-row gap-4">
-              <img src={selectedItem.image} alt={selectedItem.name} className="w-auto md:w-1/2 rounded-lg" />
-              <div className="flex flex-col justify-between">
-                <h2 className="text-xl font-bold">{selectedItem.name}</h2>
-                <p className="text-gray-700">{selectedItem.description}</p>
+            <div className="flex flex-col md:flex-row  gap-4">
+              <img src={selectedItem.image} alt={selectedItem.name} className="w-auto h-[282px] md:w-[320px] md:h-[282px] rounded-lg" />
+              <div className="flex flex-col justify-start">
+                <h2 className="text-[16px] font-bold font-Nunito mb-2">{selectedItem.name}</h2>
+                <p className="text-[#909090] text-[12px] font-Nunito font-[400px] mb-8">{selectedItem.description}</p>
+                
+                <div className="flex items-center gap-2 mt-4 justify-between">
                 <p className="text-lg font-bold text-yellow-600">
                   ₹{getWeightPrice() * quantity} <span className="line-through text-gray-500">₹{selectedItem.offer * quantity}</span>
                 </p>
-                <div className="flex items-center gap-2 mt-4">
-                  <button onClick={() => handleQuantityChange(-1)} className="bg-gray-200 px-2 py-1 rounded">-</button>
+                  <div className='bg-[#F8F8F8] border border-[#E6E6E6] px-2 rounded-lg'>
+                  <button onClick={() => handleQuantityChange(-1)} className=" px-2 py-1 rounded">-</button>
                   <span>{quantity}</span>
-                  <button onClick={() => handleQuantityChange(1)} className="bg-gray-200 px-2 py-1 rounded">+</button>
+                  <button onClick={() => handleQuantityChange(1)} className=" px-2 py-1 rounded">+</button>
+                  </div>
                 </div>
                 <div className="flex gap-2 mt-4">
                   {['1/4 KG', '1/2 KG', '1 KG'].map(weight => (
