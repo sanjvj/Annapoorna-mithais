@@ -92,13 +92,13 @@ const FoodDisplay = ({ category, searchTerm }) => {
               <div className="flex flex-col justify-start">
                 <h2 className="text-[16px] font-bold font-Nunito mb-2">{selectedItem.name}</h2>
                 <p className="text-[#909090] text-[12px] font-Nunito font-[400px] mb-2">{selectedItem.description}</p>
-                <div className='flex gap-1'>
+                <div className='flex gap-1 cursor-pointer' onClick={()=>setSelectedShell(!selectedShell)}>
                 <p className='font-Nunito font-bold text-[12px] md:text-[14px] text-[#909090]'>SHELL LIFE:</p>
                 {selectedShell ? (
-                  <img src='down.svg' className='cursor-pointer' onClick={()=>setSelectedShell(false)}></img>
+                  <img src='down.svg' className='cursor-pointer' ></img>
                 ) : (
                   
-                  <img src='up.svg' className='cursor-pointer' onClick={()=>setSelectedShell(true)}></img>
+                  <img src='up.svg' className='cursor-pointer'></img>
                   
                 )}
                 </div>
