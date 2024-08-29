@@ -57,7 +57,7 @@ const CartPage = () => {
       <div className="p-10 lg:border-2 rounded-lg lg:m-10">
         {cartItems.length > 0 ? (
           <div className="lg:flex justify-between">
-            <div className="w-full lg:w-4/12">
+            <div className="w-full lg:w-5/12">
               <h2 className="text-[16px] font-Nunito font-extrabold mb-2">Your Cart</h2>
               <p className='text-[12px] font-Nunito text-[#909090] mb-4'>Cart is looking good with these items!</p>
               <div className='w-full h-[80px] bg-[#F8F8F8] rounded-lg'>
@@ -88,7 +88,7 @@ const CartPage = () => {
               ))}
             </div>
             <div className='border border-[#70513A30] h-auto mb-6 lg:mb-0'></div>
-            <div className="w-full lg:w-5/12">
+            <div className="w-full lg:w-6/12">
               <h3 className="text-[16px] font-extrabold font-Nunito mb-4">Cart Summary</h3>
               <div className='bg-[#F8F8F8] w-full lg:w-10/12 p-6 rounded-lg'>
                 <div className='flex justify-between my-2'>

@@ -14,7 +14,7 @@ const FoodItem = ({ item, onClick }) => {
         <p className='font-Nunito text-[#909090] text-sm overflow-hidden line-clamp-1 mb-2'>
           {item.description}
         </p>
-        <p className='flex gap-2 font-Nunito font-bold text-sm text-[#606060] mb-[0px]'>₹{item.price} <span><p className='text-[#F7AE1C]'>with offer {item.offer}</p></span></p>
+        <p className='flex gap-2 font-Nunito font-bold text-sm text-[#606060] mb-[0px]'>₹{item.price} / Kg <span><p className='text-[#F7AE1C]'>with offer {item.offer}</p></span></p>
         <button className='flex gap-2 items-center justify-center font-Nunito mt-2 bg-[#E9DEC6] text-black font-bold text-[14px] py-3 px-4 rounded-lg w-[178.17px] md:w-[198.17px]'>
           <span><img src='Cart.svg' className='h-[24px] w-[24px]'></img></span> Add to cart 
         </button>
