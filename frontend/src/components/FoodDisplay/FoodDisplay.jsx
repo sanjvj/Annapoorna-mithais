@@ -9,7 +9,8 @@ const FoodDisplay = ({ category, searchTerm }) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedWeight, setSelectedWeight] = useState('1/2 KG');
   const [toastMessage, setToastMessage] = useState('');
-  const [toastKey, setToastKey] = useState(0); // Key to force re-render
+  const [toastKey, setToastKey] = useState(0); 
+  const [selectedShell,setSelectedShell] = useState(true);
    
   const filteredFoodList = food_list.filter(item =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -90,8 +91,26 @@ const FoodDisplay = ({ category, searchTerm }) => {
               <img src={selectedItem.image} alt={selectedItem.name} className="w-full h-[282px] md:w-[320px] md:h-[282px] rounded-lg" />
               <div className="flex flex-col justify-start">
                 <h2 className="text-[16px] font-bold font-Nunito mb-2">{selectedItem.name}</h2>
-                <p className="text-[#909090] text-[12px] font-Nunito font-[400px] mb-4">{selectedItem.description}</p>
+                <p className="text-[#909090] text-[12px] font-Nunito font-[400px] mb-2">{selectedItem.description}</p>
+                <div className='flex gap-1'>
+                <p className='font-Nunito font-bold text-[12px] md:text-[14px] text-[#909090]'>SHELL LIFE:</p>
+                {selectedShell ? (
+                  <img src='down.svg' className='cursor-pointer' onClick={()=>setSelectedShell(false)}></img>
+                ) : (
+                  
+                  <img src='up.svg' className='cursor-pointer' onClick={()=>setSelectedShell(true)}></img>
+                  
+                )}
+                </div>
+
+                {selectedShell ? (
+                  <></>
+                ):(
+                  <p className='font-extrabold font-Nunito text-[12px] text-[#606060] md:text-[14px]'>{selectedItem.life}</p>
+                )}
+
                 
+              <hr className='mt-2'></hr>
                 
                 <div className="flex gap-2 mt-4">
                   {['1/4 KG', '1/2 KG', '1 KG'].map(weight => (

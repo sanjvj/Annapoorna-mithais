@@ -60,7 +60,8 @@ export const food_list = [
         price: 1200,
         offer: 1500,
         description: "Crispy Cashew nuts soaked then grinded into fine dough and elegantly served with silver leaf.",
-        category: "Sweets"
+        category: "Sweets",
+        life : "2 Months"
     },
     {
         _id: "2",
@@ -69,7 +70,8 @@ export const food_list = [
         price: 1800,
         offer: 1500,
         description: "Desiccated coconut with the condensed milk wrapped with Fresh Chocolate.",
-        category: "Sweets"
+        category: "Sweets",
+        life : "2 Months"
     },
     {
         _id: "3",
@@ -78,7 +80,8 @@ export const food_list = [
         price: 1600,
         offer: 1500,
         description: "Fresh Sabudhana comes Roasted peanuts, Sev, and Mixture. Made with Air Fryer Technology.",
-        category: "Sweets"
+        category: "Sweets",
+        life : "2 Months"
     },
     {
         _id: "4",
@@ -87,7 +90,8 @@ export const food_list = [
         price: 2400,
         offer: 1500,
         description: "Almond Crunch, Pista Crunch and Cashew Crunch",
-        category: "Sweets"
+        category: "Sweets",
+        life : "2 Months"
     },
     {
         _id: "5",
@@ -96,7 +100,8 @@ export const food_list = [
         price: 1400,
         offer: 1500,
         description: "Kaju Pineapple, Kaju Kiwi, Kaju strawberry, Kaju Mango, Kaju Blueberry, Anjeer Roll, Kaju Dates Roll Ingredient ",
-        category: "Sweets"
+        category: "Sweets",
+        life : "2 Months"
     },
     {
         _id: "6",
@@ -105,7 +110,8 @@ export const food_list = [
         price: 1200,
         offer: 1500,
         description: "Mixed & Ghee sweets such as Ghee mysore pak, kesar peda, white peda, motichoor laddu, doda burfee, gujiya, milk cake, soan papdi and milk burfee will be packed as per the availability of the items at the store currently. Note: the mentioned items are not guaranteed.",
-        category: "Sweets"
+        category: "Sweets",
+        life : "2 Months"
     },
     {
         _id: "7",
@@ -114,7 +120,8 @@ export const food_list = [
         price: 2000,
         offer: 1500,
         description: "A combo of sweets made with different types of dryfruits and nuts such as Pistachios, badam, Cashew, Dates, Fig, Strawberry and kiwi. Note: the mentioned items are not guaranteed.",
-        category: "Sweets"
+        category: "Sweets",
+        life : "2 Months"
     },
     {
         _id: "8",
@@ -123,7 +130,8 @@ export const food_list = [
         price: 1500,
         offer: 1500,
         description: "Quinoa is a great source of fiber. Fiber can prevent or treat constipation and may lower your risk of intestinal cancers. It also helps you feel full longer, so it may help with weight loss. The fiber in quinoa can also help with cholesterol and blood sugar levels, lowering your risk of diabetes and heart disease. Quinoa is rich in antioxidants, which can prevent damage to your heart and other organs.",
-        category: "Savouries"
+        category: "Savouries",
+        life : "2 Months"
     },
     {
         _id: "9",
@@ -132,7 +140,8 @@ export const food_list = [
         price: 1400,
         offer: 1500,
         description: "Food provides essential nutrients for overall health and well-being",
-        category: "Savouries"
+        category: "Savouries",
+        life : "2 Months"
     },
     {
         _id: "10",
@@ -141,7 +150,8 @@ export const food_list = [
         price: 2200,
         offer: 1500,
         description: "Potato wafers, also known as potato chips or crisps, are thin slices of potatoes that are deep-fried until they become crispy and golden brown. They are a popular snack enjoyed by people all over the world. Potato wafers are loved for their crunchy texture, savory flavor, and versatility. They can be enjoyed on their own as a snack or used as a topping for sandwiches, burgers, or salads.",
-        category: "Savouries"
+        category: "Savouries",
+        life : "2 Months"
     },
     {
         _id: "11",
@@ -150,7 +160,8 @@ export const food_list = [
         price: 2200,
         offer: 1500,
         description: "Omapodi is a delicious and crispy South Indian snack of sev laced with the aroma and flavor of ajwain or carom seeds.",
-        category: "Savouries"
+        category: "Savouries",
+        life : "2 Months"
     },
     {
         _id: "12",
@@ -159,7 +170,8 @@ export const food_list = [
         price: 2400,
         offer: 1500,
         description: "Fresh Whole Wheat made into puff with Air Fryer Cooking Technology - One of the Best low calorie Snack.",
-        category: "Savouries"
+        category: "Savouries",
+        life : "2 Months"
     },
     
 ];
