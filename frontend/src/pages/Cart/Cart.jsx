@@ -87,6 +87,7 @@ const CartPage = () => {
                 </div>
               ))}
             </div>
+            <div className='border border-[#70513A30] h-auto mb-6 lg:mb-0'></div>
             <div className="w-full lg:w-5/12">
               <h3 className="text-[16px] font-extrabold font-Nunito mb-4">Cart Summary</h3>
               <div className='bg-[#F8F8F8] w-full lg:w-10/12 p-6 rounded-lg'>

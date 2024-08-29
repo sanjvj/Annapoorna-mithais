@@ -99,16 +99,16 @@ const Navbar = () => {
 
       <div className="flex gap-10 h-6 mr-4">
         <div className="relative cursor-pointer" onClick={() => handleSelect('cart')}>
-          <img src="Cart.svg" className="lg:w-[24px] lg:h-[24px] w-[18px] h-[18px] text-[#70513A]" />
+          <img src="Cart.svg" className="lg:w-[30px] lg:h-[30px] w-[24px] h-[24px] text-[#70513A]" />
           {cartItemCount > 0 && (
-            <span className="absolute top-[-6px] right-[-10px] bg-red-500 text-white text-xs rounded-full px-1">{cartItemCount}</span>
+            <div className="absolute top-[-6px] right-[-4px] bg-red-500 text-white text-xs rounded-full w-4 h-4 items-center"><p className="items-center text-center text-[11px]">{cartItemCount}</p></div>
           )}
         </div>
         <div
           className={`cursor-pointer ${selected === 'profile' ? 'underline-animation' : ''}`}
           onClick={() => handleSelect('profile')}
         >
-          <img src="Profile.svg" className="lg:w-[24px] lg:h-[24px] w-[18px] h-[18px] text-[#70513A]" />
+          <img src="Profile.svg" className="lg:w-[30px] lg:h-[30px] w-[24px] h-[24px] text-[#70513A]" />
         </div>
       </div>
 

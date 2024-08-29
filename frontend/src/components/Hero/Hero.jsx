@@ -97,8 +97,8 @@ const Hero = () => {
             <div
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`h-2 w-2 mx-1 rounded-full cursor-pointer transition-all duration-300 ${
-                index === currentIndex ? "w-14 bg-[#F7AE1C]" : "bg-gray-300"
+              className={`h-2 w-2 mx-1 rounded-full cursor-pointer transition-all duration-300 shadow-md ${
+                index === currentIndex ? "w-[32px] bg-[#F7AE1C] h-[6px]" : "bg-gray-300 w-[12px] h-[6px]"
               }`}
             />
           ))}

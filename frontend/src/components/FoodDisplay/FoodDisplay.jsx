@@ -85,10 +85,10 @@ const FoodDisplay = ({ category, searchTerm }) => {
 
       {selectedItem && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-end md:items-center justify-center z-50">
-          <div className="bg-white rounded-t-3xl md:rounded-lg p-6 w-full md:w-[636px] relative md:translate-y-0 md:h-auto h-11/12" onClick={(e) => e.stopPropagation()}>
-            <button onClick={handleCloseOverlay} className="absolute top-4 right-4 text-gray-500 hover:text-gray-700">&times;</button>
+          <div className="bg-white rounded-t-3xl md:rounded-xl p-6 w-full md:w-[636px] relative md:translate-y-0 md:h-auto h-11/12" onClick={(e) => e.stopPropagation()}>
+            <img src='closeoverlay.svg' onClick={handleCloseOverlay} className="cursor-pointer absolute top-[-17px] right-4 text-gray-500 hover:text-gray-700"></img>
             <div className="flex flex-col md:flex-row  gap-4">
-              <img src={selectedItem.image} alt={selectedItem.name} className="w-full h-[282px] md:w-[320px] md:h-[282px] rounded-lg" />
+              <img src={selectedItem.image} alt={selectedItem.name} className="w-full h-[282px] md:w-[320px] md:h-[282px] rounded-xl" />
               <div className="flex flex-col justify-start">
                 <h2 className="text-[16px] font-bold font-Nunito mb-2">{selectedItem.name}</h2>
                 <p className="text-[#909090] text-[12px] font-Nunito font-[400px] mb-2">{selectedItem.description}</p>
@@ -137,8 +137,8 @@ const FoodDisplay = ({ category, searchTerm }) => {
 
                   
                 <div className="flex gap-4 mt-4">
-                  <button className="border border-[#6B4B34] text-[#6B4B34] font-bold py-2 px-4 rounded-xl flex gap-1 font-Nunito hover:bg-[#6B4B3420]" onClick={handleAddToCart}><span><img src='Cart.svg' className='mt-[2px]'></img></span>Add to cart</button>
-                  <button className="bg-[#332D21] text-white font-bold py-2 px-9 rounded-xl font-Nunito">Buy now</button>
+                  <button className="border border-[#6B4B34] text-[#6B4B34] font-bold py-2 px-2 rounded-xl flex gap-1 font-Nunito hover:bg-[#6B4B3420]" onClick={handleAddToCart}><span><img src='Cart.svg' className='mt-[2px]'></img></span>Add to cart</button>
+                  <button className="bg-[#332D21] text-white font-bold py-2 px-4 rounded-xl font-Nunito">Buy now</button>
                 </div>
               </div>
             </div>
