@@ -84,7 +84,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
 
       {selectedItem && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-end md:items-center justify-center z-50">
-          <div className="bg-white rounded-t-3xl md:rounded-lg p-6 w-auto md:w-[636px] relative md:translate-y-0 md:h-auto h-11/12" onClick={(e) => e.stopPropagation()}>
+          <div className="bg-white rounded-t-3xl md:rounded-lg p-6 w-full md:w-[636px] relative md:translate-y-0 md:h-auto h-11/12" onClick={(e) => e.stopPropagation()}>
             <button onClick={handleCloseOverlay} className="absolute top-4 right-4 text-gray-500 hover:text-gray-700">&times;</button>
             <div className="flex flex-col md:flex-row  gap-4">
               <img src={selectedItem.image} alt={selectedItem.name} className="w-full h-[282px] md:w-[320px] md:h-[282px] rounded-lg" />

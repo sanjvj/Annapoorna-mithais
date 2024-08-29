@@ -117,13 +117,13 @@ const Navbar = () => {
           ref={menuRef}
           className="absolute top-16 left-0 w-full bg-white shadow-md lg:hidden"
         >
-          <div className="flex flex-col items-center p-4">
-            <h1 className="py-2 text-[#70513A]" onClick={() => handleSelect('')}>Home</h1>
-            <h1 className="py-2 text-[#70513A]" onClick={() => handleSelect('shop')}>Shop Now</h1>
-            <h1 className="py-2 text-[#70513A]" onClick={() => handleSelect('about')}>About Us</h1>
-            <h1 className="py-2 text-[#70513A]" onClick={() => handleSelect('contact')}>Contact Us</h1>
-            <h1 className="py-2 text-[#70513A]" onClick={() => handleSelect('cart')}>Cart</h1>
-            <h1 className="py-2 text-[#70513A]" onClick={() => handleSelect('profile')}>Profile</h1>
+          <div className="flex flex-col items-center p-4 z-50">
+            <h1 className="py-2 text-[#70513A] font-Nunito" onClick={() => handleSelect('')}>Home</h1>
+            <h1 className="py-2 text-[#70513A] font-Nunito" onClick={() => handleSelect('shop')}>Shop Now</h1>
+            <h1 className="py-2 text-[#70513A] font-Nunito" onClick={() => handleSelect('about')}>About Us</h1>
+            <h1 className="py-2 text-[#70513A] font-Nunito" onClick={() => handleSelect('contact')}>Contact Us</h1>
+            <h1 className="py-2 text-[#70513A] font-Nunito" onClick={() => handleSelect('cart')}>Cart</h1>
+            <h1 className="py-2 text-[#70513A] font-Nunito" onClick={() => handleSelect('profile')}>Profile</h1>
           </div>
         </div>
       )}
