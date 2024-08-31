@@ -88,7 +88,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
           <div className="bg-white rounded-t-3xl md:rounded-xl p-6 w-full md:w-[636px] relative md:translate-y-0 md:h-auto h-11/12" onClick={(e) => e.stopPropagation()}>
             <img src='closeoverlay.svg' onClick={handleCloseOverlay} className="cursor-pointer absolute top-[-17px] right-4 text-gray-500 hover:text-gray-700"></img>
             <div className="flex flex-col md:flex-row  gap-4">
-              <img src={selectedItem.image} alt={selectedItem.name} className="w-full h-[282px] md:w-[320px] md:h-[282px] rounded-xl" />
+              <img src={selectedItem.image} alt={selectedItem.name} className="w-full h-auto md:w-[320px] md:h-[282px] rounded-xl" />
               <div className="flex flex-col justify-start">
                 <h2 className="text-[16px] font-bold font-Nunito mb-2">{selectedItem.name}</h2>
                 <p className="text-[#909090] text-[12px] font-Nunito font-[400px] mb-2">{selectedItem.description}</p>
