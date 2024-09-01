@@ -7,7 +7,6 @@ import ShopHero from '../../components/ShopHero';
 import Footer from '../../components/Footer';
 import SearchBar from '../../components/SearchBar';
 import SearchWithFilter from '../../components/SearchWithFilter';
-import MenuFilter from '../../components/MenuFilter';
 
 const ShopNow = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -18,7 +17,7 @@ const ShopNow = () => {
       <Slider />
       <ExploreMenu title1='What are you' title2='searching for?' />
       <SearchWithFilter searchTerm={searchTerm} setSearchTerm={setSearchTerm}></SearchWithFilter>
-      <MenuFilter></MenuFilter>
+      
       
       <FoodDisplay searchTerm={searchTerm} />
       <ShopHero />
