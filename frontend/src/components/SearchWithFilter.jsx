@@ -17,7 +17,7 @@ const SearchWithFilter = ({searchTerm,setSearchTerm}) => {
         <FiSearch className="text-gray-500 w-6 h-6 mr-2" />
       </div>
     </div>
-      <div className='w-[48px] h-[48px] mt-4 bg-[#F8F8F8] items-center flex justify-center rounded-lg cursor-pointer'>
+      <div className='w-[80px] md:w-[48px] h-40px md:h-[48px] mt-4 bg-[#F8F8F8] items-center flex justify-center rounded-lg cursor-pointer'>
         <img src='filter.svg' className='items-center w-[20px] h-[20px]'></img>
       </div>
     </div>

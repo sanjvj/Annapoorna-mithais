@@ -4,7 +4,7 @@ import { FiSearch } from "react-icons/fi";
 const SearchBar = ({ searchTerm, setSearchTerm }) => {
   return (
     <div className="flex justify-center w-full mt-4">
-      <div className="flex items-center bg-[#F8F8F8] border-2 border-[#E6E6E6] rounded-full p-1 w-full max-w-lg mx-4 sm:mx-8 font-Nunito">
+      <div className="flex items-center bg-[#F8F8F8] text-[14px] md:text-[16px] border-2 border-[#E6E6E6] rounded-full p-1 w-full max-w-lg mx-4 sm:mx-8 font-Nunito">
         <input
           type="text"
           placeholder="Search your favourite"

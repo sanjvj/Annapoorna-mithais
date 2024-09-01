@@ -67,11 +67,13 @@ const FoodDisplay = ({ category, searchTerm }) => {
     setToastKey((prevKey) => prevKey + 1); // Update the key to force re-render
     handleCloseOverlay();
   };
+  
+  
 
   return (
-    <div className="ml-7" id="food-display">
+    <div className="md:ml-7" id="food-display">
       {filteredFoodList.length > 0 ? (
-        <div className="grid gap-6 md:gap-8 lg:gap-10 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-14 mx-auto max-w-screen-xl">
+        <div className="w-[328px] md:w-full grid gap-3 md:gap-8 lg:gap-10 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-14 mx-auto max-w-screen-xl mb-10">
           {filteredFoodList.map((item, index) => (
             <FoodItem
               key={index}

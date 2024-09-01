@@ -10,11 +10,11 @@ const FoodItem = ({ item, onClick }) => {
         </span>
       </div>
       <div className='mt-3'>
-        <p className='font-Nunito font-bold text-[16px] truncate'>{item.name}</p>
-        <p className='font-Nunito text-[#909090] text-sm overflow-hidden line-clamp-1 mb-2'>
+        <p className='font-Nunito font-bold text-[12px] md:text-[14px] lg:text-[16px] truncate'>{item.name}</p>
+        <p className='font-Nunito text-[#909090] text-[10px] md:text-[12px] lg:text-sm overflow-hidden line-clamp-1 mb-2'>
           {item.description}
         </p>
-        <p className='flex flex-col md:flex-row md:gap-2 font-Nunito font-bold text-sm text-[#606060] mb-[0px]'>₹{item.price} / Kg <span><p className='text-[#F7AE1C]'>with offer {item.offer}</p></span></p>
+        <p className='flex flex-col md:flex-row md:gap-2 font-Nunito font-bold text-[10px] md:text-[12px] lg:text-sm text-[#606060] mb-[0px]'>₹{item.price} / Kg <span><p className='text-[#F7AE1C] text-[11px] md:text-[13px] lg:text-[15px]'>with offer {item.offer}</p></span></p>
         <button className='flex gap-2 items-center justify-center font-Nunito mt-2 bg-[#E9DEC6] text-black font-bold text-[12px] md:text-[14px] py-3 px-4 rounded-lg w-[156px] h-[32px] md:w-[198.17px] md:h-[40px]'>
           <span><img src='Cart.svg' className='h-20px w-20px md:h-[24px] md:w-[24px]'></img></span> Add to cart 
         </button>
