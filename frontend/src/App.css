@@ -1,0 +1,4 @@
+/* Apply a yellow filter to the SVG */
+.filter-yellow {
+    filter: brightness(0) saturate(100%) invert(74%) sepia(93%) saturate(2433%) hue-rotate(359deg) brightness(103%) contrast(101%);
+  }
