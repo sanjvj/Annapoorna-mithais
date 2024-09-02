@@ -15,10 +15,7 @@ const ShopNow = () => {
     <div>
       <Navbar />
       <Slider />
-      <ExploreMenu title1='What are you' title2='searching for?' />
-      <SearchWithFilter searchTerm={searchTerm} setSearchTerm={setSearchTerm}></SearchWithFilter>
-      
-      
+      <ExploreMenu title1='What are you' title2='searching for?' />      
       <FoodDisplay searchTerm={searchTerm} />
       <ShopHero />
       <Footer />

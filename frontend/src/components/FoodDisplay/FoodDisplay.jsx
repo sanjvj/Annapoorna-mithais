@@ -2,7 +2,8 @@ import React, { useContext, useState } from "react";
 import { StoreContext } from "../../context/StoreContext";
 import FoodItem from "../FoodItem/FoodItem";
 import Toast from "../Toast"; // Ensure this import is correct
-import FilterComponent from "../Filter";
+import SearchWithFilter from "../SearchWithFilter";
+import FilterComponent from "../Filter"
 
 const FoodDisplay = ({ category, searchTerm }) => {
   const { food_list } = useContext(StoreContext);
@@ -12,7 +13,11 @@ const FoodDisplay = ({ category, searchTerm }) => {
   const [toastMessage, setToastMessage] = useState("");
   const [toastKey, setToastKey] = useState(0);
   const [selectedShell, setSelectedShell] = useState(true);
-  const [filterSelected,setFilterSelected] = useState(false);
+  const [filterSelected, setFilterSelected] = useState(false);
+
+  const toggleFilter = () => {
+    setFilterSelected(!filterSelected);
+  };
 
   const filteredFoodList = food_list.filter((item) =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -22,12 +27,12 @@ const FoodDisplay = ({ category, searchTerm }) => {
     setSelectedItem(item);
     setQuantity(1);
     setSelectedWeight("1/2 KG");
-    document.body.classList.add('overflow-hidden');
+    document.body.classList.add("overflow-hidden");
   };
 
   const handleCloseOverlay = () => {
     setSelectedItem(null);
-    document.body.classList.remove('overflow-hidden');
+    document.body.classList.remove("overflow-hidden");
   };
 
   const handleQuantityChange = (change) => {
@@ -71,34 +76,49 @@ const FoodDisplay = ({ category, searchTerm }) => {
     setToastKey((prevKey) => prevKey + 1); // Update the key to force re-render
     handleCloseOverlay();
   };
-  
-  
+  const applyFilters = (filters) => {
+    console.log("Filters applied:", filters);
+    // Implement filter logic here
+  };
 
   return (
     <div className="ml-7" id="food-display">
-    <h1 onClick={()=>{setFilterSelected(!filterSelected)}}>Filter</h1>
+       <SearchWithFilter 
+        searchTerm={searchTerm} 
+        setSearchTerm={(term) => {/* handle search term change */}} 
+        toggleFilter={toggleFilter} 
+      />
+      
+      
       <div className="grid grid-cols-3">
-      {filteredFoodList.length > 0 ? (
-        <div className={`${filterSelected?'lg:col-span-2' : 'lg:col-span-3'} w-[328px] md:w-full grid gap-3 md:gap-8 lg:gap-10 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-14 mx-auto max-w-screen-xl mb-10`}>
-          {filteredFoodList.map((item, index) => (
-            <FoodItem
-              key={index}
-              item={item}
-              onClick={() => handleItemClick(item)}                           
-            />
-          ))} 
-        </div>
-      ) : (
-        <div className="flex flex-col items-center justify-center mt-20">
-          <h2 className="text-2xl font-bold text-gray-700 mb-4">
-            No Products Found
-          </h2>
-          <p className="text-gray-500">
-            Try adjusting your search or filter to find what you're looking for!
-          </p>
-        </div>
-      )}
-      {filterSelected?(<FilterComponent></FilterComponent>):('')}
+        {filteredFoodList.length > 0 ? (
+          <div
+            className={`${
+              filterSelected ? "md:col-span-2" : "md:col-span-3"
+            } w-[328px] md:w-full grid gap-3 md:gap-8 lg:gap-10 grid-cols-2 md:grid-cols-3 mx-auto ${
+              filterSelected ? "md:grid-cols-2 lg:grid-cols-3" : "md:gird-cols-3 lg:grid-cols-4"
+            }  mt-14 mx-auto md:max-w-screen-xl mb-10`}
+          >
+            {filteredFoodList.map((item, index) => (
+              <FoodItem
+                key={index}
+                item={item}
+                onClick={() => handleItemClick(item)}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center mt-20">
+            <h2 className="text-2xl font-bold text-gray-700 mb-4">
+              No Products Found
+            </h2>
+            <p className="text-gray-500">
+              Try adjusting your search or filter to find what you're looking
+              for!
+            </p>
+          </div>
+        )}
+        {filterSelected ? <FilterComponent isOpen={filterSelected} applyFilters={applyFilters} /> : ""}
       </div>
 
       {selectedItem && (
@@ -162,7 +182,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
                     >
                       {weight}
                     </button>
-                  ))} 
+                  ))}
                 </div>
 
                 <div className="flex items-center gap-2 mt-4 justify-between mb-4">

@@ -7,7 +7,6 @@ import FoodDisplay from '../../components/FoodDisplay/FoodDisplay';
 import Review from '../../components/Review';
 import Story from '../../components/Story';
 import Footer from '../../components/Footer';
-import SearchBar from '../../components/SearchBar';
 
 const Home = () => {
   const [category, setCategory] = useState("All");
@@ -19,7 +18,6 @@ const Home = () => {
       <Hero />
       <Slider />
       <ExploreMenu title1='What are you' title2='searching for?' />
-      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <FoodDisplay category={category} searchTerm={searchTerm} />
       <Review />
       <Story />
