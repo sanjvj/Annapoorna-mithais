@@ -11,7 +11,7 @@ const ExploreMenu = (props) => {
           alt="Decorative Line"
         />
         <img src="Flower.svg" alt="Decorative Flower" className='w-5' />
-        <h1 className="font-Philosopher text-center text-xl lg:text-[32px] font-bold mx-3 leading-[35.84px]">
+        <h1 className="font-Philosopher text-center text-md lg:text-[32px] font-bold mx-3 leading-[35.84px]">
           {props.title1} <br /> {props.title2}
         </h1>
         <img src="Flower.svg" alt="Decorative Flower" className='w-5' />

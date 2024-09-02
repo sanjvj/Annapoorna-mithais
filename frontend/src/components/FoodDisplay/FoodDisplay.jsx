@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { StoreContext } from "../../context/StoreContext";
 import FoodItem from "../FoodItem/FoodItem";
 import Toast from "../Toast"; // Ensure this import is correct
+import FilterComponent from "../Filter";
 
 const FoodDisplay = ({ category, searchTerm }) => {
   const { food_list } = useContext(StoreContext);
@@ -11,6 +12,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
   const [toastMessage, setToastMessage] = useState("");
   const [toastKey, setToastKey] = useState(0);
   const [selectedShell, setSelectedShell] = useState(true);
+  const [filterSelected,setFilterSelected] = useState(false);
 
   const filteredFoodList = food_list.filter((item) =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -20,10 +22,12 @@ const FoodDisplay = ({ category, searchTerm }) => {
     setSelectedItem(item);
     setQuantity(1);
     setSelectedWeight("1/2 KG");
+    document.body.classList.add('overflow-hidden');
   };
 
   const handleCloseOverlay = () => {
     setSelectedItem(null);
+    document.body.classList.remove('overflow-hidden');
   };
 
   const handleQuantityChange = (change) => {
@@ -71,16 +75,18 @@ const FoodDisplay = ({ category, searchTerm }) => {
   
 
   return (
-    <div className="md:ml-7" id="food-display">
+    <div className="ml-7" id="food-display">
+    <h1 onClick={()=>{setFilterSelected(!filterSelected)}}>Filter</h1>
+      <div className="grid grid-cols-3">
       {filteredFoodList.length > 0 ? (
-        <div className="w-[328px] md:w-full grid gap-3 md:gap-8 lg:gap-10 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-14 mx-auto max-w-screen-xl mb-10">
+        <div className={`${filterSelected?'lg:col-span-2' : 'lg:col-span-3'} w-[328px] md:w-full grid gap-3 md:gap-8 lg:gap-10 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-14 mx-auto max-w-screen-xl mb-10`}>
           {filteredFoodList.map((item, index) => (
             <FoodItem
               key={index}
               item={item}
               onClick={() => handleItemClick(item)}
             />
-          ))}
+          ))} 
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center mt-20">
@@ -92,6 +98,8 @@ const FoodDisplay = ({ category, searchTerm }) => {
           </p>
         </div>
       )}
+      {filterSelected?(<FilterComponent></FilterComponent>):('')}
+      </div>
 
       {selectedItem && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-end md:items-center justify-center z-50">
@@ -146,7 +154,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
                     <button
                       key={weight}
                       onClick={() => setSelectedWeight(weight)}
-                      className={`px-[14px] py-[6px] font-Nunito font-extrabold text-[#606060] text-[12px] rounded ${
+                      className={`px-[12px] py-[4px] md:px-[14px] md:py-[6px] font-Nunito font-extrabold text-[#606060] text-[12px] rounded ${
                         selectedWeight === weight
                           ? "border-2 border-[#F7AE1C] bg-[#FFFCF4]"
                           : "border-2 border-[#E6E6E6]"
@@ -154,7 +162,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
                     >
                       {weight}
                     </button>
-                  ))}
+                  ))} 
                 </div>
 
                 <div className="flex items-center gap-2 mt-4 justify-between mb-4">

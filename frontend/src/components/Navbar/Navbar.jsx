@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { MdClose } from "react-icons/md";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,27 +11,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+ 
 
-  const handleClickOutside = (event) => {
-    if (menuRef.current && !menuRef.current.contains(event.target)) {
-      setIsOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen]);
 
   useEffect(() => {
     const path = location.pathname.substring(1);
@@ -60,10 +42,13 @@ const Navbar = () => {
   return (
     <div className="flex justify-between items-center bg-gradient-to-b from-[#FFFFFF] to-[#FFF9EA] p-5 border-b-2 border-[#E9D9C2] lg:mb-0">
       <div className="flex items-center lg:hidden">
-        <GiHamburgerMenu
+        {isOpen ? (<MdClose
           className="w-[24px] h-[24px] text-amber-900 cursor-pointer rounded-lg"
-          onClick={toggleMenu}
-        />
+          onClick={()=>{setIsOpen(!isOpen)}}
+        />):(
+          <GiHamburgerMenu className="w-[24px] h-[24px] text-amber-900 cursor-pointer rounded-lg"
+          onClick={()=>{setIsOpen(true)}}></GiHamburgerMenu>
+        )}
       </div>
 
       <div className="ml-4">
@@ -101,7 +86,9 @@ const Navbar = () => {
         <div className="relative cursor-pointer" onClick={() => handleSelect('cart')}>
           <img src="Cart.svg" className="lg:w-[30px] lg:h-[30px] w-[24px] h-[24px] text-[#70513A]" />
           {cartItemCount > 0 && (
-            <div className="absolute top-[-6px] right-[-4px] bg-red-500 text-white text-xs rounded-full w-4 h-4 items-center"><p className="items-center text-center text-[11px]">{cartItemCount}</p></div>
+            <div className="absolute top-[-6px] right-[-4px] bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+              {cartItemCount}
+            </div>
           )}
         </div>
         <div
@@ -115,9 +102,9 @@ const Navbar = () => {
       {isOpen && (
         <div
           ref={menuRef}
-          className="absolute top-16 left-0 w-full bg-white shadow-md lg:hidden"
+          className="absolute top-16 left-0 w-full bg-white shadow-md lg:hidden h-1/3 overflow-y-auto z-50"
         >
-          <div className="flex flex-col items-center p-4 z-50">
+          <div className="flex flex-col items-center p-4">
             <h1 className="py-2 text-[#70513A] font-Nunito" onClick={() => handleSelect('')}>Home</h1>
             <h1 className="py-2 text-[#70513A] font-Nunito" onClick={() => handleSelect('shop')}>Shop Now</h1>
             <h1 className="py-2 text-[#70513A] font-Nunito" onClick={() => handleSelect('about')}>About Us</h1>
