@@ -84,7 +84,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
             <FoodItem
               key={index}
               item={item}
-              onClick={() => handleItemClick(item)}
+              onClick={() => handleItemClick(item)}                           
             />
           ))} 
         </div>

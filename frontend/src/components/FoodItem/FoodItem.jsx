@@ -2,7 +2,7 @@ import React from 'react';
 
 const FoodItem = ({ item, onClick }) => {
   return (
-    <div onClick={onClick} className='bg-white rounded-lg overflow-hidden w-[156px] md:w-[218px] h-[350px] flex flex-col gap-auto cursor-pointer'>
+    <div onClick={onClick} className='bg-white rounded-lg overflow-hidden w-[156px] md:w-[218px] h-[400px] flex flex-col gap-auto cursor-pointer'>
       <div className='relative'>
         <img className='w-[156px] md:w-[180px] lg:w-[218px] h-[167px] md:h-[217px] object-cover rounded-lg' src={item.image} alt='Food item' />
         <span className='absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded'>
