@@ -77,8 +77,11 @@ const FoodDisplay = ({ category, searchTerm }) => {
     handleCloseOverlay();
   };
   const applyFilters = (filters) => {
-    console.log("Filters applied:", filters);
-    // Implement filter logic here
+    const { selectedCategory } = filters;
+    const newFilteredFoodList = food_list.filter((item) => {
+      return selectedCategory === "All" || item.category === selectedCategory;
+    });
+    setFilteredFoodList(newFilteredFoodList);
   };
 
   return (
@@ -96,7 +99,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
             className={`${
               filterSelected ? "md:col-span-2" : "md:col-span-3"
             } w-[328px] md:w-full grid gap-3 md:gap-8 lg:gap-10 grid-cols-2 md:grid-cols-3 mx-auto ${
-              filterSelected ? "md:grid-cols-2 lg:grid-cols-3" : "md:gird-cols-3 lg:grid-cols-4"
+              filterSelected ? "md:grid-cols-2 md:max-w-screen-lg mx-auto lg:grid-cols-3" : "md:grid-cols-3 lg:grid-cols-4 "
             }  mt-14 mx-auto md:max-w-screen-xl mb-10`}
           >
             {filteredFoodList.map((item, index) => (
