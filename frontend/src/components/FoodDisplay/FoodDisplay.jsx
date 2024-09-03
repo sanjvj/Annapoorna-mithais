@@ -97,9 +97,9 @@ const FoodDisplay = ({ category, searchTerm }) => {
         {filteredFoodList.length > 0 ? (
           <div
             className={`${
-              filterSelected ? "md:col-span-2" : "col-span-2 md:col-span-3"
+              filterSelected ? "col-span-2 md:col-span-2" : "col-span-2 md:col-span-3"
             }  w-full grid gap-3 md:gap-8 lg:gap-10 grid-cols-2 md:grid-cols-3  mx-auto${
-              filterSelected ? "md:grid-cols-2 md:max-w-screen-lg mx-auto lg:grid-cols-3" : "grid-cols-2 md:grid-cols-3 lg:grid-cols-4 "
+              filterSelected ? "grid-cols-2 md:grid-cols-2 md:max-w-screen-lg mx-auto lg:grid-cols-3" : "grid-cols-2 md:grid-cols-3 lg:grid-cols-4 "
             }  mt-14 md:mx-auto md:max-w-screen-xl mb-10`}
           >
             {filteredFoodList.map((item, index) => (
@@ -121,7 +121,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
             </p>
           </div>
         )}
-        {filterSelected ? <FilterComponent isOpen={filterSelected} applyFilters={applyFilters} /> : ""}
+        {filterSelected ? <FilterComponent isOpen={filterSelected} setIsOpen={setFilterSelected} applyFilters={applyFilters} /> : ""}
       </div>
 
       {selectedItem && (

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "../App.css";
 
-const FilterComponent = ({ isOpen, applyFilters }) => {
+const FilterComponent = ({ isOpen, setIsOpen, applyFilters }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [priceRange, setPriceRange] = useState([0, 100]);
   const [flavors, setFlavors] = useState([]);
-  const [activeItem, setActiveItem] = useState(""); // State to track active item button
-  const [activeFlavor, setActiveFlavor] = useState(""); // State to track active flavor button
+  const [activeItem, setActiveItem] = useState("");
+  const [activeFlavor, setActiveFlavor] = useState("");
 
   const handleApplyFilters = () => {
     applyFilters({ selectedCategory, priceRange, flavors });
@@ -22,12 +22,19 @@ const FilterComponent = ({ isOpen, applyFilters }) => {
 
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 transform ${
-        isOpen ? "translate-y-0" : "translate-y-full"
-      } transition-transform duration-300 md:w-[324px] h-[747px] rounded-xl shadow-2xl mt-14 ease-in-out bg-white z-50 md:static md:translate-y-0`}
+      className={`fixed inset-x-0 bottom-0 transform  ${
+        isOpen ? "animate-slideUp md:animate-none translate-y-0" : "translate-y-full"
+      } transition-transform duration-300 md:w-[324px] h-3/2 rounded-t-3xl shadow-2xl mt-14 ease-in-out bg-white z-50 md:static md:translate-y-0`}
     >
-      <div className="p-[32px] rounded-2xl">
-        <div className="flex justify-between">
+    
+      <div className="p-[32px] rounded-2xl relative">
+        <img
+          src="closeoverlay.svg"
+          alt="Close"
+          onClick={() => setIsOpen(false)}
+          className="absolute top-4 right-4 cursor-pointer"
+        />
+        <div className="flex justify-between mt-10">
           <h2 className="text-[16px] font-Nunito font-bold mb-4">
             Filter items
           </h2>
@@ -45,7 +52,9 @@ const FilterComponent = ({ isOpen, applyFilters }) => {
                 key={item}
                 onClick={() => toggleActiveItem(item)}
                 className={`rounded-full py-[4px] px-[16px] border border-[#E6E6E6] font-Nunito text-[12px] font-semibold ${
-                  activeItem === item ? "bg-[#F7AE1C] text-white" : "text-[#606060]"
+                  activeItem === item
+                    ? "bg-[#F7AE1C] text-white"
+                    : "text-[#606060]"
                 }`}
               >
                 {item}
@@ -64,7 +73,9 @@ const FilterComponent = ({ isOpen, applyFilters }) => {
                 key={flavor}
                 onClick={() => toggleActiveFlavor(flavor)}
                 className={`rounded-full py-[4px] px-[16px] border border-[#E6E6E6] font-Nunito text-[12px] font-semibold ${
-                  activeFlavor === flavor ? "bg-[#F7AE1C] text-white" : "text-[#606060]"
+                  activeFlavor === flavor
+                    ? "bg-[#F7AE1C] text-white"
+                    : "text-[#606060]"
                 }`}
               >
                 {flavor}
