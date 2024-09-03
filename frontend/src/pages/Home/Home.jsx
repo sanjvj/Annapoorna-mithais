@@ -7,6 +7,7 @@ import FoodDisplay from '../../components/FoodDisplay/FoodDisplay';
 import Review from '../../components/Review';
 import Story from '../../components/Story';
 import Footer from '../../components/Footer';
+import FooterBar from '../../components/FooterBar';
 
 const Home = () => {
   const [category, setCategory] = useState("All");
@@ -22,6 +23,7 @@ const Home = () => {
       <Review />
       <Story />
       <Footer />
+      <FooterBar></FooterBar>
     </div>
   );
 };
