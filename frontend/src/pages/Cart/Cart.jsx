@@ -3,9 +3,11 @@ import Navbar from '../../components/Navbar/Navbar';
 import Slider from '../../components/Slider/Slider';
 import ShopHero from '../../components/ShopHero';
 import Footer from '../../components/Footer';
+import Login from '../../components/Login';
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [showLogin, setShowLogin] = useState(false);
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -116,7 +118,12 @@ const CartPage = () => {
                   <p className='text-[#26A460] text-[14px] font-bold font-Nunito'>You saved ₹499 in this order!</p>
                 </div>
               </div>
-              <button className="bg-[#332D21] text-white font-bold py-3 px-4 rounded-lg mt-6 w-full lg:w-10/12">Place Your Order Now</button>
+              <button 
+                onClick={() => setShowLogin(true)}
+                className="bg-[#332D21] text-white font-bold py-3 px-4 rounded-lg mt-6 w-full lg:w-10/12"
+              >
+                Place Your Order Now
+              </button>
             </div>
           </div>
         ) : (
@@ -125,6 +132,13 @@ const CartPage = () => {
           </div>
         )}
       </div>
+
+      {showLogin && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <Login setShowLogin={setShowLogin} />
+        </div>
+      )}
+
       <ShopHero />
       <Footer />
     </div>

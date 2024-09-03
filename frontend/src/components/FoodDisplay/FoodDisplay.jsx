@@ -9,7 +9,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
   const { food_list } = useContext(StoreContext);
   const [selectedItem, setSelectedItem] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const [selectedWeight, setSelectedWeight] = useState("1/2 KG");
+  const [selectedWeight, setSelectedWeight] = useState("500G");
   const [toastMessage, setToastMessage] = useState("");
   const [toastKey, setToastKey] = useState(0);
   const [selectedShell, setSelectedShell] = useState(true);
@@ -26,7 +26,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
   const handleItemClick = (item) => {
     setSelectedItem(item);
     setQuantity(1);
-    setSelectedWeight("1/2 KG");
+    setSelectedWeight("500G");
     document.body.classList.add("overflow-hidden");
   };
 
@@ -41,9 +41,9 @@ const FoodDisplay = ({ category, searchTerm }) => {
 
   const getWeightPrice = () => {
     switch (selectedWeight) {
-      case "1/4 KG":
+      case "250G":
         return selectedItem.price * 0.25;
-      case "1/2 KG":
+      case "500G":
         return selectedItem.price * 0.5;
       case "1 KG":
         return selectedItem.price;
@@ -93,14 +93,14 @@ const FoodDisplay = ({ category, searchTerm }) => {
       />
       
       
-      <div className="grid grid-cols-3">
+      <div className="grid grid-cols-2 md:grid-cols-3">
         {filteredFoodList.length > 0 ? (
           <div
             className={`${
-              filterSelected ? "md:col-span-2" : "md:col-span-3"
-            } w-[328px] md:w-full grid gap-3 md:gap-8 lg:gap-10 grid-cols-2 md:grid-cols-3 mx-auto ${
-              filterSelected ? "md:grid-cols-2 md:max-w-screen-lg mx-auto lg:grid-cols-3" : "md:grid-cols-3 lg:grid-cols-4 "
-            }  mt-14 mx-auto md:max-w-screen-xl mb-10`}
+              filterSelected ? "md:col-span-2" : "col-span-2 md:col-span-3"
+            }  w-full grid gap-3 md:gap-8 lg:gap-10 grid-cols-2 md:grid-cols-3  mx-auto${
+              filterSelected ? "md:grid-cols-2 md:max-w-screen-lg mx-auto lg:grid-cols-3" : "grid-cols-2 md:grid-cols-3 lg:grid-cols-4 "
+            }  mt-14 md:mx-auto md:max-w-screen-xl mb-10`}
           >
             {filteredFoodList.map((item, index) => (
               <FoodItem
@@ -173,7 +173,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
                 <hr className="mt-2"></hr>
 
                 <div className="flex gap-2 mt-4">
-                  {["1/4 KG", "1/2 KG", "1 KG"].map((weight) => (
+                  {["250G", "500G", "1 KG"].map((weight) => (
                     <button
                       key={weight}
                       onClick={() => setSelectedWeight(weight)}

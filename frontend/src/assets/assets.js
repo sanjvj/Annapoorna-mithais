@@ -2,6 +2,8 @@ import food_1 from './food_1.svg'
 import food_2 from './food_2.svg'
 import food_3 from './food_3.svg'
 import food_4 from './food_4.svg'
+import choco from './chocobounty.png'
+import kaju from './kajukatli.png'
 import star from './star 3.svg'
 
 export const assets = {
@@ -56,7 +58,7 @@ export const food_list = [
     {
         _id: "1",
         name: "Kaju katli",
-        image: food_1,
+        image: kaju,
         price: 1200,
         offer: 1500,
         description: "Crispy Cashew nuts soaked then grinded into fine dough and elegantly served with silver leaf.",
@@ -66,7 +68,7 @@ export const food_list = [
     {
         _id: "2",
         name: "Choco Bounty",
-        image: food_2,
+        image: choco,
         price: 1800,
         offer: 1500,
         description: "Desiccated coconut with the condensed milk wrapped with Fresh Chocolate.",
