@@ -15,7 +15,7 @@ const Footer = () => {
         </div>
 
         <div className="flex items-start md:items-center gap-4">
-          <span className="font-semibold">Follow us</span>
+          <span className="font-semibold font-Nunito text-[12px] md:text-[16px]">Follow us</span>
           <FaLinkedin className="text-white" />
           <FaFacebook className="text-white" />
           <FaInstagram className="text-white" />
@@ -25,7 +25,7 @@ const Footer = () => {
 
       <div className="container hidden mx-auto lg:flex flex-col md:flex-row justify-between items-end gap-8 my-8">
         <div className="flex flex-col gap-2">
-          <h3 className="text-[24px] font-extrabold font-Nunito uppercase">Inventive Retail Traders PVT LTD</h3>
+          <h3 className="md:text-[24px] font-extrabold font-Nunito uppercase">Inventive Retail Traders PVT LTD</h3>
           <p className="opacity-80 text-[16px] font-semibold">11/113-1, Medical College East Gate, Asaripallam, Nagercoil-629201</p>
         </div>
         <div className="flex flex-col gap-4">
@@ -56,7 +56,7 @@ const Footer = () => {
 
       <hr className="border-t border-gray-600 opacity-50 my-4" />
 
-      <div className="text-center mt-8 text-sm opacity-80 font-Nunito">
+      <div className="text-center mt-8 text-sm opacity-80 font-Nunito text-[#E9DEC6]">
         © 2024 All rights reserved by Annapoorna Mithai
       </div>
     </footer>
