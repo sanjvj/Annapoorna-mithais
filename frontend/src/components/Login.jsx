@@ -16,7 +16,7 @@ const Login = ({ setShowLogin }) => {
         src="closeoverlay.svg"
         alt="Close"
         onClick={() => setShowLogin(false)}
-        className="absolute top-4 right-4 cursor-pointer"
+        className="absolute top-[-17px] right-4 cursor-pointer"
       />
       <h1 className="font-Nunito text-[16px] font-bold text-[#1E1E1E] mb-1">
         Login to order
@@ -36,7 +36,7 @@ const Login = ({ setShowLogin }) => {
           className="outline-none flex-grow text-[14px] font-Nunito font-bold"
         />
         {inputValue.length === 10 && (
-          <span className="text-green-500 text-lg ml-2">✔</span>
+          <img src="verified.svg"></img>
         )}
       </div>
       <button className="bg-[#332D21] text-white font-bold py-3 px-4 rounded-lg mt-8 w-full">

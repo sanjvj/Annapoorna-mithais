@@ -5,6 +5,7 @@ import './App.css'
 import Home from './pages/Home/Home'
 import ShopNow from './pages/ShopNow/ShopNow'
 import CartPage from './pages/Cart/Cart'
+import About from './pages/AboutUs/About'
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <Route path='/' element={<Home></Home>}></Route>
       <Route path='/shop' element={<ShopNow></ShopNow>}></Route>
       <Route path='/cart' element={<CartPage></CartPage>}/>
+      <Route path='/about' element={<About></About>} />
     </Routes>
     </div>
   )

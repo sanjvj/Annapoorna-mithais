@@ -3,18 +3,18 @@ import { FaLinkedin, FaFacebook, FaInstagram, FaTimes } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className="bg-[#332D21] text-white py-8">
-      <div className="container mx-auto flex flex-col items-center md:flex-row justify-between gap-8">
+    <footer className="bg-[#332D21] text-white py-8 px-8">
+      <div className="container mx-auto flex flex-col md:items-center md:flex-row justify-between gap-8">
         <div className="flex items-center gap-8">
           <img src="Logo2.svg" alt="Logo" className="w-16 h-16" />
           <div className="border-l border-white opacity-20 h-16"></div>
           <div className="flex flex-col">
-            <img src="fssai.png" alt="FSSAI Logo" className="w-24" />
-            <p className="opacity-80 text-[16px] font-Nunito font-semibold">12424009000073 (Annapoorna enterprises)</p>
+            <img src="fssai.png" alt="FSSAI Logo" className="w-12 md:w-24 mb-2" />
+            <p className="opacity-80 text-[12px] md:text-[16px] font-Nunito font-semibold">12424009000073 (Annapoorna enterprises)</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-start md:items-center gap-4">
           <span className="font-semibold">Follow us</span>
           <FaLinkedin className="text-white" />
           <FaFacebook className="text-white" />
