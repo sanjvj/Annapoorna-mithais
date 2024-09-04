@@ -3,36 +3,17 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdClose } from "react-icons/md";
 
-const Navbar = () => {
+const Navbar = ({ cartItemCount }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState('');
-  const [cartItemCount, setCartItemCount] = useState(0);
   const menuRef = useRef();
   const navigate = useNavigate();
   const location = useLocation();
-
- 
-
 
   useEffect(() => {
     const path = location.pathname.substring(1);
     setSelected(path);
   }, [location]);
-
-  const updateCartItemCount = () => {
-    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
-    const count = storedCart.reduce((total, item) => total + item.quantity, 0);
-    setCartItemCount(count);
-  };
-
-  useEffect(() => {
-    updateCartItemCount();
-    window.addEventListener('storage', updateCartItemCount);
-
-    return () => {
-      window.removeEventListener('storage', updateCartItemCount);
-    };
-  }, []);
 
   const handleSelect = (page) => {
     setSelected(page);
@@ -42,12 +23,16 @@ const Navbar = () => {
   return (
     <div className="flex justify-between items-center bg-gradient-to-b from-[#FFFFFF] to-[#FFF9EA] p-5 border-b-2 border-[#E9D9C2] lg:mb-0">
       <div className="flex items-center lg:hidden">
-        {isOpen ? (<MdClose
-          className="w-[24px] h-[24px] text-amber-900 cursor-pointer rounded-lg"
-          onClick={()=>{setIsOpen(!isOpen)}}
-        />):(
-          <GiHamburgerMenu className="w-[24px] h-[24px] text-amber-900 cursor-pointer rounded-lg"
-          onClick={()=>{setIsOpen(true)}}></GiHamburgerMenu>
+        {isOpen ? (
+          <MdClose
+            className="w-[24px] h-[24px] text-amber-900 cursor-pointer rounded-lg"
+            onClick={() => setIsOpen(!isOpen)}
+          />
+        ) : (
+          <GiHamburgerMenu
+            className="w-[24px] h-[24px] text-amber-900 cursor-pointer rounded-lg"
+            onClick={() => setIsOpen(true)}
+          />
         )}
       </div>
 

@@ -4,8 +4,27 @@ import Slider from '../../components/Slider/Slider';
 import ShopHero from '../../components/ShopHero';
 import Footer from '../../components/Footer';
 import Login from '../../components/Login';
+import FooterBar from '../../components/FooterBar';
 
 const CartPage = () => {
+  const [category, setCategory] = useState("All");
+  const [searchTerm, setSearchTerm] = useState('');
+  const [cartItemCount, setCartItemCount] = useState(0);
+
+  const updateCartItemCount = () => {
+    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    const count = storedCart.reduce((total, item) => total + item.quantity, 0);
+    setCartItemCount(count);
+  };
+
+  useEffect(() => {
+    updateCartItemCount();
+    window.addEventListener('storage', updateCartItemCount);
+
+    return () => {
+      window.removeEventListener('storage', updateCartItemCount);
+    };
+  }, []);
   const [cartItems, setCartItems] = useState([]);
   const [showLogin, setShowLogin] = useState(false);
 
@@ -54,7 +73,7 @@ const CartPage = () => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar cartItemCount={cartItemCount} />
       <Slider />
       <div className="p-10 lg:border-2 rounded-lg lg:m-10">
         {cartItems.length > 0 ? (
@@ -141,6 +160,7 @@ const CartPage = () => {
 
       <ShopHero />
       <Footer />
+      <FooterBar cartItemCount={cartItemCount}></FooterBar>
     </div>
   );
 };
