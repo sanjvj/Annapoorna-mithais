@@ -26,7 +26,7 @@ const Footer = () => {
           <h3 className="text-[12px] md:text-[24px] font-extrabold font-Nunito uppercase">Inventive Retail Traders PVT LTD</h3>
           <p className="opacity-80 mb-6 md:mb-0 text-[10px] md:text-[16px] font-semibold">11/113-1, Medical College East Gate, Asaripallam, Nagercoil-629201</p>
         </div>
-        <div className="flex flex-col gap-4 mb-6">
+        <div className="flex flex-col gap-4 mb-6 md:mb-0">
           <div className="flex items-center gap-2">
             <a href='' className="text-[12px] md:text-[16px] font-Nunito font-bold">Terms and conditions</a>
           </div>

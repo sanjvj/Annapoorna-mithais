@@ -90,11 +90,11 @@ const CartPage = () => {
               {cartItems.map((item, index) => (
                 <div key={index} className="flex items-center justify-between my-4 py-4">
                   <div className='flex'>
-                    <img src={item.image} alt={item.name} className="w-[48px] h-[48px] md:w-[56px] md:h-[56px] lg:w-[64px] lg:h-[64px] mr-4 rounded" />
+                    <img src={item.image} alt={item.name} className="w-[56px] h-[56px] md:w-[56px] md:h-[56px] lg:w-[64px] lg:h-[64px] mr-4 rounded" />
                     <div>
-                      <h3 className="text-[12px] lg:text-[16px] font-bold">{item.name}</h3>
-                      <p className='text-[10px] lg:text-[12px] font-bold text-[#909090]'>₹{item.price} per {item.weight}</p>
-                      <p className='text-[10px] lg:text-[12px] font-bold text-[#F7AE1C]'>with offer ₹{item.price}</p>
+                      <h3 className="text-[14px] lg:text-[16px] font-bold">{item.name}</h3>
+                      <p className='text-[12px] lg:text-[12px] font-bold text-[#909090]'>₹{item.price} per {item.weight}</p>
+                      <p className='text-[12px] lg:text-[12px] font-bold text-[#26A460]'>with offer ₹{item.price}</p>
                     </div>
                   </div>
                   <div className="flex items-center">

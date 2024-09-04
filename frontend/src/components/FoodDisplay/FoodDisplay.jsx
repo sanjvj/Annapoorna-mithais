@@ -4,7 +4,7 @@ import FoodItem from "../FoodItem/FoodItem";
 import Toast from "../Toast"; // Ensure this import is correct
 import SearchWithFilter from "../SearchWithFilter";
 import FilterComponent from "../Filter"
-
+import { useNavigate } from "react-router-dom";
 const FoodDisplay = ({ category, searchTerm }) => {
   const { food_list } = useContext(StoreContext);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -15,6 +15,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
   const [selectedShell, setSelectedShell] = useState(true);
   const [filterSelected, setFilterSelected] = useState(false);
 
+  const navigate = useNavigate();
   const toggleFilter = () => {
     setFilterSelected(!filterSelected);
   };
@@ -75,6 +76,31 @@ const FoodDisplay = ({ category, searchTerm }) => {
     setToastMessage("Item added successfully!");
     setToastKey((prevKey) => prevKey + 1); // Update the key to force re-render
     handleCloseOverlay();
+  };
+  const handleBuyNow = () => {
+    if (!selectedItem) return; // Ensure an item is selected
+
+    const cartItem = {
+      name: selectedItem.name,
+      quantity,
+      weight: selectedWeight,
+      price: getWeightPrice() * quantity,
+      image: selectedItem.image,
+    };
+
+    const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+    existingCart.push(cartItem);
+    localStorage.setItem("cart", JSON.stringify(existingCart));
+
+    // Trigger a custom event to update the cart count in Navbar
+    const event = new Event("storage");
+    window.dispatchEvent(event);
+
+    // Set the toast message and close the overlay
+    setToastMessage("Item added successfully!");
+    setToastKey((prevKey) => prevKey + 1); // Update the key to force re-render
+    handleCloseOverlay();
+    navigate('/cart');
   };
   const applyFilters = (filters) => {
     const { selectedCategory } = filters;
@@ -214,7 +240,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
                   </div>
                 </div>
 
-                <div className="flex gap-4 mt-4">
+                <div className="flex gap-4 mt-4 fixed bottom-1 ">
                   <button
                     className="border border-[#6B4B34] text-[#6B4B34] font-bold py-2 px-2 rounded-xl flex gap-1 font-Nunito hover:bg-[#6B4B3420]"
                     onClick={handleAddToCart}
@@ -224,7 +250,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
                     </span>
                     Add to cart
                   </button>
-                  <button className="bg-[#332D21] text-white font-bold py-2 px-4 rounded-xl font-Nunito">
+                  <button className="bg-[#332D21] text-white font-bold py-2 px-4 rounded-xl font-Nunito" onClick={handleBuyNow}>
                     Buy now
                   </button>
                 </div>
