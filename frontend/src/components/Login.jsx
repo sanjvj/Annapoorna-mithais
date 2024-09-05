@@ -1,12 +1,23 @@
 import React, { useState } from "react";
 
-const Login = ({ setShowLogin }) => {
+const Login = ({ setShowLogin, setShowOTPVerification }) => {
   const [inputValue, setInputValue] = useState("");
+  const [showError, setShowError] = useState(false);
 
   const handleChange = (e) => {
     const value = e.target.value;
     if (/^\d*$/.test(value) && value.length <= 10) {
       setInputValue(value);
+      setShowError(false);
+    }
+  };
+
+  const handleProceedToVerify = () => {
+    if (inputValue.length === 10) {
+      setShowLogin(false);
+      setShowOTPVerification(true);
+    } else {
+      setShowError(true);
     }
   };
 
@@ -36,10 +47,18 @@ const Login = ({ setShowLogin }) => {
           className="outline-none flex-grow text-[14px] font-Nunito font-bold"
         />
         {inputValue.length === 10 && (
-          <img src="verified.svg"></img>
+          <img src="verified.svg" alt="Verified" />
         )}
       </div>
-      <button className="bg-[#332D21] text-white font-bold py-3 px-4 rounded-lg mt-8 w-full">
+      {showError && (
+        <p className="text-red-500 text-[12px] font-Nunito mt-2">
+          Please enter a valid 10-digit mobile number.
+        </p>
+      )}
+      <button 
+        className="bg-[#332D21] text-white font-bold py-3 px-4 rounded-lg mt-8 w-full" 
+        onClick={handleProceedToVerify}
+      >
         Proceed to verify
       </button>
     </div>

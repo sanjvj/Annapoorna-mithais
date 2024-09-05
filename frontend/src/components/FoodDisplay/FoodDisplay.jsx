@@ -228,7 +228,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
                     ))}
                   </div>
 
-                  <div className="flex items-center gap-2 mt-4 justify-between mb-16">
+                  <div className="flex items-center gap-2 mt-4 justify-between mb-16 md:mb-4">
                     <p className="text-[14px] font-bold text-[#606060] font-Nunito">
                       ₹{getWeightPrice() * quantity}{" "}
                       <p className="text-[14px] font-bold text-[#26A460] font-Nunito">
@@ -254,7 +254,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
                     </div>
                   </div>
 
-                  <div className="flex gap-4 md:mt-0 md:relative fixed bg-white bottom-0 py-4 md:py-0">
+                  <div className="flex gap-4 mt-0 fixed md:relative bg-white bottom-0 py-4 md:py-0">
                     <button
                       className="border border-[#6B4B34] text-[#6B4B34] font-bold py-2 px-2 rounded-xl flex gap-1 font-Nunito hover:bg-[#6B4B3420]"
                       onClick={handleAddToCart}

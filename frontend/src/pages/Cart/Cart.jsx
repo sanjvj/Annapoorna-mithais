@@ -5,11 +5,16 @@ import ShopHero from '../../components/ShopHero';
 import Footer from '../../components/Footer';
 import Login from '../../components/Login';
 import FooterBar from '../../components/FooterBar';
+import OTPVerification from '../../components/OTPVerification';
 
 const CartPage = () => {
-  const [category, setCategory] = useState("All");
-  const [searchTerm, setSearchTerm] = useState('');
+  const [showOTPVerification, setShowOTPVerification] = useState(false);
   const [cartItemCount, setCartItemCount] = useState(0);
+  const [isVerified, setIsVerified] = useState(false);
+
+  const handleVerificationSuccess = () => {
+    setIsVerified(true);
+  };
 
   const updateCartItemCount = () => {
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -154,7 +159,15 @@ const CartPage = () => {
 
       {showLogin && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <Login setShowLogin={setShowLogin} />
+          <Login setShowLogin={setShowLogin} setShowOTPVerification={setShowOTPVerification} />
+        </div>
+      )}
+      {showOTPVerification && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <OTPVerification 
+            setShowOTPVerification={setShowOTPVerification}
+            onVerificationSuccess={handleVerificationSuccess}
+          />
         </div>
       )}
 
