@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import VerificationSuccess from '../components/VerificationSuccess'
 
-const OTPVerification = ({ setShowOTPVerification, onVerificationSuccess }) => {
+const OTPVerification = ({ setShowOTPVerification, onVerificationSuccess,inputValue }) => {
   const [otp, setOTP] = useState(["", "", "", "", "", ""]);
   const [timer, setTimer] = useState(60);
   const [canResend, setCanResend] = useState(false);
@@ -27,6 +27,8 @@ const OTPVerification = ({ setShowOTPVerification, onVerificationSuccess }) => {
       setError("Please enter all 6 digits of the OTP.");
       return;
     }
+    console.log(inputValue);
+    console.log(otpString);
     try{
       const response = await axios.post("http://localhost:8000/customers/verify-otp",{
         mobile: inputValue,
@@ -130,7 +132,7 @@ const OTPVerification = ({ setShowOTPVerification, onVerificationSuccess }) => {
       </p>
       <button
         className="bg-[#332D21] text-white font-bold py-3 px-4 rounded-lg mt-4 w-full"
-        onClick={handleOtp}
+        onClick={handleVerify}
       >
         Proceed to verify
       </button>

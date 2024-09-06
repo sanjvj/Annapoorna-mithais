@@ -6,8 +6,10 @@ import Footer from '../../components/Footer';
 import Login from '../../components/Login';
 import FooterBar from '../../components/FooterBar';
 import OTPVerification from '../../components/OTPVerification';
+import axios from "axios";
 
 const CartPage = () => {
+  const [inputValue,setInputValue] = useState('');
   const handlePlaceOrder = async () => {
     setShowLogin(true);
     // Step 1: Create an order in your backend to get an order ID
@@ -233,7 +235,7 @@ const CartPage = () => {
 
       {showLogin && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <Login setShowLogin={setShowLogin} setShowOTPVerification={setShowOTPVerification} />
+          <Login setShowLogin={setShowLogin} setShowOTPVerification={setShowOTPVerification} inputValue={inputValue} setInputValue={setInputValue} />
         </div>
       )}
       {showOTPVerification && (
@@ -241,6 +243,7 @@ const CartPage = () => {
           <OTPVerification 
             setShowOTPVerification={setShowOTPVerification}
             onVerificationSuccess={handleVerificationSuccess}
+            inputValue = {inputValue}
           />
         </div>
       )}

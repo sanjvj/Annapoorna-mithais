@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import axios from "axios";
 
-const Login = ({ setShowLogin, setShowOTPVerification }) => {
-  const [inputValue, setInputValue] = useState("");
+const Login = ({ setShowLogin, setShowOTPVerification,inputValue,setInputValue }) => {
+  
   const [showError, setShowError] = useState(false);
 
   const handleChange = (e) => {
@@ -15,6 +16,7 @@ const Login = ({ setShowLogin, setShowOTPVerification }) => {
     if (inputValue.length === 10) {
       setShowLogin(false);
       setShowOTPVerification(true);
+      
     } else {
       setShowError(true);
     }
