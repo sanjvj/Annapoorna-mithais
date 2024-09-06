@@ -21,6 +21,23 @@ const OTPVerification = ({ setShowOTPVerification, onVerificationSuccess }) => {
     return () => clearInterval(interval);
   }, [timer]);
 
+  const handleOtp = async() => {
+    const otpString = otp.join("");
+    if (otpString.length !== 6) {
+      setError("Please enter all 6 digits of the OTP.");
+      return;
+    }
+    try{
+      const response = await axios.post("http://localhost:8000/customers/verify-otp",{
+        mobile: inputValue,
+        otp : otpString,
+      })
+      console.log(response);
+    }catch(error){
+      console.error("Error verifying OTP:", error);
+    }
+  }
+
   const handleOTPChange = (index, value) => {
     if (/^\d*$/.test(value) && value.length <= 1) {
       const newOTP = [...otp];
@@ -35,7 +52,9 @@ const OTPVerification = ({ setShowOTPVerification, onVerificationSuccess }) => {
     }
   };
 
-  const handleVerify = async () => {
+
+  //Dummy verification as of now
+  const handleVerify = async () => { 
     const otpString = otp.join("");
     if (otpString.length !== 6) {
       setError("Please enter all 6 digits of the OTP.");
@@ -111,7 +130,7 @@ const OTPVerification = ({ setShowOTPVerification, onVerificationSuccess }) => {
       </p>
       <button
         className="bg-[#332D21] text-white font-bold py-3 px-4 rounded-lg mt-4 w-full"
-        onClick={handleVerify}
+        onClick={handleOtp}
       >
         Proceed to verify
       </button>

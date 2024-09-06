@@ -11,15 +11,25 @@ const Login = ({ setShowLogin, setShowOTPVerification }) => {
       setShowError(false);
     }
   };
-
-  const handleProceedToVerify = () => {
+  const handleMobileNumber = async() => {
     if (inputValue.length === 10) {
       setShowLogin(false);
       setShowOTPVerification(true);
     } else {
       setShowError(true);
     }
-  };
+    try{
+      const response = await axios.post("http://localhost:8000/customers/send-otp",{
+        mobile: inputValue,
+      })
+      console.log(response);
+    }catch (error) {
+      console.error("Error sending OTP:", error);
+      // Handle the error appropriately (e.g., show an error message to the user)
+    }
+  }
+
+  
 
   return (
     <div className="relative w-[400px] h-auto bg-white rounded-xl p-10 shadow-lg">
@@ -57,7 +67,7 @@ const Login = ({ setShowLogin, setShowOTPVerification }) => {
       )}
       <button 
         className="bg-[#332D21] text-white font-bold py-3 px-4 rounded-lg mt-8 w-full" 
-        onClick={handleProceedToVerify}
+        onClick={handleMobileNumber}
       >
         Proceed to verify
       </button>

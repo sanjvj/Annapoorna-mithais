@@ -8,6 +8,80 @@ import FooterBar from '../../components/FooterBar';
 import OTPVerification from '../../components/OTPVerification';
 
 const CartPage = () => {
+  const handlePlaceOrder = async () => {
+    setShowLogin(true);
+    // Step 1: Create an order in your backend to get an order ID
+    const response = await fetch(
+      "http://localhost:8000/customers/create-order ",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          totalPrice: total.toFixed(2), // Amount to be paid
+          currency: "INR", // Currency
+          name: "muhil",
+          email: "muhil@gmail.com",
+          mobile: "9342407556",
+          role: "customer",
+          orderItems: [{ name: "Demo", price: 200 }],
+        }),
+      }
+    );
+
+    const order = await response.json();
+
+    // Step 2: Initiate the Razorpay payment
+
+    const options = {
+      key: "rzp_test_ZyVKG8K6k1Gol1",
+      amount: order.amount, // Amount in paise
+      currency: "INR",
+      name: "Your Store Name",
+      description: "Order Payment",
+      order_id: order.id, // Order ID from backend
+      handler: async (response) => {
+        // Payment successful - send payment details to backend to update order status
+        const paymentResponse = await fetch(
+          "http://localhost:8000/customers/verify-payment",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              orderId: order.id,
+              paymentId: response.razorpay_payment_id,
+              razorpayOrderId: response.razorpay_order_id,
+              razorpaySignature: response.razorpay_signature,
+            }),
+          }
+        );
+
+        const result = await paymentResponse.json();
+        if (result.success) {
+          alert("Payment successful and order updated!");
+          // Redirect to order confirmation page or show a success message
+        } else {
+          alert(
+            "Payment successful but failed to update order. Please contact support."
+          );
+        }
+      },
+      prefill: {
+        name: "muhil",
+        email: "muhil@gmail.comm",
+        contact: 934240756,
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
+  };
   const [showOTPVerification, setShowOTPVerification] = useState(false);
   const [cartItemCount, setCartItemCount] = useState(0);
   const [isVerified, setIsVerified] = useState(false);
@@ -143,7 +217,7 @@ const CartPage = () => {
                 </div>
               </div>
               <button 
-                onClick={() => setShowLogin(true)}
+                onClick={handlePlaceOrder}
                 className="bg-[#332D21] text-white font-bold py-3 px-4 rounded-lg mt-6 w-full lg:w-10/12"
               >
                 Place Your Order Now
