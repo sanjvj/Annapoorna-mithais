@@ -1,27 +1,35 @@
-
+import React, { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
 
-import Home from './pages/Home/Home'
-import ShopNow from './pages/ShopNow/ShopNow'
-import CartPage from './pages/Cart/Cart'
-import About from './pages/AboutUs/About'
-import Contact from './pages/ContactUs/Contact'
+// Lazy load components
+const Home = lazy(() => import('./pages/Home/Home'))
+const ShopNow = lazy(() => import('./pages/ShopNow/ShopNow'))
+const CartPage = lazy(() => import('./pages/Cart/Cart'))
+const About = lazy(() => import('./pages/AboutUs/About'))
+const Contact = lazy(() => import('./pages/ContactUs/Contact'))
+const Terms = lazy(() => import('./pages/Terms&Conditions/Terms'))
+const Refund = lazy(() => import('./pages/RefundPolicy.jsx/Refund'))
+const Privacy = lazy(() => import('./pages/Privacy/Privacy'))
 
+// Loading component
+const Loading = () => <div>Loading...</div>
 
 function App() {
-  
-
   return (
     <div>
-
-    <Routes>
-      <Route path='/' element={<Home></Home>}></Route>
-      <Route path='/shop' element={<ShopNow></ShopNow>}></Route>
-      <Route path='/cart' element={<CartPage></CartPage>}/>
-      <Route path='/about' element={<About></About>} />
-      <Route path='/contact' element={<Contact></Contact>} />
-    </Routes>
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/shop' element={<ShopNow />} />
+          <Route path='/cart' element={<CartPage />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/contact' element={<Contact />} />
+          <Route path='/terms' element={<Terms />} />
+          <Route path='/refund' element={<Refund />} />
+          <Route path='/privacy' element={<Privacy />} />
+        </Routes>
+      </Suspense>
     </div>
   )
 }

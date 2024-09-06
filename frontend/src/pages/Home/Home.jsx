@@ -37,7 +37,6 @@ const Home = () => {
       <ExploreMenu title1='What are you' title2='searching for?' />
       <FoodDisplay category={category} searchTerm={searchTerm} />
       <Review />
-      <Story />
       <Footer />
       <FooterBar cartItemCount={cartItemCount} />
     </div>
