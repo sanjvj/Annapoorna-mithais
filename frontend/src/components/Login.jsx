@@ -12,25 +12,41 @@ const Login = ({ setShowLogin, setShowOTPVerification,inputValue,setInputValue }
       setShowError(false);
     }
   };
-  const handleMobileNumber = async() => {
-    if (inputValue.length === 10) {
-      setShowLogin(false);
-      setShowOTPVerification(true);
-      
-    } else {
+  const handleMobileNumber = async () => {
+    if (inputValue.length !== 10) {
       setShowError(true);
+      return;
     }
-    try{
-      const response = await axios.post("http://localhost:8000/customers/send-otp",{
-        mobile: inputValue,
-      })
-      console.log(response);
-    }catch (error) {
+  
+    setShowLogin(false);
+    setShowOTPVerification(true);
+  
+    try {
+      console.log("Sending OTP to:", inputValue);
+      const response = await axios.post(
+        "https://annapoorna-backend.onrender.com/customers/send-otp",
+        { mobileNumber: inputValue },
+        { withCredentials: true }
+      );
+      console.log("OTP send response:", response.data);
+      // Handle successful OTP send (e.g., show a success message)
+    } catch (error) {
       console.error("Error sending OTP:", error);
-      // Handle the error appropriately (e.g., show an error message to the user)
+      if (error.response) {
+        console.error("Server responded with:", error.response.data);
+        // Handle specific error cases based on error.response.data
+      } else if (error.request) {
+        console.error("No response received:", error.request);
+      } else {
+        console.error("Error setting up request:", error.message);
+      }
+      setShowOTPVerification(false);
+      setShowLogin(true);
+      setShowError(true);
+      // Show an error message to the user
+      // setErrorMessage("Failed to send OTP. Please try again.");
     }
-  }
-
+  };
   
 
   return (

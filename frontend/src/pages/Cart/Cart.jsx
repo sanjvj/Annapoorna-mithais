@@ -10,16 +10,22 @@ import axios from "axios";
 
 const CartPage = () => {
   const [inputValue,setInputValue] = useState('');
-  const handlePlaceOrder = async () => {
+  const [loggedin,setLoggedIn] = useState(false);
+
+  const handleSendOtp = () => {
     setShowLogin(true);
+  }
+  const handlePlaceOrder = async () => {
+    
     // Step 1: Create an order in your backend to get an order ID
     const response = await fetch(
-      "http://localhost:8000/customers/create-order ",
+      "https://annapoorna-backend.onrender.com/customers/create-order ",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        withCredentials:true,
         body: JSON.stringify({
           totalPrice: total.toFixed(2), // Amount to be paid
           currency: "INR", // Currency
@@ -219,7 +225,8 @@ const CartPage = () => {
                 </div>
               </div>
               <button 
-                onClick={handlePlaceOrder}
+              
+                onClick={loggedin?handlePlaceOrder:handleSendOtp}
                 className="bg-[#332D21] text-white font-bold py-3 px-4 rounded-lg mt-6 w-full lg:w-10/12"
               >
                 Place Your Order Now
@@ -244,6 +251,7 @@ const CartPage = () => {
             setShowOTPVerification={setShowOTPVerification}
             onVerificationSuccess={handleVerificationSuccess}
             inputValue = {inputValue}
+            setLoggedIn={setLoggedIn}
           />
         </div>
       )}
