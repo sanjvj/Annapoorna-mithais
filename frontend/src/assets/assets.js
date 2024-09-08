@@ -5,6 +5,7 @@ import food_4 from './food_4.svg'
 import choco from './chocobounty.png'
 import kaju from './kajukatli.png'
 import star from './star 3.svg'
+import fruit from './fruitpack.png'
 
 export const assets = {
     
@@ -98,7 +99,7 @@ export const food_list = [
     {
         _id: "5",
         name: "Fruit Pack",
-        image: food_1,
+        image: fruit,
         price: 1400,
         offer: 1500,
         description: "Kaju Pineapple, Kaju Kiwi, Kaju strawberry, Kaju Mango, Kaju Blueberry, Anjeer Roll, Kaju Dates Roll Ingredient ",
