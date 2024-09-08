@@ -55,7 +55,7 @@ const Hero = () => {
   });
 
   return (
-    <div className="flex flex-col items-center h-screen bg-gradient-to-b from-[#FFFFFF] to-[#FFF9EA] overflow-hidden">
+    <div className="flex flex-col items-center h-[75vh] md:h-screen bg-gradient-to-b from-[#FFFFFF] to-[#FFF9EA] overflow-hidden">
       {/* Text Section */}
       <div className="w-full pt-[32px] pb-[32px]" style={{ backgroundImage: 'url(background.svg)' }}>
         <div className="gap-4 text-center mt-4">
