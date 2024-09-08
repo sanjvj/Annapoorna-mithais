@@ -55,11 +55,11 @@ const Hero = () => {
   });
 
   return (
-    <div className="flex flex-col items-center h-[75vh] md:h-screen bg-gradient-to-b from-[#FFFFFF] to-[#FFF9EA] overflow-hidden">
+    <div className="flex flex-col items-center h-[60vh] md:h-screen bg-gradient-to-b from-[#FFFFFF] to-[#FFF9EA] overflow-hidden">
       {/* Text Section */}
-      <div className="w-full pt-[32px] pb-[32px]" style={{ backgroundImage: 'url(background.svg)' }}>
-        <div className="gap-4 text-center mt-4">
-          <h1 className="font-Philosopher text-[32px] font-black bg-gradient-to-r from-[#A5813B] to-[#8F6109] text-transparent bg-clip-text leading-[35.84px] pb-[12px]">
+      <div className="w-full pt-[10px] md:pt-[32px] pb-[32px]" style={{ backgroundImage: 'url(background.svg)' }}>
+        <div className="gap-4 text-center md:mt-4">
+          <h1 className="font-Philosopher text-[24px] md:text-[32px] font-black bg-gradient-to-r from-[#A5813B] to-[#8F6109] text-transparent bg-clip-text leading-[35.84px] pb-[12px]">
             Festivities are Flat <br />
             <span>Without Sweets</span>
           </h1>
