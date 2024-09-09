@@ -123,8 +123,8 @@ const FoodDisplay = ({ category, searchTerm, setSearchTerm }) => {
           <div
             className={`${
               filterSelected
-                ? "col-span-2 md:col-span-2"
-                : "col-span-2 md:col-span-3 "
+                ? "col-span-2 md:col-span-2 md:w-full"
+                : "col-span-2 md:col-span-3 md:w-full"
             } grid gap-4 md:gap-8 lg:gap-10 grid-cols-2 md:grid-cols-3 ${
               filterSelected
                 ? "grid-cols-2 md:grid-cols-2 md:max-w-screen-lg mx-auto lg:grid-cols-3"
