@@ -3,7 +3,7 @@ import { FiSearch } from 'react-icons/fi';
 
 const SearchWithFilter = ({ searchTerm, setSearchTerm, toggleFilter }) => {
   return (
-    <div className='flex w-full md:w-full justify-center'>
+    <div className='flex w-11/12 md:w-full justify-center'>
       <div className="flex justify-center w-[580px] mt-4">
         <div className="flex items-center bg-[#F8F8F8] border-2 border-[#E6E6E6] rounded-full p-1 w-full max-w-lg mx-4 sm:mx-8 font-Nunito">
           <input
