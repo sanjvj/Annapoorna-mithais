@@ -124,12 +124,12 @@ const FoodDisplay = ({ category, searchTerm, setSearchTerm }) => {
             className={`${
               filterSelected
                 ? "col-span-2 md:col-span-2"
-                : "col-span-2 md:col-span-3 w-full"
+                : "col-span-2 md:col-span-3 "
             } grid gap-4 md:gap-8 lg:gap-10 grid-cols-2 md:grid-cols-3 ${
               filterSelected
                 ? "grid-cols-2 md:grid-cols-2 md:max-w-screen-lg mx-auto lg:grid-cols-3"
                 : "grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-            } mt-14 mx-auto md:max-w-screen-xl px-4 sm:px-6 lg:px-8 mb-10`} // Added px-4 for mobile spacing
+            } mt-14 mx-auto md:max-w-screen-xl sm:px-6 lg:px-8 mb-10`} // Added px-4 for mobile spacing
           >
             {filteredFoodList.map((item, index) => (
               <FoodItem
