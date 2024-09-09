@@ -10,17 +10,18 @@ const FooterBar = ({ cartItemCount }) => {
       <div className="text-center">
         <img src="shop.svg" alt="Food" className="mx-auto cursor-pointer" onClick={()=>{navigate('/shop')}} />
       </div>
-      <div className="relative cursor-pointer">
-        <img src="cart2.svg" className="lg:w-[30px] lg:h-[30px] w-[24px] h-[24px] text-[#70513A] cursor-pointer" onClick={()=>{navigate('/cart')}} />
+      <div className="text-center">
+        <img src="profile2.svg" alt="Profile" className="mx-auto cursor-pointer" onClick={()=>{navigate('/profile')}} />
+      </div>
+      <div className="relative cursor-pointer" onClick={()=>{navigate('/cart')}} >
+        <img src="cart2.svg" className="lg:w-[30px] lg:h-[30px] w-[24px] h-[24px] text-[#70513A] cursor-pointer" />
         {cartItemCount > 0 && (
           <div className="absolute top-[-6px] right-[-4px] bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
             {cartItemCount}
           </div>
         )}
       </div>
-      <div className="text-center">
-        <img src="profile2.svg" alt="Profile" className="mx-auto cursor-pointer" onClick={()=>{navigate('/profile')}} />
-      </div>
+      
     </div>
   );
 };

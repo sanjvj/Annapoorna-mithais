@@ -26,7 +26,7 @@ const Terms = () => {
   }, []);
   return (
     <div>
-      <Navbar></Navbar>
+      <Navbar cartItemCount={cartItemCount} />
       <Slider></Slider>
       <div className="m-8 lg:mx-auto lg:max-w-screen-xl items-center">
         <h1 className="mb-1 font-Nunito text-[24px] font-bold text-[#606060] text-center">
