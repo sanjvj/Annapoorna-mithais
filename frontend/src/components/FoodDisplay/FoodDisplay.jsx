@@ -166,7 +166,7 @@ const FoodDisplay = ({ category, searchTerm }) => {
       {selectedItem && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-end md:items-center justify-center z-50">
           <div
-            className="bg-white rounded-t-3xl md:rounded-xl p-6 w-full md:w-[636px] relative md:translate-y-0 md:h-auto h-[700px] animate-slideUp md:animate-none"
+            className="bg-white rounded-t-3xl md:rounded-xl p-6 w-full md:w-[636px] relative md:translate-y-0 md:h-auto h-[600px] animate-slideUp md:animate-none"
             onClick={(e) => e.stopPropagation()}
           >
             <img
