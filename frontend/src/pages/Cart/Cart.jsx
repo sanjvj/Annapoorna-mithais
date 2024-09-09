@@ -97,6 +97,7 @@ const CartPage = () => {
     try {
       console.log(document.cookie);
       // Step 1: Create an order in your backend to get an order ID
+      const authToken = localStorage.getItem("authToken")
       const response = await axios.post(
         "https://annapoorna-backend.onrender.com/customers/create-order",
         {
@@ -112,6 +113,7 @@ const CartPage = () => {
           withCredentials: true,
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${authToken}`,
           },
         }
       );
@@ -140,6 +142,7 @@ const CartPage = () => {
                 withCredentials: true,
                 headers: {
                   "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
                 },
               }
             );
