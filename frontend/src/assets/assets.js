@@ -70,11 +70,12 @@ export const food_list = [
         _id: "2",
         name: "Choco Bounty",
         image: choco,
-        price: 1800,
-        offer: 1500,
-        description: "Desiccated coconut with the condensed milk wrapped with Fresh Chocolate.",
+        price: 700,
+        offer: 25,
+        description: "Desiccated coconut with the condensed milk wrapped with Fresh Chocolate. ",
+        ingredient: "Fresh Coconut, Chocolate, Kova from Milk, Sugar",
         category: "Sweets",
-        life : "2 Months"
+        life : "10 Days"
     },
     {
         _id: "3",

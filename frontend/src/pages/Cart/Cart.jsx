@@ -15,80 +15,250 @@ const CartPage = () => {
   const handleSendOtp = () => {
     setShowLogin(true);
   }
-  const handlePlaceOrder = async () => {
+  // const handlePlaceOrder = async () => {
     
-    // Step 1: Create an order in your backend to get an order ID
-    const response = await fetch(
-      "https://annapoorna-backend.onrender.com/customers/create-order ",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+  //   // Step 1: Create an order in your backend to get an order ID
+  //   const response = await fetch(
+  //     "https://annapoorna-backend.onrender.com/customers/create-order ",
+  //     {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+        
+  //       body: JSON.stringify({
+  //         totalPrice: total.toFixed(2), // Amount to be paid
+  //         currency: "INR", // Currency
+  //         name: "muhil",
+  //         email: "muhil@gmail.com",
+  //         mobile: "9342407556",
+  //         role: "customer",
+  //         orderItems: [{ name: "Demo", price: 200 }],
+  //       }),
+  //       credentials: "include",
+  //     }
+  //   );
+
+  //   const order = await response.json();
+
+  //   // Step 2: Initiate the Razorpay payment
+
+  //   const options = {
+  //     key: "rzp_test_ZyVKG8K6k1Gol1",
+  //     amount: order.amount, // Amount in paise
+  //     currency: "INR",
+  //     name: "Your Store Name",
+  //     description: "Order Payment",
+  //     order_id: order.id, // Order ID from backend
+  //     handler: async (response) => {
+  //       // Payment successful - send payment details to backend to update order status
+  //       const paymentResponse = await fetch(
+  //         "http://localhost:8000/customers/verify-payment",
+  //         {
+  //           method: "POST",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //           },
+            
+  //           body: JSON.stringify({
+  //             orderId: order.id,
+  //             paymentId: response.razorpay_payment_id,
+  //             razorpayOrderId: response.razorpay_order_id,
+  //             razorpaySignature: response.razorpay_signature,
+  //           }),
+  //           credentials:"include"
+  //         }
+  //       );
+
+  //       const result = await paymentResponse.json();
+  //       if (result.success) {
+  //         alert("Payment successful and order updated!");
+  //         // Redirect to order confirmation page or show a success message
+  //       } else {
+  //         alert(
+  //           "Payment successful but failed to update order. Please contact support."
+  //         );
+  //       }
+  //     },
+  //     prefill: {
+  //       name: "muhil",
+  //       email: "muhil@gmail.comm",
+  //       contact: 934240756,
+  //     },
+  //     theme: {
+  //       color: "#3399cc",
+  //     },
+  //   };
+
+  //   const rzp1 = new window.Razorpay(options);
+  //   rzp1.open();
+  // };
+
+
+  // const handlePlaceOrder = async () => {
+  //   try {
+  //     // Step 1: Create an order in your backend to get an order ID
+  //     const response = await axios.post(
+  //       "https://annapoorna-backend.onrender.com/customers/create-order",
+  //       {
+  //         totalPrice: total.toFixed(2),
+  //         currency: "INR",
+  //         name: "muhil",
+  //         email: "muhil@gmail.com",
+  //         mobile: "9342407556",
+  //         role: "customer",
+  //         orderItems: [{ name: "Demo", price: 200 }],
+  //       },
+  //       {
+  //         withCredentials: true,
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+  
+  //     const order = response.data;
+  
+  //     // Step 2: Initiate the Razorpay payment
+  //     const options = {
+  //       key: "rzp_test_ZyVKG8K6k1Gol1",
+  //       amount: order.amount,
+  //       currency: "INR",
+  //       name: "Your Store Name",
+  //       description: "Order Payment",
+  //       order_id: order.id,
+  //       handler: async (response) => {
+  //         try {
+  //           const paymentResponse = await axios.post(
+  //             "http://localhost:8000/customers/verify-payment",
+  //             {
+  //               orderId: order.id,
+  //               paymentId: response.razorpay_payment_id,
+  //               razorpayOrderId: response.razorpay_order_id,
+  //               razorpaySignature: response.razorpay_signature,
+  //             },
+  //             {
+  //               withCredentials: true,
+  //               headers: {
+  //                 "Content-Type": "application/json",
+  //               },
+  //             }
+  //           );
+  
+  //           const result = paymentResponse.data;
+  //           if (result.success) {
+  //             alert("Payment successful and order updated!");
+  //             // Redirect to order confirmation page or show a success message
+  //           } else {
+  //             alert(
+  //               "Payment successful but failed to update order. Please contact support."
+  //             );
+  //           }
+  //         } catch (error) {
+  //           console.error("Error verifying payment:", error);
+  //           alert("Error verifying payment. Please contact support.");
+  //         }
+  //       },
+  //       prefill: {
+  //         name: "muhil",
+  //         email: "muhil@gmail.comm",
+  //         contact: 934240756,
+  //       },
+  //       theme: {
+  //         color: "#3399cc",
+  //       },
+  //     };
+  
+  //     const rzp1 = new window.Razorpay(options);
+  //     rzp1.open();
+  //   } catch (error) {
+  //     console.error("Error creating order:", error);
+  //     alert("Failed to create order. Please try again.");
+  //   }
+  // };
+  const api = axios.create({
+    baseURL: 'https://annapoorna-backend.onrender.com',
+    withCredentials: true
+  });
+  
+  const handlePlaceOrder = async () => {
+    try {
+      // Step 1: Create an order in your backend to get an order ID
+      const response = await api.post('/customers/create-order', {
+        totalPrice: total.toFixed(2), // Amount to be paid
+        currency: "INR", // Currency
+        name: "muhil",
+        email: "muhil@gmail.com",
+        mobile: "9342407556",
+        role: "customer",
+        orderItems: [{ name: "Demo", price: 200 }],
+      });
+  
+      const order = response.data;
+  
+      // Step 2: Initiate the Razorpay payment
+      const options = {
+        key: "rzp_test_ZyVKG8K6k1Gol1",
+        amount: order.amount, // Amount in paise
+        currency: "INR",
+        name: "Your Store Name",
+        description: "Order Payment",
+        order_id: order.id, // Order ID from backend
+        handler: async (razorpayResponse) => {
+          try {
+            // Payment successful - send payment details to backend to update order status
+            const paymentResponse = await api.post('/customers/verify-payment', {
+              orderId: order.id,
+              paymentId: razorpayResponse.razorpay_payment_id,
+              razorpayOrderId: razorpayResponse.razorpay_order_id,
+              razorpaySignature: razorpayResponse.razorpay_signature,
+            });
+  
+            const result = paymentResponse.data;
+            if (result.success) {
+              alert("Payment successful and order updated!");
+              // Redirect to order confirmation page or show a success message
+            } else {
+              alert("Payment successful but failed to update order. Please contact support.");
+            }
+          } catch (error) {
+            console.error("Error verifying payment:", error);
+            if (error.response && error.response.status === 401) {
+              alert("Session expired. Please log in again.");
+              // Redirect to login page or show login modal
+            } else {
+              alert("Error verifying payment. Please contact support.");
+            }
+          }
         },
-        withCredentials:true,
-        body: JSON.stringify({
-          totalPrice: total.toFixed(2), // Amount to be paid
-          currency: "INR", // Currency
+        prefill: {
           name: "muhil",
           email: "muhil@gmail.com",
-          mobile: "9342407556",
-          role: "customer",
-          orderItems: [{ name: "Demo", price: 200 }],
-        }),
-      }
-    );
-
-    const order = await response.json();
-
-    // Step 2: Initiate the Razorpay payment
-
-    const options = {
-      key: "rzp_test_ZyVKG8K6k1Gol1",
-      amount: order.amount, // Amount in paise
-      currency: "INR",
-      name: "Your Store Name",
-      description: "Order Payment",
-      order_id: order.id, // Order ID from backend
-      handler: async (response) => {
-        // Payment successful - send payment details to backend to update order status
-        const paymentResponse = await fetch(
-          "http://localhost:8000/customers/verify-payment",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              orderId: order.id,
-              paymentId: response.razorpay_payment_id,
-              razorpayOrderId: response.razorpay_order_id,
-              razorpaySignature: response.razorpay_signature,
-            }),
-          }
-        );
-
-        const result = await paymentResponse.json();
-        if (result.success) {
-          alert("Payment successful and order updated!");
-          // Redirect to order confirmation page or show a success message
+          contact: "9342407556",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+  
+      const rzp1 = new window.Razorpay(options);
+      rzp1.open();
+  
+    } catch (error) {
+      console.error("Error creating order:", error);
+      if (error.response) {
+        if (error.response.status === 401) {
+          alert("You are not logged in or your session has expired. Please log in to place an order.");
+          // Redirect to login page or show login modal
         } else {
-          alert(
-            "Payment successful but failed to update order. Please contact support."
-          );
+          alert(`Failed to create order. Server responded with: ${error.response.data.message || error.response.statusText}`);
         }
-      },
-      prefill: {
-        name: "muhil",
-        email: "muhil@gmail.comm",
-        contact: 934240756,
-      },
-      theme: {
-        color: "#3399cc",
-      },
-    };
-
-    const rzp1 = new window.Razorpay(options);
-    rzp1.open();
+      } else if (error.request) {
+        alert("Unable to reach the server. Please check your internet connection and try again.");
+      } else {
+        alert("An unexpected error occurred. Please try again later.");
+      }
+    }
   };
   const [showOTPVerification, setShowOTPVerification] = useState(false);
   const [cartItemCount, setCartItemCount] = useState(0);
