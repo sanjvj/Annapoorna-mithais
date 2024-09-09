@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext, createContext } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import Slider from '../../components/Slider/Slider';
 import ShopHero from '../../components/ShopHero';
@@ -7,13 +7,16 @@ import Login from '../../components/Login';
 import FooterBar from '../../components/FooterBar';
 import OTPVerification from '../../components/OTPVerification';
 import axios from "axios";
+import { CartContext } from '../../context/CartContext';
 
 const CartPage = () => {
+  const { cartItems, removeFromCart, updateQuantity } = useContext(CartContext);
   const [inputValue,setInputValue] = useState('');
   const [loggedin,setLoggedIn] = useState(false);
 
   const handleSendOtp = () => {
     setShowLogin(true);
+    console.log(cartItems)
   }
   // const handlePlaceOrder = async () => {
     
@@ -96,7 +99,7 @@ const CartPage = () => {
   const handlePlaceOrder = async () => {
     try {
       console.log(document.cookie); // This might not show HttpOnly cookies
-  
+      console.log(cartItems)
       // Step 1: Create an order in your backend to get an order ID
       const authToken = localStorage.getItem("authToken");
       
@@ -114,7 +117,7 @@ const CartPage = () => {
           email: "muhil@gmail.com",
           mobile: "9342407556",
           role: "customer",
-          orderItems: cart,
+          orderItems: cartItems,
         },
         {
           withCredentials: true,
@@ -220,29 +223,28 @@ const CartPage = () => {
       window.removeEventListener('storage', updateCartItemCount);
     };
   }, []);
-  const [cartItems, setCartItems] = useState([]);
+  
   const [showLogin, setShowLogin] = useState(false);
 
-  useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
-    setCartItems(storedCart);
-  }, []);
+  // useEffect(() => {
+  //   const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+  //   setCartItems(storedCart);
+  // }, []);
 
   const handleQuantityChange = (index, change) => {
-    const updatedCart = cartItems.map((item, i) => 
-      i === index ? { ...item, quantity: Math.max(1, item.quantity + change) } : item
-    );
-    setCartItems(updatedCart);
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
-    triggerCartUpdate();
+    updateQuantity(index, change);
   };
 
   const handleDeleteItem = (index) => {
-    const updatedCart = cartItems.filter((_, i) => i !== index);
-    setCartItems(updatedCart);
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
-    triggerCartUpdate();
+    removeFromCart(index);
   };
+
+  // const handleDeleteItem = (index) => {
+  //   const updatedCart = cartItems.filter((_, i) => i !== index);
+  //   setCartItems(updatedCart);
+  //   localStorage.setItem('cart', JSON.stringify(updatedCart));
+  //   triggerCartUpdate();
+  // };
 
   const triggerCartUpdate = () => {
     const event = new Event('storage');
@@ -252,7 +254,7 @@ const CartPage = () => {
   const calculateSubtotal = () => {
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   };
-
+  
   const calculateFinalAmount = () => {
     const subtotal = calculateSubtotal();
     const gst = subtotal * 0.12; // 12% GST
