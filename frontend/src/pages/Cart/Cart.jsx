@@ -95,9 +95,16 @@ const CartPage = () => {
   // };
   const handlePlaceOrder = async () => {
     try {
-      console.log(document.cookie);
+      console.log(document.cookie); // This might not show HttpOnly cookies
+  
       // Step 1: Create an order in your backend to get an order ID
-      const authToken = localStorage.getItem("authToken")
+      const authToken = localStorage.getItem("authToken");
+      
+      // Make sure authToken exists
+      if (!authToken) {
+        throw new Error("No authentication token found. Please log in.");
+      }
+  
       const response = await axios.post(
         "https://annapoorna-backend.onrender.com/customers/create-order",
         {
@@ -142,7 +149,7 @@ const CartPage = () => {
                 withCredentials: true,
                 headers: {
                   "Content-Type": "application/json",
-                  Authorization: `Bearer ${token}`,
+                  Authorization: `Bearer ${authToken}`, // Use authToken here, not token
                 },
               }
             );
@@ -163,8 +170,8 @@ const CartPage = () => {
         },
         prefill: {
           name: "muhil",
-          email: "muhil@gmail.comm",
-          contact: 934240756,
+          email: "muhil@gmail.com", // Fixed typo in email
+          contact: "9342407556", // Changed to string for consistency
         },
         theme: {
           color: "#3399cc",
@@ -175,6 +182,19 @@ const CartPage = () => {
       rzp1.open();
     } catch (error) {
       console.error("Error creating order:", error);
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error("Error data:", error.response.data);
+        console.error("Error status:", error.response.status);
+        console.error("Error headers:", error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error("Error request:", error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error("Error message:", error.message);
+      }
       alert("Failed to create order. Please try again.");
     }
   };
