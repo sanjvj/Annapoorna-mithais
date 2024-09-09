@@ -78,16 +78,17 @@ const Hero = () => {
           style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
           className="absolute top-0 left-0 w-full h-full bg-center bg-cover"
           alt="Decorative Image"
+          
         />
         <div className="absolute top-8 left-8 bg-red-600 text-white text-xs font-bold rounded-full px-2 py-1 shadow-lg">
           75% OFF
         </div>
-        <div className="absolute bottom-0 left-0 w-full bg-opacity-50 bg-[#876115] backdrop-blur-md flex justify-between items-center px-10 py-4">
+        <div className="absolute bottom-0 left-0 w-full bg-opacity-50 bg-[#876115] backdrop-blur-md flex justify-between items-center px-10 py-2 md:py-4">
           <div>
-            <h2 className="text-white font-semibold">{slides[currentIndex].name}</h2>
-            <p className="text-white font-bold">{slides[currentIndex].price}</p>
+            <h2 className="text-white font-semibold text-[16px] font-Nunito">{slides[currentIndex].name}</h2>
+            <p className="text-white font-bold text-[14px] font-Nunito">{slides[currentIndex].price}</p>
           </div>
-          <button className="bg-[#E9DEC6] text-[#6B4B34] font-bold rounded-full px-4 py-2 flex items-center gap-2">
+          <button className="bg-[#E9DEC6] text-[#6B4B34] text-[14px] font-Nunito font-bold rounded-full px-4 py-2 flex items-center gap-2">
             <img src="Cart.svg" className="w-[20px] h-[20px]" alt="Cart Icon" />
             Add to cart
           </button>

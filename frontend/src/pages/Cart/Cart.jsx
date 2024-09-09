@@ -104,7 +104,7 @@ const CartPage = () => {
       if (!authToken) {
         throw new Error("No authentication token found. Please log in.");
       }
-  
+      const cart = localStorage.getItem("cart");
       const response = await axios.post(
         "https://annapoorna-backend.onrender.com/customers/create-order",
         {
@@ -114,7 +114,7 @@ const CartPage = () => {
           email: "muhil@gmail.com",
           mobile: "9342407556",
           role: "customer",
-          orderItems: [{ name: "Demo", price: 200 }],
+          orderItems: cart,
         },
         {
           withCredentials: true,
