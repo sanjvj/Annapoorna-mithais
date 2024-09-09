@@ -68,7 +68,7 @@ const OTPVerification = ({ setShowOTPVerification, onVerificationSuccess,inputVa
         // OTP verification successful
         console.log("OTP verified successfully");
         setIsVerified(true);
-        localStorage.setItem("authToken");
+        localStorage.setItem("authToken",response.data.token);
         // Handle successful verification (e.g., log the user in, redirect to dashboard)
         setLoggedIn(true);
         // navigate('/dashboard');
