@@ -9,6 +9,7 @@ import OTPVerification from '../../components/OTPVerification';
 import axios from "axios";
 import { CartContext } from '../../context/CartContext';
 import Loader from '../../components/Loader/Loader';
+import { useNavigate } from 'react-router-dom';
 
 const CartPage = () => {
   const { cartItems, removeFromCart, updateQuantity, cartUpdateTrigger } = useContext(CartContext);
@@ -20,6 +21,7 @@ useEffect(() => {
   const [inputValue,setInputValue] = useState('');
   const [loggedin,setLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSendOtp = () => {
     setShowLogin(true);
@@ -213,6 +215,8 @@ useEffect(() => {
         console.error("Error message:", error.message);
       }
       alert("Failed to create order. Please try again.");
+    }finally{
+      navigate('/');
     }
   };
   const [showOTPVerification, setShowOTPVerification] = useState(false);
