@@ -1,5 +1,10 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from 'react';
+import Navbar from '../../components/Navbar/Navbar';
+import Slider from '../../components/Slider/Slider';
+
+import Footer from '../../components/Footer';
+import FooterBar from '../../components/FooterBar';
+import ShopHero from '../../components/ShopHero';
 const Orders = () => {
   const [category, setCategory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
