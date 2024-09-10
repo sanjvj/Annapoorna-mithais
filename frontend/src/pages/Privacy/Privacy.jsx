@@ -189,6 +189,7 @@ const Privacy = () => {
           Mobile : <span className="font-normal">+919600200484</span>{" "}
         </p>
       </div>
+      
       <Footer></Footer>
       <FooterBar cartItemCount={cartItemCount}></FooterBar>
     </div>
