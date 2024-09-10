@@ -8,6 +8,7 @@ import FooterBar from '../../components/FooterBar';
 import OTPVerification from '../../components/OTPVerification';
 import axios from "axios";
 import { CartContext } from '../../context/CartContext';
+import Loader from '../../components/Loader/Loader';
 
 const CartPage = () => {
   const { cartItems, removeFromCart, updateQuantity } = useContext(CartContext);
@@ -97,7 +98,9 @@ const CartPage = () => {
   //   rzp1.open();
   // };
   const handlePlaceOrder = async () => {
+    const [isLoading, setIsLoading] = useState(false);
     try {
+      
       console.log(document.cookie); // This might not show HttpOnly cookies
       console.log(cartItems)
       // Step 1: Create an order in your backend to get an order ID
@@ -140,6 +143,7 @@ const CartPage = () => {
         order_id: order.id,
         handler: async (response) => {
           try {
+            setIsLoading(true);
             const paymentResponse = await axios.post(
               "https://annapoorna-backend.onrender.com/customers/verify-order",
               {
@@ -171,6 +175,8 @@ const CartPage = () => {
           } catch (error) {
             console.error("Error verifying payment:", error);
             alert("Error verifying payment. Please contact support.");
+          }finally {
+            setIsLoading(false); // Stop loading regardless of outcome
           }
         },
         prefill: {
@@ -274,6 +280,7 @@ const CartPage = () => {
     <div>
       <Navbar cartItemCount={cartItemCount} />
       <Slider />
+      {isLoading && <Loader />}
       <div className="p-10 lg:border-2 rounded-lg lg:m-10">
         {cartItems.length > 0 ? (
           <div className="lg:flex justify-between">
