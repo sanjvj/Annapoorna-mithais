@@ -3,7 +3,10 @@ import React, { createContext, useState, useEffect } from 'react';
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => {
+    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    return storedCart;
+  });
   const [cartUpdateTrigger, setCartUpdateTrigger] = useState(0);
 
   useEffect(() => {

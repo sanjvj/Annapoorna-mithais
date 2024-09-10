@@ -17,7 +17,7 @@ const CartPage = () => {
 useEffect(() => {
   // This effect will run whenever cartUpdateTrigger changes
   // You can add any additional logic here if needed
-}, [cartUpdateTrigger]);
+}, [cartItems]);
   const [inputValue,setInputValue] = useState('');
   const [loggedin,setLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
