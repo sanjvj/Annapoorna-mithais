@@ -14,6 +14,7 @@ const CartPage = () => {
   const { cartItems, removeFromCart, updateQuantity } = useContext(CartContext);
   const [inputValue,setInputValue] = useState('');
   const [loggedin,setLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSendOtp = () => {
     setShowLogin(true);
@@ -98,7 +99,7 @@ const CartPage = () => {
   //   rzp1.open();
   // };
   const handlePlaceOrder = async () => {
-    const [isLoading, setIsLoading] = useState(false);
+    
     try {
       
       console.log(document.cookie); // This might not show HttpOnly cookies
