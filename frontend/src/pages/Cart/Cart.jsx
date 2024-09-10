@@ -141,12 +141,14 @@ const CartPage = () => {
         handler: async (response) => {
           try {
             const paymentResponse = await axios.post(
-              "http://localhost:8000/customers/verify-payment",
+              "https://annapoorna-backend.onrender.com/customers/verify-order",
               {
                 orderId: order.id,
                 paymentId: response.razorpay_payment_id,
                 razorpayOrderId: response.razorpay_order_id,
                 razorpaySignature: response.razorpay_signature,
+                orderItems: cartItems,
+                totalAmount: total.toFixed(2)
               },
               {
                 withCredentials: true,
@@ -158,7 +160,7 @@ const CartPage = () => {
             );
   
             const result = paymentResponse.data;
-            if (result.success) {
+            if (result.status) {
               alert("Payment successful and order updated!");
               // Redirect to order confirmation page or show a success message
             } else {
