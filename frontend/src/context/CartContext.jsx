@@ -1,4 +1,3 @@
-// src/context/CartContext.js
 import React, { createContext, useState, useEffect } from 'react';
 
 export const CartContext = createContext();
@@ -6,7 +5,6 @@ export const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [cartUpdateTrigger, setCartUpdateTrigger] = useState(0);
-
 
   useEffect(() => {
     const handleStorageChange = () => {
@@ -43,8 +41,16 @@ export const CartProvider = ({ children }) => {
     updateCart(updatedCart);
   };
 
+  const clearCart = () => {
+    setCartItems([]);
+    localStorage.removeItem('cart');
+    setCartUpdateTrigger(prev => prev + 1);
+    const event = new Event('storage');
+    window.dispatchEvent(event);
+  };
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, cartUpdateTrigger }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, cartUpdateTrigger, clearCart }}>
       {children}
     </CartContext.Provider>
   );

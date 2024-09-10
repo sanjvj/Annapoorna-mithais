@@ -12,7 +12,7 @@ import Loader from '../../components/Loader/Loader';
 import { useNavigate } from 'react-router-dom';
 
 const CartPage = () => {
-  const { cartItems, removeFromCart, updateQuantity, cartUpdateTrigger } = useContext(CartContext);
+  const { cartItems, removeFromCart, updateQuantity, cartUpdateTrigger,clearCart } = useContext(CartContext);
 
 useEffect(() => {
   // This effect will run whenever cartUpdateTrigger changes
@@ -174,6 +174,8 @@ useEffect(() => {
             const result = paymentResponse.data;
             if (result.status) {
               alert("Payment successful and order updated!");
+              clearCart();
+              navigate('/orders')
               // Redirect to order confirmation page or show a success message
             } else {
               alert(
@@ -215,8 +217,6 @@ useEffect(() => {
         console.error("Error message:", error.message);
       }
       alert("Failed to create order. Please try again.");
-    }finally{
-      navigate('/');
     }
   };
   const [showOTPVerification, setShowOTPVerification] = useState(false);
