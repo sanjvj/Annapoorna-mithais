@@ -5,15 +5,23 @@ export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
+  const [cartUpdateTrigger, setCartUpdateTrigger] = useState(0);
+
 
   useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
-    setCartItems(storedCart);
+    const handleStorageChange = () => {
+      const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+      setCartItems(storedCart);
+    };
+  
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
   const updateCart = (newCart) => {
     setCartItems(newCart);
     localStorage.setItem('cart', JSON.stringify(newCart));
+    setCartUpdateTrigger(prev => prev + 1);
     const event = new Event('storage');
     window.dispatchEvent(event);
   };
@@ -36,7 +44,7 @@ export const CartProvider = ({ children }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, cartUpdateTrigger }}>
       {children}
     </CartContext.Provider>
   );
