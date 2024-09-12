@@ -1,6 +1,7 @@
 import React from 'react';
-
-const OrderPlacedModal = ({ onClose }) => {
+import { useNavigate } from 'react-router-dom';
+const OrderPlacedModal = () => {
+    const navigate = useNavigate();
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white rounded-xl p-8 max-w-sm w-full flex flex-col items-center">
@@ -20,7 +21,7 @@ const OrderPlacedModal = ({ onClose }) => {
         </p>
         
         <button 
-          onClick={onClose}
+          onClick={()=>{navigate('/orders')}}
           className="bg-gray-800 text-white py-2 px-6 rounded-lg flex items-center"
         >
           <span className="mr-2">

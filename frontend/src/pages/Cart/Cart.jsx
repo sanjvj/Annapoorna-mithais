@@ -292,7 +292,7 @@ useEffect(() => {
       <Navbar cartItemCount={cartItemCount} />
       <Slider />
       {isLoading && <Loader />}
-      {showOrderPlaced && <OrderPlacedModal onClose={handleCloseModal} />}
+      {showOrderPlaced && <OrderPlacedModal />}
       <div className="p-10 lg:border-2 rounded-lg lg:m-10">
         {cartItems.length > 0 ? (
           <div className="lg:flex justify-between">
