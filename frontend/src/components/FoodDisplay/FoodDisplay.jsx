@@ -5,7 +5,7 @@ import Toast from "../Toast"; // Ensure this import is correct
 import SearchWithFilter from "../SearchWithFilter";
 import FilterComponent from "../Filter";
 import { useNavigate } from "react-router-dom";
-const FoodDisplay = ({ category, searchTerm, setSearchTerm }) => {
+const FoodDisplay = ({ category, setCategory ,searchTerm, setSearchTerm }) => {
   const { food_list } = useContext(StoreContext);
   const [selectedItem, setSelectedItem] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -21,7 +21,7 @@ const FoodDisplay = ({ category, searchTerm, setSearchTerm }) => {
   };
 
   const filteredFoodList = food_list.filter((item) =>
-    item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    item.name.toLowerCase().includes(searchTerm.toLowerCase()) || item.category
   );
 
   const handleItemClick = (item) => {
@@ -102,13 +102,13 @@ const FoodDisplay = ({ category, searchTerm, setSearchTerm }) => {
     handleCloseOverlay();
     navigate("/cart");
   };
-  const applyFilters = (filters) => {
-    const { selectedCategory } = filters;
-    const newFilteredFoodList = food_list.filter((item) => {
-      return selectedCategory === "All" || item.category === selectedCategory;
-    });
-    setFilteredFoodList(newFilteredFoodList);
-  };
+  // const applyFilters = (filters) => {
+  //   const { selectedCategory } = filters;
+  //   const newFilteredFoodList = food_list.filter((item) => {
+  //     return selectedCategory === "All" || item.category === selectedCategory;
+  //   });
+  //   setFilteredFoodList(newFilteredFoodList);
+  // };
 
   return (
     <div className="" id="food-display">
@@ -140,21 +140,23 @@ const FoodDisplay = ({ category, searchTerm, setSearchTerm }) => {
             ))}
           </div>
         ) : (
+          <div className="col-span-3">
           <div className="flex flex-col items-center justify-center mt-20">
             <h2 className="text-2xl font-bold text-gray-700 mb-4">
               No Products Found
             </h2>
-            <p className="text-gray-500">
+            <p className="text-gray-500 mb-10">
               Try adjusting your search or filter to find what you're looking
               for!
             </p>
+          </div>
           </div>
         )}
         {filterSelected ? (
           <FilterComponent
             isOpen={filterSelected}
             setIsOpen={setFilterSelected}
-            applyFilters={applyFilters}
+            // applyFilters={applyFilters}
           />
         ) : (
           ""

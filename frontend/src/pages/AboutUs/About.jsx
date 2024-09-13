@@ -8,8 +8,7 @@ import ShopHero from '../../components/ShopHero'
 import FooterBar from '../../components/FooterBar'
 
 const About = () => {
-  const [category, setCategory] = useState("All");
-  const [searchTerm, setSearchTerm] = useState('');
+
   const [cartItemCount, setCartItemCount] = useState(0);
 
   const updateCartItemCount = () => {

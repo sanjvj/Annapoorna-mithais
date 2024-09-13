@@ -6,8 +6,7 @@ import { useState, useEffect } from "react";
 import FooterBar from "../../components/FooterBar";
 
 const Terms = () => {
-  const [category, setCategory] = useState("All");
-  const [searchTerm, setSearchTerm] = useState("");
+
   const [cartItemCount, setCartItemCount] = useState(0);
 
   const updateCartItemCount = () => {

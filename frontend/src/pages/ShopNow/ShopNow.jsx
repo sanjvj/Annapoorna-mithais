@@ -34,7 +34,7 @@ const ShopNow = () => {
       <Navbar cartItemCount={cartItemCount} />
       <Slider />
       <ExploreMenu title1='What are you' title2='searching for?' />      
-      <FoodDisplay searchTerm={searchTerm} />
+      <FoodDisplay category={category} setCategory={setCategory} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <ShopHero />
       <Footer />
       <FooterBar cartItemCount={cartItemCount} />
