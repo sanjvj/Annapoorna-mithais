@@ -10,6 +10,7 @@ import axios from "axios";
 import { CartContext } from '../../context/CartContext';
 import Loader from '../../components/Loader/Loader';
 import { useNavigate } from 'react-router-dom';
+import OrderPlacedModal from '../../components/OrderPlaced';
 
 const CartPage = () => {
   const { cartItems, removeFromCart, updateQuantity, cartUpdateTrigger,clearCart } = useContext(CartContext);
@@ -22,7 +23,7 @@ useEffect(() => {
   const [loggedin,setLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-
+  const [showOrderPlaced,setShowOrderPlaced] = useState(false);
   const handleSendOtp = () => {
     setShowLogin(true);
     console.log(cartItems)
@@ -173,9 +174,9 @@ useEffect(() => {
   
             const result = paymentResponse.data;
             if (result.status) {
-              alert("Payment successful and order updated!");
+              setShowOrderPlaced(true);
               clearCart();
-              navigate('/orders')
+              
               // Redirect to order confirmation page or show a success message
             } else {
               alert(
@@ -276,7 +277,7 @@ useEffect(() => {
   const calculateFinalAmount = () => {
     const subtotal = calculateSubtotal();
     const gst = subtotal * 0.12; // 12% GST
-    const specialOffer = 400; // Fixed discount
+    const specialOffer = 0; // Fixed discount
     return {
       total: subtotal + gst - specialOffer,
       gst,
@@ -291,6 +292,7 @@ useEffect(() => {
       <Navbar cartItemCount={cartItemCount} />
       <Slider />
       {isLoading && <Loader />}
+      {showOrderPlaced && <OrderPlacedModal onClose={handleCloseModal} />}
       <div className="p-10 lg:border-2 rounded-lg lg:m-10">
         {cartItems.length > 0 ? (
           <div className="lg:flex justify-between">
@@ -336,10 +338,10 @@ useEffect(() => {
                   <p className='text-[#909090] text-[12px] font-semibold font-Nunito'>GST (12%) </p>
                   <p className='font-bold font-Nunito text-[#606060] text-[14px]'>₹{gst.toFixed(2)}</p>
                 </div>
-                <div className='flex justify-between mb-2'>
+                {/* <div className='flex justify-between mb-2'>
                   <p className='text-[#909090] text-[12px] font-semibold font-Nunito'>SPECIAL OFFER </p>
                   <p className='font-bold font-Nunito text-[#606060] text-[14px]'>-₹{specialOffer}</p>
-                </div>
+                </div>  */}
                 <div className='flex justify-between mb-2'>
                   <p className='text-[#909090] text-[12px] font-semibold font-Nunito'>DELIVERY FEE </p>
                   <p className='font-Nunito text-[#D31B21] text-[14px] font-extrabold'>FREE</p>
