@@ -13,13 +13,13 @@ import { useNavigate } from 'react-router-dom';
 import OrderPlacedModal from '../../components/OrderPlaced';
 
 const CartPage = () => {
-  const { cartItems, removeFromCart, updateQuantity, cartUpdateTrigger,clearCart } = useContext(CartContext);
+  const { cartItems, removeFromCart, updateQuantity, cartUpdateTrigger,clearCart,inputValue,setInputValue } = useContext(CartContext);
 
 useEffect(() => {
   // This effect will run whenever cartUpdateTrigger changes
   // You can add any additional logic here if needed
 }, [cartItems]);
-  const [inputValue,setInputValue] = useState('');
+  
   const [loggedin,setLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -373,7 +373,7 @@ useEffect(() => {
 
       {showLogin && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <Login setShowLogin={setShowLogin} setShowOTPVerification={setShowOTPVerification} inputValue={inputValue} setInputValue={setInputValue} />
+          <Login setShowLogin={setShowLogin} setShowOTPVerification={setShowOTPVerification} setInputValue={setInputValue} />
         </div>
       )}
       {showOTPVerification && (
@@ -381,7 +381,7 @@ useEffect(() => {
           <OTPVerification 
             setShowOTPVerification={setShowOTPVerification}
             onVerificationSuccess={handleVerificationSuccess}
-            inputValue = {inputValue}
+          
             setLoggedIn={setLoggedIn}
           />
         </div>

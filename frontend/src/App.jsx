@@ -5,6 +5,7 @@ import Loader from "./components/Loader/Loader";
 import { CartProvider } from "./context/CartContext";
 import Orders from "./pages/Orders/Orders";
 
+
 // Lazy load components
 const Home = lazy(() => import("./pages/Home/Home"));
 const ShopNow = lazy(() => import("./pages/ShopNow/ShopNow"));
@@ -14,6 +15,7 @@ const Contact = lazy(() => import("./pages/ContactUs/Contact"));
 const Terms = lazy(() => import("./pages/Terms&Conditions/Terms"));
 const Refund = lazy(() => import("./pages/RefundPolicy.jsx/Refund"));
 const Privacy = lazy(() => import("./pages/Privacy/Privacy"));
+const Admin = lazy(() => import("./pages/Admin/Admin"));
 
 // Loading component
 
@@ -32,6 +34,7 @@ function App() {
             <Route path="/refund" element={<Refund />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/orders" element={<Orders></Orders>} />
+            <Route path="/admin" element={<Admin></Admin>} />
           </Routes>
         </CartProvider>
       </Suspense>

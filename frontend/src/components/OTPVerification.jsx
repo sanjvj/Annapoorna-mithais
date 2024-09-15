@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import VerificationSuccess from '../components/VerificationSuccess'
 import axios from "axios";
+import { CartContext } from "../context/CartContext";
+import { useContext } from "react";
 
-const OTPVerification = ({ setShowOTPVerification, onVerificationSuccess,inputValue,setLoggedIn }) => {
+const OTPVerification = ({ setShowOTPVerification, onVerificationSuccess,setLoggedIn }) => {
+  const { inputValue } = useContext(CartContext);
   const [otp, setOTP] = useState(["", "", "", "", "", ""]);
   const [timer, setTimer] = useState(60);
   const [canResend, setCanResend] = useState(false);
@@ -158,7 +161,7 @@ const OTPVerification = ({ setShowOTPVerification, onVerificationSuccess,inputVa
           <input
             key={index}
             id={`otp-${index}`}
-            type="text"
+            type="tel"
             value={digit}
             onChange={(e) => handleOTPChange(index, e.target.value)}
             className="w-10 h-12 text-center border-2 border-[#FAAF40] rounded-md font-bold text-lg"

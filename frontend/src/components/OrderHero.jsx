@@ -1,85 +1,74 @@
-import React from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { CartContext } from '../context/CartContext';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const OrdersPage = () => {
-  const completedOrders = [
-    {
-      id: '66765664',
-      date: 'Delivered on 17 sep, 2023 | 12:00 am',
-      status: 'DELIVERED',
-      address: 'Old No. 130, 130, Dr MGR Salai, Near Periyar Kaladar Nagar, Nungambakkam, Chennai',
-      items: [
-        { name: 'Product name', price: '₹1400/KG', offer: '₹1400', quantity: '2kg' },
-        { name: 'Product name', price: '₹1400/KG', offer: '₹1400', quantity: '2kg' },
-        { name: 'Product name', price: '₹1400/KG', offer: '₹1400', quantity: '2kg' },
-      ],
-      total: '₹1160',
-      savings: '₹499',
-    },
-    {
-      id: '66785664',
-      date: 'Delivered on 17 sep, 2023 | 12:00 am',
-      status: 'DELIVERED',
-      address: 'Old No. 130, 130, Dr MGR Salai, Near Periyar Kaladar Nagar, Nungambakkam, Chennai',
-      items: [
-        { name: 'Product name', price: '₹1400/KG', offer: '₹1400', quantity: '2kg' },
-        { name: 'Product name', price: '₹1400/KG', offer: '₹1400', quantity: '2kg' },
-        { name: 'Product name', price: '₹1400/KG', offer: '₹1400', quantity: '2kg' },
-      ],
-      total: '₹1160',
-      savings: '₹499',
-    },
-    // Add more completed orders as needed
-  ];
+  const { inputValue } = useContext(CartContext);
+  const [orders, setOrders] = useState([]);
+  const navigate = useNavigate();
+  const handleGetRequest = async () => {
+    try {
+      const authToken = localStorage.getItem("authToken");
+      const response = await axios.get(`https://annapoorna-backend.onrender.com/customers/create-order?mobileNumber=${inputValue}`, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      setOrders(response.data.result);
+      console.log(response.data.result);
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    }
+  };
 
-  const ongoingOrders = [
-    {
-      id: '66765664',
-      date: 'Ordered on 17 sep, 2023 | 12:00 am',
-      status: 'ORDER SHIPPED',
-      address: 'HOME | Old No. 130, 130, Dr MGR Salai, Near Periyar Kaladar Nagar, Nungambakkam, Chennai',
-      items: [
-        { name: 'Product name', price: '₹1400/KG', offer: '₹1400', quantity: '2kg' },
-        { name: 'Product name', price: '₹1400/KG', offer: '₹1400', quantity: '2kg' },
-        { name: 'Product name', price: '₹1400/KG', offer: '₹1400', quantity: '2kg' },
-      ],
-      total: '₹1160',
-      savings: '₹499',
-    },
-  ];
+  useEffect(() => {
+    handleGetRequest();
+  }, []);
 
   const OrderCard = ({ order, isOngoing }) => (
-    <div className="bg-white rounded-lg p-4 mb-4 font-Nunito">
-      <div className="flex justify-between items-center mb-2">
+    <div className="bg-white rounded-lg p-4 mb-4 font-Nunito md:mx-10 border border-[#E6E6E6]">
+      <div className="flex justify-between items-center mb-2 ">
         <div>
-          <p className="font-semibold">ORDER ID: {order.id}</p>
-          <p className="text-xs text-gray-500">{order.date}</p>
+          <p className="font-bold text-[12px]">ORDER ID: {order.order_id}</p>
+          <p className="text-[#909090] text-[10px]">Ordered on {new Date(order.created_at).toLocaleString()}</p>
         </div>
-        <span className={`px-2 py-1 rounded-full text-xs ${isOngoing ? 'bg-orange-100 text-orange-800' : 'bg-green-100 text-green-800'}`}>
-          {order.status}
+        <span className={`px-2 py-1 rounded-md text-[10px] font-extrabold ${
+          order.delivery_status === 'delivered' ? 'bg-green-100 border border-[#26A460] text-[#26A460]' :
+          order.delivery_status === 'processing' ? 'bg-orange-100 border border-[#FAAF40] text-[#FAAF40]' :
+          'bg-yellow-100 border border-[#FFD700] text-[#FFD700]'
+        }`}>
+          {order.delivery_status.toUpperCase()}
         </span>
       </div>
-      <div className="mb-2">
-        <p className="text-xs text-gray-600 mb-1">DELIVERY ADDRESS</p>
-        <p className="text-xs">{order.address}</p>
+      <div className="mb-[24px]">
+        <p className="text-xs text-[#909090] mb-1">DELIVERY ADDRESS</p>
+        <p className="text-xs text-[#1E1E1E]">{order.address || 'Address not available'}</p>
       </div>
       {isOngoing && (
-        <button className="w-full py-2 bg-[#F6EFE2] text-[#332D21] rounded text-sm font-semibold mb-2">
-          Track order
+        <button className="w-full py-2 rounded-lg text-sm font-semibold mb-[24px] bg-[#E9DEC6] text-[#6B4B34]">
+          Track Order
         </button>
       )}
-      {order.items.map((item, index) => (
-        <div key={index} className="flex justify-between items-center py-2 border-t">
-          <div className="flex items-center">
-            <div className="w-12 h-12 bg-gray-200 rounded-md mr-2"></div>
-            <div>
-              <p className="text-sm font-semibold">{item.name}</p>
-              <p className="text-xs text-gray-500">{item.price}</p>
-              <p className="text-xs text-yellow-500">with offer {item.offer}</p>
+      {Array.isArray(order.order_items) && order.order_items.length > 0 ? (
+        order.order_items.map((item, index) => (
+          <div key={index} className="flex justify-between items-center my-[10px]">
+            <div className="flex items-center">
+              <div className="w-12 h-12 bg-gray-200 rounded-md mr-2"></div>
+              <div>
+                <p className="text-sm font-semibold">{item.name || 'Product name'}</p>
+                <p className="text-xs text-gray-500">₹{item.price || '0'}</p>
+                {/* Removed offer price as it's not in the provided data structure */}
+              </div>
             </div>
+            <p className="text-xs">QTY: {item.quantity || '1'}</p>
           </div>
-          <p className="text-xs">QTY: {item.quantity}</p>
-        </div>
-      ))}
+        ))
+      ) : (
+        <p className="text-sm text-gray-500">No items in this order</p>
+      )}
       {!isOngoing && (
         <button className="w-full mt-2 py-2 bg-white border border-gray-300 rounded text-sm text-gray-700 hover:bg-gray-50">
           Order Again
@@ -88,47 +77,50 @@ const OrdersPage = () => {
       <div className="mt-2 bg-gray-50 p-2 rounded">
         <div className="flex justify-between mb-1">
           <span className="text-sm font-semibold">{isOngoing ? 'FINAL AMOUNT' : 'TOTAL ORDER AMOUNT'}</span>
-          <span className="text-sm font-semibold">{order.total}</span>
+          <span className="text-sm font-semibold">₹{order.total_price || '0'}</span>
         </div>
-        <p className="text-xs text-green-600 mb-1">You saved {order.savings} in this order!</p>
-        <div className="text-xs">
-          <div className="flex justify-between">
-            <span>TOTAL AMOUNT</span>
-            <span>₹1500</span>
-          </div>
-          <div className="flex justify-between">
-            <span>GST(12%)</span>
-            <span>+ ₹40</span>
-          </div>
-          <div className="flex justify-between">
-            <span>SPECIAL OFFER(25%)</span>
-            <span>- ₹400</span>
-          </div>
-          <div className="flex justify-between">
-            <span>DELIVERY FEE</span>
-            <span className="text-green-600">FREE</span>
-          </div>
-        </div>
+        {/* Removed savings information as it's not provided in the data */}
+        <p className="text-xs text-gray-600 mb-1">Payment Status: {order.payment_status}</p>
       </div>
     </div>
   );
 
+  if (orders.length === 0) {
+    return (
+      <div className="container mx-auto p-10 border border-[#E6E6E6] rounded-lg m-4 font-Nunito">
+        <div className="text-center py-10">
+          <h2 className="text-2xl font-bold mb-4">You haven't purchased anything from us yet</h2>
+          <p className="text-gray-600 mb-4">Start shopping to see your orders here!</p>
+          <button className='px-4 py-2 rounded-lg bg-[#d7c59e] text-[#6B4B34]' onClick={()=>{navigate('/shop')}}>SHOP NOW</button>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="container mx-auto p-10 border rounded-lg m-4">
+    <div className="container mx-auto p-10 border border-[#E6E6E6] rounded-lg m-4 font-Nunito">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <h1 className="text-xl font-bold mb-4">Order History</h1>
-          {completedOrders.map((order) => (
-            <OrderCard key={order.id} order={order} isOngoing={false} />
+          <h1 className="font-bold mb-4 md:ml-10 text-[16px] text-[#1E1E1E]">Order History</h1>
+          {orders.filter(order => order.delivery_status === 'delivered').map((order) => (
+            <OrderCard key={order.order_id} order={order} isOngoing={false} />
           ))}
+          {orders.filter(order => order.delivery_status === 'delivered').length === 0 && (
+            <p className="text-center text-gray-500 md:ml-10">No completed orders yet.</p>
+          )}
         </div>
         <div>
-          <h1 className="text-xl font-bold mb-4">
-            Ongoing orders <span className="bg-red-500 text-white rounded-full px-2 py-1 text-xs">{ongoingOrders.length}</span>
+          <h1 className="text-[#1E1E1E] text-[16px] font-bold mb-4 md:ml-10">
+            Ongoing orders <span className="bg-red-500 text-white items-center rounded-full px-2 py-1 text-xs">
+              {orders.filter(order => order.delivery_status !== 'delivered').length}
+            </span>
           </h1>
-          {ongoingOrders.map((order) => (
-            <OrderCard key={order.id} order={order} isOngoing={true} />
+          {orders.filter(order => order.delivery_status !== 'delivered').map((order) => (
+            <OrderCard key={order.order_id} order={order} isOngoing={true} />
           ))}
+          {orders.filter(order => order.delivery_status !== 'delivered').length === 0 && (
+            <p className="text-center text-gray-500 md:ml-10">No ongoing orders.</p>
+          )}
         </div>
       </div>
     </div>

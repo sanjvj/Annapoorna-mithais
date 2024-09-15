@@ -5,6 +5,7 @@ import Toast from "../Toast"; // Ensure this import is correct
 import SearchWithFilter from "../SearchWithFilter";
 import FilterComponent from "../Filter";
 import { useNavigate } from "react-router-dom";
+import SearchBar from "../SearchBar";
 const FoodDisplay = ({ category, setCategory ,searchTerm, setSearchTerm }) => {
   const { food_list } = useContext(StoreContext);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -20,8 +21,9 @@ const FoodDisplay = ({ category, setCategory ,searchTerm, setSearchTerm }) => {
     setFilterSelected(!filterSelected);
   };
 
-  const filteredFoodList = food_list.filter((item) =>
-    item.name.toLowerCase().includes(searchTerm.toLowerCase()) || item.category
+  const filteredFoodList = food_list.filter((item) => 
+    item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (item.category && item.category.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   const handleItemClick = (item) => {
@@ -112,10 +114,10 @@ const FoodDisplay = ({ category, setCategory ,searchTerm, setSearchTerm }) => {
 
   return (
     <div className="" id="food-display">
-      <SearchWithFilter
+      <SearchBar
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
-        toggleFilter={toggleFilter}
+        
       />
 
       <div className="grid grid-cols-2 md:grid-cols-3">

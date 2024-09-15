@@ -3,6 +3,7 @@ import React, { createContext, useState, useEffect } from 'react';
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
+  const [inputValue,setInputValue] = useState('');
   const [cartItems, setCartItems] = useState(() => {
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
     return storedCart;
@@ -53,7 +54,7 @@ export const CartProvider = ({ children }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, cartUpdateTrigger, clearCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, cartUpdateTrigger, clearCart,inputValue,setInputValue }}>
       {children}
     </CartContext.Provider>
   );

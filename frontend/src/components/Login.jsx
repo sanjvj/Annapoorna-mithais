@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
+const Login = ({ setShowLogin, setShowOTPVerification}) => {
+  const { inputValue,setInputValue } = useContext(CartContext);
 
-const Login = ({ setShowLogin, setShowOTPVerification,inputValue,setInputValue }) => {
-  
   const [showError, setShowError] = useState(false);
 
   const handleChange = (e) => {
@@ -68,7 +70,7 @@ const Login = ({ setShowLogin, setShowOTPVerification,inputValue,setInputValue }
       </h1>
       <div className="flex items-center border-2 w-[320px] h-[48px] border-[#FAAF40] p-2 rounded-md">
         <input
-          type="text"
+          type="tel"
           value={inputValue}
           onChange={handleChange}
           placeholder="Enter mobile number"
