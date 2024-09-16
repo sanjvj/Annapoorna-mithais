@@ -29,6 +29,15 @@ useEffect(() => {
     setShowLogin(true);
     console.log(cartItems)
   }
+
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    if (authToken) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
+  }, []);
   // const handlePlaceOrder = async () => {
     
   //   // Step 1: Create an order in your backend to get an order ID

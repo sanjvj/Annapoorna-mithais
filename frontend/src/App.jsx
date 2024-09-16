@@ -3,8 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Loader from "./components/Loader/Loader";
 import { CartProvider } from "./context/CartContext";
-import Orders from "./pages/Orders/Orders";
-import ProfilePage from "./pages/Profile/Profile";
 
 
 // Lazy load components
@@ -17,7 +15,9 @@ const Terms = lazy(() => import("./pages/Terms&Conditions/Terms"));
 const Refund = lazy(() => import("./pages/RefundPolicy.jsx/Refund"));
 const Privacy = lazy(() => import("./pages/Privacy/Privacy"));
 const Admin = lazy(() => import("./pages/Admin/Admin"));
-
+const Orders = lazy(() => import("./pages/Orders/Orders"));
+const ProfilePage = lazy(()=> import("./pages/Profile/Profile"));
+const AdminLogin = lazy(()=> import('./components/AdminLogin'));
 // Loading component
 
 function App() {
@@ -36,7 +36,8 @@ function App() {
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/orders" element={<Orders></Orders>} />
             <Route path="/profile" element={<ProfilePage></ProfilePage>} />
-            <Route path="/admin" element={<Admin></Admin>} />
+            <Route path="/admin/dashboard" element={<Admin></Admin>} />
+            <Route path="/admin" element={<AdminLogin></AdminLogin>} />
           </Routes>
         </CartProvider>
       </Suspense>
