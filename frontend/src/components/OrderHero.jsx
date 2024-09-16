@@ -35,7 +35,7 @@ const OrdersPage = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 2000);
 
     handleGetRequest();
 
@@ -77,7 +77,9 @@ const OrdersPage = () => {
             className="flex justify-between items-center my-[10px]"
           >
             <div className="flex items-center">
-              <div className="w-12 h-12 bg-gray-200 rounded-md mr-2"></div>
+              <div className="w-12 h-12 bg-gray-200 rounded-md mr-2">
+              <img src={item.image} className="w-12 h-12 rounded-md"></img>
+              </div>
               <div>
                 <p className="text-sm font-semibold">
                   {item.name || "Product name"}
