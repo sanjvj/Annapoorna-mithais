@@ -1,34 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
+import { CartContext } from '../context/CartContext'; // Adjust the import path as needed
 
 const AddressForm = ({ onClose }) => {
-  const [addresses, setAddresses] = useState([]);
-  const [formData, setFormData] = useState({
-    name: '',
-    mobileOrEmail: '',
-    pincode: '',
-    landmark: '',
-    addressLine1: '',
-    addressLine2: '',
-  });
-
-  useEffect(() => {
-    const storedAddresses = JSON.parse(localStorage.getItem('addresses')) || [];
-    setAddresses(storedAddresses);
-  }, []);
+  const { formData, updateFormData, addAddress } = useContext(CartContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevData => ({
-      ...prevData,
-      [name]: value
-    }));
+    updateFormData({ [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newAddresses = [...addresses, formData];
-    setAddresses(newAddresses);
-    localStorage.setItem('addresses', JSON.stringify(newAddresses));
+    addAddress();
     onClose();
   };
 
@@ -60,10 +43,10 @@ const AddressForm = ({ onClose }) => {
           <div className="mb-4">
             <input
               type="text"
-              name="mobileOrEmail"
-              value={formData.mobileOrEmail}
+              name="mobile"
+              value={formData.mobile}
               onChange={handleChange}
-              placeholder="Mobile or Email"
+              placeholder="Mobile Number"
               className="w-full p-2 border rounded"
               required
             />
@@ -96,7 +79,7 @@ const AddressForm = ({ onClose }) => {
               name="addressLine1"
               value={formData.addressLine1}
               onChange={handleChange}
-              placeholder="Address line 1"
+              placeholder="Enter your Address"
               className="w-full p-2 border rounded"
               required
             />
@@ -104,10 +87,10 @@ const AddressForm = ({ onClose }) => {
           <div className="mb-6">
             <input
               type="text"
-              name="addressLine2"
-              value={formData.addressLine2}
+              name="email"
+              value={formData.email}
               onChange={handleChange}
-              placeholder="Address line 2"
+              placeholder="Enter your mail Id"
               className="w-full p-2 border rounded"
             />
           </div>

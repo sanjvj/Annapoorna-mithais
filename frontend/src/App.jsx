@@ -4,6 +4,7 @@ import "./App.css";
 import Loader from "./components/Loader/Loader";
 import { CartProvider } from "./context/CartContext";
 import Orders from "./pages/Orders/Orders";
+import ProfilePage from "./pages/Profile/Profile";
 
 
 // Lazy load components
@@ -34,6 +35,7 @@ function App() {
             <Route path="/refund" element={<Refund />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/orders" element={<Orders></Orders>} />
+            <Route path="/profile" element={<ProfilePage></ProfilePage>} />
             <Route path="/admin" element={<Admin></Admin>} />
           </Routes>
         </CartProvider>

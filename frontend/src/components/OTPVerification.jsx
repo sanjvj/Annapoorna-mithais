@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
-import VerificationSuccess from '../components/VerificationSuccess'
+import VerificationSuccess from "../components/VerificationSuccess";
 import axios from "axios";
 import { CartContext } from "../context/CartContext";
 import { useContext } from "react";
 
-const OTPVerification = ({ setShowOTPVerification, onVerificationSuccess,setLoggedIn }) => {
+const OTPVerification = ({
+  setShowOTPVerification,
+  onVerificationSuccess,
+  setLoggedIn,
+}) => {
   const { inputValue } = useContext(CartContext);
   const [otp, setOTP] = useState(["", "", "", "", "", ""]);
   const [timer, setTimer] = useState(60);
@@ -37,7 +41,7 @@ const OTPVerification = ({ setShowOTPVerification, onVerificationSuccess,setLogg
   //     const response = await axios.post("https://annapoorna-backend.onrender.com/customers/verify-otp",{
   //       mobileNumber: inputValue,
   //       otp : otpString,
-        
+
   //     },{credentials:"include"})
   //     console.log(response);
   //   }catch(error){
@@ -51,10 +55,10 @@ const OTPVerification = ({ setShowOTPVerification, onVerificationSuccess,setLogg
       setError("Please enter all 6 digits of the OTP.");
       return;
     }
-  
+
     console.log("Mobile Number:", inputValue);
     console.log("OTP entered:", otpString);
-  
+
     try {
       const response = await axios.post(
         "https://annapoorna-backend.onrender.com/customers/verify-otp",
@@ -64,14 +68,14 @@ const OTPVerification = ({ setShowOTPVerification, onVerificationSuccess,setLogg
         },
         { withCredentials: true }
       );
-  
+
       console.log("OTP verification response:", response.data);
-  
+
       if (response.data.status) {
         // OTP verification successful
         console.log("OTP verified successfully");
         setIsVerified(true);
-        localStorage.setItem("authToken",response.data.token);
+        localStorage.setItem("authToken", response.data.token);
         // Handle successful verification (e.g., log the user in, redirect to dashboard)
         setLoggedIn(true);
         // navigate('/dashboard');
@@ -81,10 +85,13 @@ const OTPVerification = ({ setShowOTPVerification, onVerificationSuccess,setLogg
       }
     } catch (error) {
       console.error("Error verifying OTP:", error);
-  
+
       if (error.response) {
         console.error("Server responded with:", error.response.data);
-        setError(error.response.data.message || "Failed to verify OTP. Please try again.");
+        setError(
+          error.response.data.message ||
+            "Failed to verify OTP. Please try again."
+        );
       } else if (error.request) {
         console.error("No response received:", error.request);
         setError("Network error. Please check your connection and try again.");
@@ -93,7 +100,7 @@ const OTPVerification = ({ setShowOTPVerification, onVerificationSuccess,setLogg
         setError("An unexpected error occurred. Please try again later.");
       }
     }
-  }; 
+  };
 
   const handleOTPChange = (index, value) => {
     if (/^\d*$/.test(value) && value.length <= 1) {
@@ -109,9 +116,8 @@ const OTPVerification = ({ setShowOTPVerification, onVerificationSuccess,setLogg
     }
   };
 
-
   //Dummy verification as of now
-  // const handleVerify = async () => { 
+  // const handleVerify = async () => {
   //   const otpString = otp.join("");
   //   if (otpString.length !== 6) {
   //     setError("Please enter all 6 digits of the OTP.");
@@ -122,7 +128,7 @@ const OTPVerification = ({ setShowOTPVerification, onVerificationSuccess,setLogg
   //     // Simulating an API call
   //     await new Promise(resolve => setTimeout(resolve, 1000));
   //     setIsVerified(true);
-      
+
   //     onVerificationSuccess();
   //     console.log(otpString);
   //   } catch (error) {
@@ -139,7 +145,7 @@ const OTPVerification = ({ setShowOTPVerification, onVerificationSuccess,setLogg
   };
 
   if (isVerified) {
-    return <VerificationSuccess  onClose={() => setIsVerified(false)} />;
+    return <VerificationSuccess onClose={() => setIsVerified(false)} />;
   }
 
   return (
@@ -180,9 +186,7 @@ const OTPVerification = ({ setShowOTPVerification, onVerificationSuccess,setLogg
             Resend OTP
           </button>
         ) : (
-          <span className="text-[#FAAF40]">
-            Resend OTP in {timer}s
-          </span>
+          <span className="text-[#FAAF40]">Resend OTP in {timer}s</span>
         )}
       </p>
       <button

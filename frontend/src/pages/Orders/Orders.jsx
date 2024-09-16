@@ -6,6 +6,7 @@ import Footer from '../../components/Footer';
 import FooterBar from '../../components/FooterBar';
 import ShopHero from '../../components/ShopHero';
 import OrderHero from '../../components/OrderHero';
+import CartHeader from '../../components/CartHeader';
 const Orders = () => {
  
   const [cartItemCount, setCartItemCount] = useState(0);
@@ -27,6 +28,7 @@ const Orders = () => {
   return <div>
      <Navbar cartItemCount={cartItemCount} />
      <Slider></Slider>
+     <CartHeader></CartHeader>
      <OrderHero></OrderHero>
      <ShopHero />
      <Footer></Footer>

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
-const Login = ({ setShowLogin, setShowOTPVerification}) => {
-  const { inputValue,setInputValue } = useContext(CartContext);
+const Login = ({ setShowLogin, setShowOTPVerification }) => {
+  const { inputValue, setInputValue } = useContext(CartContext);
 
   const [showError, setShowError] = useState(false);
 
@@ -19,10 +19,10 @@ const Login = ({ setShowLogin, setShowOTPVerification}) => {
       setShowError(true);
       return;
     }
-  
+
     setShowLogin(false);
     setShowOTPVerification(true);
-  
+
     try {
       console.log("Sending OTP to:", inputValue);
       const response = await axios.post(
@@ -49,7 +49,6 @@ const Login = ({ setShowLogin, setShowOTPVerification}) => {
       // setErrorMessage("Failed to send OTP. Please try again.");
     }
   };
-  
 
   return (
     <div className="relative w-[400px] h-auto bg-white rounded-xl p-10 shadow-lg">
@@ -76,17 +75,15 @@ const Login = ({ setShowLogin, setShowOTPVerification}) => {
           placeholder="Enter mobile number"
           className="outline-none flex-grow text-[14px] font-Nunito font-bold"
         />
-        {inputValue.length === 10 && (
-          <img src="verified.svg" alt="Verified" />
-        )}
+        {inputValue.length === 10 && <img src="verified.svg" alt="Verified" />}
       </div>
       {showError && (
         <p className="text-red-500 text-[12px] font-Nunito mt-2">
           Please enter a valid 10-digit mobile number.
         </p>
       )}
-      <button 
-        className="bg-[#332D21] text-white font-bold py-3 px-4 rounded-lg mt-8 w-full" 
+      <button
+        className="bg-[#332D21] text-white font-bold py-3 px-4 rounded-lg mt-8 w-full"
         onClick={handleMobileNumber}
       >
         Proceed to verify

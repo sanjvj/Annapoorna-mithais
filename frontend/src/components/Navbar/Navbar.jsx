@@ -70,7 +70,7 @@ const Navbar = ({ cartItemCount }) => {
       <div className="flex gap-10 h-6 mr-4">
         
         <div
-          className={`cursor-pointer ${selected === 'profile' ? 'underline-animation' : ''}`}
+          className={`cursor-pointer ${selected === 'profile' ? '' : ''}`}
           onClick={() => handleSelect('profile')}
         >
           <img src="Profile.svg" className="lg:w-[30px] lg:h-[30px] w-[24px] h-[24px] text-[#70513A]" />

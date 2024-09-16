@@ -18,7 +18,7 @@ const Admin = () => {
     const response = await axios.patch(
       "https://annapoorna-backend.onrender.com/admin/manage-orders",
       {
-        order_id : 20,
+        order_id : 81,
         delivery_status : value
       }
     );

@@ -11,9 +11,10 @@ import { CartContext } from '../../context/CartContext';
 import Loader from '../../components/Loader/Loader';
 import { useNavigate } from 'react-router-dom';
 import OrderPlacedModal from '../../components/OrderPlaced';
+import CartHeader from '../../components/CartHeader'
 
 const CartPage = () => {
-  const { cartItems, removeFromCart, updateQuantity, cartUpdateTrigger,clearCart,inputValue,setInputValue } = useContext(CartContext);
+  const { cartItems, removeFromCart, updateQuantity, cartUpdateTrigger,clearCart,inputValue,setInputValue,formData } = useContext(CartContext);
 
 useEffect(() => {
   // This effect will run whenever cartUpdateTrigger changes
@@ -114,7 +115,7 @@ useEffect(() => {
       console.log(cartItems)
       // Step 1: Create an order in your backend to get an order ID
       const authToken = localStorage.getItem("authToken");
-      
+      const address = formData.addressLine1 + " " + formData.landmark +","+ formData.pincode
       // Make sure authToken exists
       if (!authToken) {
         throw new Error("No authentication token found. Please log in.");
@@ -125,9 +126,11 @@ useEffect(() => {
         {
           totalPrice: total.toFixed(2),
           currency: "INR",
-          name: "muhil",
-          email: "muhil@gmail.com",
-          mobile: "9342407556",
+          name: formData.name,
+          email: formData.email,
+          mobile: formData.mobile,
+          user_mobile: inputValue,
+          address : address,
           role: "customer",
           orderItems: cartItems,
         },
@@ -152,6 +155,7 @@ useEffect(() => {
         order_id: order.id,
         handler: async (response) => {
           try {
+            console.log(formData);
             setIsLoading(true);
             const paymentResponse = await axios.post(
               "https://annapoorna-backend.onrender.com/customers/verify-order",
@@ -161,7 +165,8 @@ useEffect(() => {
                 razorpayOrderId: response.razorpay_order_id,
                 razorpaySignature: response.razorpay_signature,
                 orderItems: cartItems,
-                totalAmount: total.toFixed(2)
+                totalAmount: total.toFixed(2),
+                email : formData.email
               },
               {
                 withCredentials: true,
@@ -291,6 +296,7 @@ useEffect(() => {
     <div>
       <Navbar cartItemCount={cartItemCount} />
       <Slider />
+      <CartHeader></CartHeader>
       {isLoading && <Loader />}
       {showOrderPlaced && <OrderPlacedModal />}
       <div className="p-10 lg:border-2 rounded-lg lg:m-10">
