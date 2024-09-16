@@ -2,10 +2,12 @@ import React from 'react'
 import { useState,useContext } from 'react';
 import { createContext } from 'react';
 import { CartContext } from '../context/CartContext';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileHero = () => {
     const { formData, updateFormData } = useContext(CartContext);
     const [localFormData, setLocalFormData] = useState(formData);
+    const navigate = useNavigate();
   
     const handleChange = (e) => {
       const { name, value } = e.target;
@@ -20,6 +22,11 @@ const ProfileHero = () => {
       updateFormData(localFormData);
       // You might want to add some feedback here, like a success message
     };
+
+    const handleLogout = () => {
+      localStorage.removeItem("authToken");
+      navigate('/')
+    }
   
     return (
       <div className="flex flex-col md:flex-row gap-8 p-6 max-w-6xl mx-auto">
@@ -40,7 +47,7 @@ const ProfileHero = () => {
               <li className="flex items-center"><span className="mr-2">❓</span> Help & Support</li>
               <li className="flex items-center"><span className="mr-2">📞</span> Contact Us</li>
               <li className="flex items-center"><span className="mr-2">📄</span> T&C and Privacy policy</li>
-              <li className="flex items-center"><span className="mr-2">🚪</span> Logout</li>
+              <li className="flex items-center cursor-pointer" onClick={handleLogout}><span className="mr-2">🚪</span> Logout</li>
             </ul>
           </div>
         </div>
