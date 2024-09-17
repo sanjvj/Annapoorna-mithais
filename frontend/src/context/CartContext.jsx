@@ -3,21 +3,28 @@ import React, { createContext, useState, useEffect } from 'react';
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [inputValue, setInputValue] = useState('');
   const [cartItems, setCartItems] = useState(() => {
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
     return storedCart;
   });
   const [cartUpdateTrigger, setCartUpdateTrigger] = useState(0);
   
-  // New state for address form
-  const [formData, setFormData] = useState({
-    name: '',
-    mobile: '',
-    pincode: '',
-    landmark: '',
-    addressLine1: '',
-    email: '',
+  // Load inputValue and formData from localStorage
+  const [inputValue, setInputValue] = useState(() => {
+    const storedData = JSON.parse(localStorage.getItem('userInfo')) || {};
+    return storedData.inputValue || '';
+  });
+  
+  const [formData, setFormData] = useState(() => {
+    const storedData = JSON.parse(localStorage.getItem('userInfo')) || {};
+    return storedData.formData || {
+      name: '',
+      mobile: '',
+      pincode: '',
+      landmark: '',
+      addressLine1: '',
+      email: '',
+    };
   });
 
   useEffect(() => {
@@ -29,6 +36,12 @@ export const CartProvider = ({ children }) => {
     window.addEventListener('storage', handleStorageChange);
     return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
+
+  // Update localStorage whenever inputValue or formData changes
+  useEffect(() => {
+    const userInfo = { inputValue, formData };
+    localStorage.setItem('userInfo', JSON.stringify(userInfo));
+  }, [inputValue, formData]);
 
   const updateCart = (newCart) => {
     setCartItems(newCart);
@@ -65,15 +78,23 @@ export const CartProvider = ({ children }) => {
 
   // New functions for address form
   const updateFormData = (newData) => {
-    setFormData(prevData => ({ ...prevData, ...newData }));
+    setFormData(prevData => {
+      const updatedData = { ...prevData, ...newData };
+      const userInfo = { inputValue, formData: updatedData };
+      localStorage.setItem('userInfo', JSON.stringify(userInfo));
+      return updatedData;
+    });
+  };
+
+  const setInputValueAndStore = (value) => {
+    setInputValue(value);
+    const userInfo = { inputValue: value, formData };
+    localStorage.setItem('userInfo', JSON.stringify(userInfo));
   };
 
   const addAddress = () => {
-    // Here you can handle what happens when an address is added
-    // For example, you might want to send it to an API or use it elsewhere
     console.log("Address added:", formData);
-    // Reset the form after adding
-    
+    // You can add any additional logic here if needed
   };
 
   return (
@@ -85,7 +106,7 @@ export const CartProvider = ({ children }) => {
       cartUpdateTrigger, 
       clearCart,
       inputValue,
-      setInputValue,
+      setInputValue: setInputValueAndStore,
       formData,
       updateFormData,
       addAddress
