@@ -131,7 +131,7 @@ useEffect(() => {
       }
       const cart = localStorage.getItem("cart");
       const response = await axios.post(
-        "https://annapoorna-backend.onrender.com/customers/create-order",
+        "https://annapoorna-backend.onrender.com/customers/orders",
         {
           totalPrice: total.toFixed(2),
           currency: "INR",
@@ -175,7 +175,10 @@ useEffect(() => {
                 razorpaySignature: response.razorpay_signature,
                 orderItems: cartItems,
                 totalAmount: total.toFixed(2),
-                email : formData.email
+                email : formData.email,
+                userName : formData.name,
+                address : address,
+                mobile : formData.mobile
               },
               {
                 withCredentials: true,
@@ -291,15 +294,17 @@ useEffect(() => {
   const calculateFinalAmount = () => {
     const subtotal = calculateSubtotal();
     const gst = subtotal * 0.12; // 12% GST
+    const delivery = 100;
     const specialOffer = 0; // Fixed discount
     return {
-      total: subtotal + gst - specialOffer,
+      total: subtotal + gst + delivery,
       gst,
       specialOffer,
+      delivery,
     };
   };
 
-  const { total, gst, specialOffer } = calculateFinalAmount();
+  const { total, gst, delivery } = calculateFinalAmount();
 
   return (
     <div>
@@ -359,7 +364,7 @@ useEffect(() => {
                 </div>  */}
                 <div className='flex justify-between mb-2'>
                   <p className='text-[#909090] text-[12px] font-semibold font-Nunito'>DELIVERY FEE </p>
-                  <p className='font-Nunito text-[#D31B21] text-[14px] font-extrabold'>FREE</p>
+                  <p className='font-bold font-Nunito text-[#606060] text-[14px]'>₹{delivery}</p>
                 </div>
                 <div className='flex justify-between p-4 mt-4 bg-[#EDEDED] rounded-lg'>
                   <h4 className="text-[12px] font-extrabold font-Nunito">FINAL AMOUNT TO PAY</h4>

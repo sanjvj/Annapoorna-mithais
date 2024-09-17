@@ -12,7 +12,7 @@ const OrdersPage = () => {
     try {
       const authToken = localStorage.getItem("authToken");
       const response = await axios.get(
-        `https://annapoorna-backend.onrender.com/customers/create-order?mobileNumber=${inputValue}`,
+        `https://annapoorna-backend.onrender.com/customers/orders?mobileNumber=${inputValue}`,
         {
           withCredentials: true,
           headers: {
