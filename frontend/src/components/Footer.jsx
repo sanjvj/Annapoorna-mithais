@@ -1,6 +1,7 @@
 import React from "react";
 import { FaLinkedin, FaFacebook, FaInstagram, FaTimes } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { IoMdMail } from "react-icons/io";
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -103,11 +104,9 @@ const Footer = () => {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <img
-              src="Landline.svg"
-              className="w-[30px] md:w-[40px]"
-              alt="Landline"
-            />
+            <div className="w-[30px] h-[40px] md:w-[40px] md:h-[40px] rounded-full bg-[#E9DEC6] items-center flex justify-center">
+            <IoMdMail color="#806F4F"></IoMdMail>
+            </div>
             <div>
               
               <span className="text-[12px] font-bold font-Nunito ">

@@ -8,6 +8,7 @@ export const CartProvider = ({ children }) => {
     return storedCart;
   });
   const [cartUpdateTrigger, setCartUpdateTrigger] = useState(0);
+  const [loggedin,setLoggedIn] = useState(false);
   
   // Load inputValue and formData from localStorage
   const [inputValue, setInputValue] = useState(() => {
@@ -109,7 +110,9 @@ export const CartProvider = ({ children }) => {
       setInputValue: setInputValueAndStore,
       formData,
       updateFormData,
-      addAddress
+      addAddress,
+      loggedin,
+      setLoggedIn
     }}>
       {children}
     </CartContext.Provider>

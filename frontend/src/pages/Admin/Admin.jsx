@@ -112,9 +112,9 @@ const Admin = () => {
                     setActiveTab(tab);
                     setIsSidebarOpen(false);
                   }}
-                  className={`w-full text-left p-2 rounded ${
+                  className={`w-full text-left px-4 py-2 rounded-lg ${
                     activeTab === tab
-                      ? "bg-blue-500 text-white"
+                      ? "bg-black text-white"
                       : "hover:bg-gray-200"
                   }`}
                 >

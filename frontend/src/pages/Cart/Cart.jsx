@@ -14,15 +14,16 @@ import OrderPlacedModal from '../../components/OrderPlaced';
 import CartHeader from '../../components/CartHeader'
 
 const CartPage = () => {
-  const { cartItems, removeFromCart, updateQuantity, cartUpdateTrigger,clearCart,inputValue,setInputValue,formData } = useContext(CartContext);
+  const { cartItems, removeFromCart, updateQuantity,clearCart,inputValue,setInputValue,formData,loggedin,setLoggedIn } = useContext(CartContext);
 
 useEffect(() => {
   // This effect will run whenever cartUpdateTrigger changes
   // You can add any additional logic here if needed
 }, [cartItems]);
   
-  const [loggedin,setLoggedIn] = useState(false);
+  
   const [isLoading, setIsLoading] = useState(false);
+  const [buttonPressed,setButtonPressed] = useState(false);
   const navigate = useNavigate();
   const [showOrderPlaced,setShowOrderPlaced] = useState(false);
   const handleSendOtp = () => {
@@ -38,88 +39,11 @@ useEffect(() => {
       setLoggedIn(false);
     }
   }, []);
-  // const handlePlaceOrder = async () => {
-    
-  //   // Step 1: Create an order in your backend to get an order ID
-  //   const response = await fetch(
-  //     "https://annapoorna-backend.onrender.com/customers/create-order ",
-  //     {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-        
-  //       body: JSON.stringify({
-  //         totalPrice: total.toFixed(2), // Amount to be paid
-  //         currency: "INR", // Currency
-  //         name: "muhil",
-  //         email: "muhil@gmail.com",
-  //         mobile: "9342407556",
-  //         role: "customer",
-  //         orderItems: [{ name: "Demo", price: 200 }],
-  //       }),
-  //       credentials: "include",
-  //     }
-  //   );
 
-  //   const order = await response.json();
-
-  //   // Step 2: Initiate the Razorpay payment
-
-  //   const options = {
-  //     key: "rzp_test_ZyVKG8K6k1Gol1",
-  //     amount: order.amount, // Amount in paise
-  //     currency: "INR",
-  //     name: "Your Store Name",
-  //     description: "Order Payment",
-  //     order_id: order.id, // Order ID from backend
-  //     handler: async (response) => {
-  //       // Payment successful - send payment details to backend to update order status
-  //       const paymentResponse = await fetch(
-  //         "http://localhost:8000/customers/verify-payment",
-  //         {
-  //           method: "POST",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-            
-  //           body: JSON.stringify({
-  //             orderId: order.id,
-  //             paymentId: response.razorpay_payment_id,
-  //             razorpayOrderId: response.razorpay_order_id,
-  //             razorpaySignature: response.razorpay_signature,
-  //           }),
-  //           credentials:"include"
-  //         }
-  //       );
-
-  //       const result = await paymentResponse.json();
-  //       if (result.success) {
-  //         alert("Payment successful and order updated!");
-  //         // Redirect to order confirmation page or show a success message
-  //       } else {
-  //         alert(
-  //           "Payment successful but failed to update order. Please contact support."
-  //         );
-  //       }
-  //     },
-  //     prefill: {
-  //       name: "muhil",
-  //       email: "muhil@gmail.comm",
-  //       contact: 934240756,
-  //     },
-  //     theme: {
-  //       color: "#3399cc",
-  //     },
-  //   };
-
-  //   const rzp1 = new window.Razorpay(options);
-  //   rzp1.open();
-  // };
   const handlePlaceOrder = async () => {
     
     try {
-      
+      setButtonPressed(true);
       console.log(document.cookie); // This might not show HttpOnly cookies
       console.log(cartItems)
       // Step 1: Create an order in your backend to get an order ID
@@ -152,7 +76,12 @@ useEffect(() => {
         }
       );
   
+      if(!response.status){
+        setButtonPressed(false);
+      }
       const order = response.data;
+      console.log(order)
+      
   
       // Step 2: Initiate the Razorpay payment
       const options = {
@@ -165,6 +94,9 @@ useEffect(() => {
         handler: async (response) => {
           try {
             console.log(formData);
+            console.log(subtotal);
+            console.log(gst);
+            console.log(delivery);
             setIsLoading(true);
             const paymentResponse = await axios.post(
               "https://annapoorna-backend.onrender.com/customers/verify-order",
@@ -174,11 +106,14 @@ useEffect(() => {
                 razorpayOrderId: response.razorpay_order_id,
                 razorpaySignature: response.razorpay_signature,
                 orderItems: cartItems,
-                totalAmount: total.toFixed(2),
+                totalAmount: subtotal.toFixed(2),
+                gst : gst.toFixed(2),
+                delivery : delivery,
                 email : formData.email,
                 userName : formData.name,
                 address : address,
-                mobile : formData.mobile
+                mobile : formData.mobile,
+                user_mobile : inputValue
               },
               {
                 withCredentials: true,
@@ -188,6 +123,7 @@ useEffect(() => {
                 },
               }
             );
+            
   
             const result = paymentResponse.data;
             if (result.status) {
@@ -205,16 +141,23 @@ useEffect(() => {
             alert("Error verifying payment. Please contact support.");
           }finally {
             setIsLoading(false); // Stop loading regardless of outcome
+            setButtonPressed(false);
           }
         },
         prefill: {
-          name: "muhil",
-          email: "muhil@gmail.com", // Fixed typo in email
-          contact: "9342407556", // Changed to string for consistency
+          name: formData.name,
+          email: formData.email, // Fixed typo in email
+          contact: formData.mobile, // Changed to string for consistency
         },
         theme: {
           color: "#3399cc",
         },
+        modal: {
+        ondismiss: function() {
+          setButtonPressed(false);
+          console.log('Razorpay payment modal closed');
+        }
+      }
       };
   
       const rzp1 = new window.Razorpay(options);
@@ -301,10 +244,11 @@ useEffect(() => {
       gst,
       specialOffer,
       delivery,
+      subtotal
     };
   };
 
-  const { total, gst, delivery } = calculateFinalAmount();
+  const { total, gst, delivery,subtotal } = calculateFinalAmount();
 
   return (
     <div>
@@ -380,7 +324,21 @@ useEffect(() => {
                 onClick={loggedin?handlePlaceOrder:handleSendOtp}
                 className="bg-[#332D21] text-white font-bold py-3 px-4 rounded-lg mt-6 w-full lg:w-10/12"
               >
-                Place Your Order Now
+                {buttonPressed ? (
+              <span className="flex items-center justify-center">
+                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Placing...
+              </span>
+            ) : (
+              loggedin ? (
+                "Place your Order Now"
+              ) : (
+                "Login to Place your Order"
+              )
+            )}
               </button>
             </div>
           </div>
@@ -389,7 +347,7 @@ useEffect(() => {
             <p className="text-xl font-bold">Your cart is empty.</p>
           </div>
         )}
-      </div>
+      </div>  
 
       {showLogin && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
