@@ -24,7 +24,7 @@ useEffect(() => {
   
   const [isLoading, setIsLoading] = useState(false);
   const [buttonPressed,setButtonPressed] = useState(false);
-  const navigate = useNavigate();
+
   const [showOrderPlaced,setShowOrderPlaced] = useState(false);
   const handleSendOtp = () => {
     setShowLogin(true);
@@ -205,10 +205,6 @@ useEffect(() => {
   
   const [showLogin, setShowLogin] = useState(false);
 
-  // useEffect(() => {
-  //   const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
-  //   setCartItems(storedCart);
-  // }, []);
 
   const handleQuantityChange = (index, change) => {
     updateQuantity(index, change);
@@ -218,12 +214,6 @@ useEffect(() => {
     removeFromCart(index);
   };
 
-  // const handleDeleteItem = (index) => {
-  //   const updatedCart = cartItems.filter((_, i) => i !== index);
-  //   setCartItems(updatedCart);
-  //   localStorage.setItem('cart', JSON.stringify(updatedCart));
-  //   triggerCartUpdate();
-  // };
 
   const triggerCartUpdate = () => {
     const event = new Event('storage');
