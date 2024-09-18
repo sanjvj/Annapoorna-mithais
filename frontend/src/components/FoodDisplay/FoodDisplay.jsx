@@ -62,7 +62,8 @@ const FoodDisplay = ({ category, setCategory ,searchTerm, setSearchTerm }) => {
       name: selectedItem.name,
       quantity,
       weight: selectedWeight,
-      price: getWeightPrice() * quantity,
+      price : getWeightPrice(),
+      totalprice: getWeightPrice() * quantity,
       image: selectedItem.image,
     };
 
@@ -232,9 +233,9 @@ const FoodDisplay = ({ category, setCategory ,searchTerm, setSearchTerm }) => {
 
                   <div className="flex items-center gap-2 mt-4 justify-between mb-16 md:mb-4">
                     <p className="text-[14px] font-bold text-[#606060] font-Nunito">
-                      ₹{getWeightPrice() * quantity}{" "}
+                      ₹{getWeightPrice() }{" "}
                       <p className="text-[14px] font-bold text-[#26A460] font-Nunito">
-                        With Offer ₹{selectedItem.offer * quantity}
+                        With Offer ₹{selectedItem.offer }
                       </p>
                     </p>
                     <div className="bg-[#F8F8F8] border border-[#E6E6E6] px-2 rounded-lg">
