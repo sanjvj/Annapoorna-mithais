@@ -2,9 +2,9 @@ import React from 'react'
 import AddressForm from './AddressForm';
 import { useState } from 'react';
 
-const VerificationSuccess = ({ onClose }) => {
-    const [showAddressForm, setShowAddressForm] = useState(false);
+const VerificationSuccess = ({ onClose,setShowAddressForm,setShowOTPVerification }) => {
     const handleProceedToAddress = () =>{
+      setShowOTPVerification(false);
         setShowAddressForm(true);
         
     } 
@@ -37,9 +37,7 @@ const VerificationSuccess = ({ onClose }) => {
         >
           + Add delivery details
         </button>
-        {showAddressForm && (
-          <AddressForm onClose={() => setShowAddressForm(false)} />
-        )}
+        
       </div>
     );
   };

@@ -34,6 +34,7 @@ const ProfileHero = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
+    localStorage.removeItem("userInfo");
     setLocalFormData('');
     navigate("/");
   };

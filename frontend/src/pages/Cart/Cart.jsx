@@ -38,6 +38,9 @@ const CartPage = () => {
   const [hasVerified, setHasVerified] = useState(false);
   const [showOrderPlaced, setShowOrderPlaced] = useState(false);
   const [showAddressForm, setShowAddressForm] = useState(false);
+  const navigate = useNavigate();
+
+
   const handleSendOtp = () => {
     setShowLogin(true);
     console.log(cartItems);
@@ -428,8 +431,16 @@ const CartPage = () => {
             </div>
           </div>
         ) : (
-          <div className="flex justify-center items-center h-64">
+          <div className="flex flex-col gap-5 justify-center items-center h-64">
             <p className="text-xl font-bold">Your cart is empty.</p>
+            <button
+            className="px-4 py-2 rounded-lg bg-[#d7c59e] text-[#6B4B34]"
+            onClick={() => {
+              navigate("/shop");
+            }}
+          >
+            SHOP NOW
+          </button>
           </div>
         )}
       </div>

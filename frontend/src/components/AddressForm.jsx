@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { CartContext } from '../context/CartContext'; // Adjust the import path as needed
 
-const AddressForm = ({ onClose }) => {
+const AddressForm = ({ onClose,setHasVerified }) => {
   const { formData, updateFormData, addAddress } = useContext(CartContext);
 
   const handleChange = (e) => {
@@ -13,6 +13,7 @@ const AddressForm = ({ onClose }) => {
     e.preventDefault();
     addAddress();
     onClose();
+    setHasVerified(false);
   };
 
   return (

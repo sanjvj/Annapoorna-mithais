@@ -8,12 +8,14 @@ const OTPVerification = ({
   setShowOTPVerification,
   onVerificationSuccess,
   setLoggedIn,
+  hasVerified,
+  setHasVerified
 }) => {
   const { inputValue } = useContext(CartContext);
   const [otp, setOTP] = useState(["", "", "", "", "", ""]);
   const [timer, setTimer] = useState(60);
   const [canResend, setCanResend] = useState(false);
-  const [isVerified, setIsVerified] = useState(false);
+  
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -74,7 +76,8 @@ const OTPVerification = ({
       if (response.data.status) {
         // OTP verification successful
         console.log("OTP verified successfully");
-        setIsVerified(true);
+        setHasVerified(true);
+        setShowOTPVerification(false);
         localStorage.setItem("authToken", response.data.token);
         // Handle successful verification (e.g., log the user in, redirect to dashboard)
         setLoggedIn(true);
@@ -116,26 +119,7 @@ const OTPVerification = ({
     }
   };
 
-  //Dummy verification as of now
-  // const handleVerify = async () => {
-  //   const otpString = otp.join("");
-  //   if (otpString.length !== 6) {
-  //     setError("Please enter all 6 digits of the OTP.");
-  //     return;
-  //   }
 
-  //   try {
-  //     // Simulating an API call
-  //     await new Promise(resolve => setTimeout(resolve, 1000));
-  //     setIsVerified(true);
-
-  //     onVerificationSuccess();
-  //     console.log(otpString);
-  //   } catch (error) {
-  //     console.error("Verification failed:", error);
-  //     setError("Verification failed. Please try again.");
-  //   }
-  // };
 
   const handleResendOTP = () => {
     console.log("Resending OTP");
@@ -144,10 +128,7 @@ const OTPVerification = ({
     setError(""); // Clear error when resending OTP
   };
 
-  if (isVerified) {
-    return <VerificationSuccess onClose={() => setIsVerified(false)} />;
-  }
-
+ 
   return (
     <div className="relative w-[400px] h-auto bg-white rounded-xl p-10 shadow-lg">
       <img
