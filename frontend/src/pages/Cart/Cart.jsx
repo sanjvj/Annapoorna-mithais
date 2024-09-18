@@ -1,35 +1,47 @@
-import React, { useState, useEffect, useContext, createContext } from 'react';
-import Navbar from '../../components/Navbar/Navbar';
-import Slider from '../../components/Slider/Slider';
-import ShopHero from '../../components/ShopHero';
-import Footer from '../../components/Footer';
-import Login from '../../components/Login';
-import FooterBar from '../../components/FooterBar';
-import OTPVerification from '../../components/OTPVerification';
+import React, { useState, useEffect, useContext, createContext } from "react";
+import Navbar from "../../components/Navbar/Navbar";
+import Slider from "../../components/Slider/Slider";
+import ShopHero from "../../components/ShopHero";
+import Footer from "../../components/Footer";
+import Login from "../../components/Login";
+import FooterBar from "../../components/FooterBar";
+import OTPVerification from "../../components/OTPVerification";
 import axios from "axios";
-import { CartContext } from '../../context/CartContext';
-import Loader from '../../components/Loader/Loader';
-import { useNavigate } from 'react-router-dom';
-import OrderPlacedModal from '../../components/OrderPlaced';
-import CartHeader from '../../components/CartHeader'
+import { CartContext } from "../../context/CartContext";
+import Loader from "../../components/Loader/Loader";
+import { useNavigate } from "react-router-dom";
+import OrderPlacedModal from "../../components/OrderPlaced";
+import CartHeader from "../../components/CartHeader";
+import AddressForm from "../../components/AddressForm";
+import VerificationSuccess from "../../components/VerificationSuccess";
 
 const CartPage = () => {
-  const { cartItems, removeFromCart, updateQuantity,clearCart,inputValue,setInputValue,formData,loggedin,setLoggedIn } = useContext(CartContext);
+  const {
+    cartItems,
+    removeFromCart,
+    updateQuantity,
+    clearCart,
+    inputValue,
+    setInputValue,
+    formData,
+    loggedin,
+    setLoggedIn,
+  } = useContext(CartContext);
 
-useEffect(() => {
-  // This effect will run whenever cartUpdateTrigger changes
-  // You can add any additional logic here if needed
-}, [cartItems]);
-  
-  
+  useEffect(() => {
+    // This effect will run whenever cartUpdateTrigger changes
+    // You can add any additional logic here if needed
+  }, [cartItems]);
+
   const [isLoading, setIsLoading] = useState(false);
-  const [buttonPressed,setButtonPressed] = useState(false);
-
-  const [showOrderPlaced,setShowOrderPlaced] = useState(false);
+  const [buttonPressed, setButtonPressed] = useState(false);
+  const [hasVerified, setHasVerified] = useState(false);
+  const [showOrderPlaced, setShowOrderPlaced] = useState(false);
+  const [showAddressForm, setShowAddressForm] = useState(false);
   const handleSendOtp = () => {
     setShowLogin(true);
-    console.log(cartItems)
-  }
+    console.log(cartItems);
+  };
 
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
@@ -41,14 +53,18 @@ useEffect(() => {
   }, []);
 
   const handlePlaceOrder = async () => {
-    
     try {
       setButtonPressed(true);
       console.log(document.cookie); // This might not show HttpOnly cookies
-      console.log(cartItems)
+      console.log(cartItems);
       // Step 1: Create an order in your backend to get an order ID
       const authToken = localStorage.getItem("authToken");
-      const address = formData.addressLine1 + " " + formData.landmark +","+ formData.pincode
+      const address =
+        formData.addressLine1 +
+        " " +
+        formData.landmark +
+        "," +
+        formData.pincode;
       // Make sure authToken exists
       if (!authToken) {
         throw new Error("No authentication token found. Please log in.");
@@ -63,7 +79,7 @@ useEffect(() => {
           email: formData.email,
           mobile: formData.mobile,
           user_mobile: inputValue,
-          address : address,
+          address: address,
           role: "customer",
           orderItems: cartItems,
         },
@@ -75,14 +91,13 @@ useEffect(() => {
           },
         }
       );
-  
-      if(!response.status){
+
+      if (!response.status) {
         setButtonPressed(false);
       }
       const order = response.data;
-      console.log(order)
-      
-  
+      console.log(order);
+
       // Step 2: Initiate the Razorpay payment
       const options = {
         key: "rzp_test_ZyVKG8K6k1Gol1",
@@ -107,13 +122,13 @@ useEffect(() => {
                 razorpaySignature: response.razorpay_signature,
                 orderItems: cartItems,
                 totalAmount: subtotal.toFixed(2),
-                gst : gst.toFixed(2),
-                delivery : delivery,
-                email : formData.email,
-                userName : formData.name,
-                address : address,
-                mobile : formData.mobile,
-                user_mobile : inputValue
+                gst: gst.toFixed(2),
+                delivery: delivery,
+                email: formData.email,
+                userName: formData.name,
+                address: address,
+                mobile: formData.mobile,
+                user_mobile: inputValue,
               },
               {
                 withCredentials: true,
@@ -123,13 +138,12 @@ useEffect(() => {
                 },
               }
             );
-            
-  
+
             const result = paymentResponse.data;
             if (result.status) {
               setShowOrderPlaced(true);
               clearCart();
-              
+
               // Redirect to order confirmation page or show a success message
             } else {
               alert(
@@ -139,7 +153,7 @@ useEffect(() => {
           } catch (error) {
             console.error("Error verifying payment:", error);
             alert("Error verifying payment. Please contact support.");
-          }finally {
+          } finally {
             setIsLoading(false); // Stop loading regardless of outcome
             setButtonPressed(false);
           }
@@ -153,13 +167,13 @@ useEffect(() => {
           color: "#3399cc",
         },
         modal: {
-        ondismiss: function() {
-          setButtonPressed(false);
-          console.log('Razorpay payment modal closed');
-        }
-      }
+          ondismiss: function () {
+            setButtonPressed(false);
+            console.log("Razorpay payment modal closed");
+          },
+        },
       };
-  
+
       const rzp1 = new window.Razorpay(options);
       rzp1.open();
     } catch (error) {
@@ -189,22 +203,21 @@ useEffect(() => {
   };
 
   const updateCartItemCount = () => {
-    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
     const count = storedCart.reduce((total, item) => total + item.quantity, 0);
     setCartItemCount(count);
   };
 
   useEffect(() => {
     updateCartItemCount();
-    window.addEventListener('storage', updateCartItemCount);
+    window.addEventListener("storage", updateCartItemCount);
 
     return () => {
-      window.removeEventListener('storage', updateCartItemCount);
+      window.removeEventListener("storage", updateCartItemCount);
     };
   }, []);
-  
-  const [showLogin, setShowLogin] = useState(false);
 
+  const [showLogin, setShowLogin] = useState(false);
 
   const handleQuantityChange = (index, change) => {
     updateQuantity(index, change);
@@ -214,16 +227,18 @@ useEffect(() => {
     removeFromCart(index);
   };
 
-
   const triggerCartUpdate = () => {
-    const event = new Event('storage');
+    const event = new Event("storage");
     window.dispatchEvent(event);
   };
 
   const calculateSubtotal = () => {
-    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    return cartItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
   };
-  
+
   const calculateFinalAmount = () => {
     const subtotal = calculateSubtotal();
     const gst = subtotal * 0.12; // 12% GST
@@ -234,11 +249,11 @@ useEffect(() => {
       gst,
       specialOffer,
       delivery,
-      subtotal
+      subtotal,
     };
   };
 
-  const { total, gst, delivery,subtotal } = calculateFinalAmount();
+  const { total, gst, delivery, subtotal } = calculateFinalAmount();
 
   return (
     <div>
@@ -251,84 +266,164 @@ useEffect(() => {
         {cartItems.length > 0 ? (
           <div className="lg:flex justify-between">
             <div className="w-full lg:w-5/12">
-              <h2 className="text-[16px] font-Nunito font-extrabold mb-2">Your Cart</h2>
-              <p className='text-[12px] font-Nunito text-[#909090] mb-4'>Cart is looking good with these items!</p>
-              <div className='w-full h-[80px] bg-[#F8F8F8] rounded-lg'>
-                <div className='flex justify-between px-3 pt-3 mb'>
-                  <p className='font-Nunito font-bold text-[14px] flex'><span><img src='delivery.svg' className='w-[16px] h-[16px]'></img></span>Delivery</p>
-                  <p className='font-Nunito font-bold text-[10px] text-[#909090] cursor-pointer'>CHANGE</p>
+              <h2 className="text-[16px] font-Nunito font-extrabold mb-2">
+                Your Cart
+              </h2>
+              <p className="text-[12px] font-Nunito text-[#909090] mb-4">
+                Cart is looking good with these items!
+              </p>
+              <div className="w-full bg-[#F8F8F8] rounded-lg">
+                <div className="flex justify-between px-3 pt-3 mb">
+                  <p className="font-Nunito font-bold text-[14px] flex">
+                    <span>
+                      <img
+                        src="delivery.svg"
+                        className="w-[16px] h-[16px]"
+                      ></img>
+                    </span>
+                    Delivery
+                  </p>
+                  <p className="font-Nunito font-bold text-[10px] text-[#909090] cursor-pointer">
+                    CHANGE
+                  </p>
+                </div>
+                <div>
+                <h1 className="font-Nunito font-semibold text-[12px] px-3 pt-1 text-[#909090]">{formData.addressLine1}</h1>
+                <h1 className="font-Nunito font-semibold text-[12px] px-3 pb-3 text-[#909090]">{formData.landmark}-{formData.pincode}</h1>
                 </div>
               </div>
               {cartItems.map((item, index) => (
-                <div key={index} className="flex items-center justify-between my-4 py-4">
-                  <div className='flex'>
-                    <img src={item.image} alt={item.name} className="w-[56px] h-[56px] md:w-[56px] md:h-[56px] lg:w-[64px] lg:h-[64px] mr-4 rounded" />
+                <div
+                  key={index}
+                  className="flex items-center justify-between my-4 py-4"
+                >
+                  <div className="flex">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-[56px] h-[56px] md:w-[56px] md:h-[56px] lg:w-[64px] lg:h-[64px] mr-4 rounded"
+                    />
                     <div>
-                      <h3 className="text-[14px] lg:text-[16px] font-bold">{item.name}</h3>
-                      <p className='text-[12px] lg:text-[12px] font-bold text-[#909090]'>₹{item.price} per {item.weight}</p>
-                      <p className='text-[12px] lg:text-[12px] font-bold text-[#26A460]'>with offer ₹{item.price}</p>
+                      <h3 className="text-[14px] lg:text-[16px] font-bold">
+                        {item.name}
+                      </h3>
+                      <p className="text-[12px] lg:text-[12px] font-bold text-[#909090]">
+                        ₹{item.price} per {item.weight}
+                      </p>
+                      <p className="text-[12px] lg:text-[12px] font-bold text-[#26A460]">
+                        with offer ₹{item.price}
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-center">
-                    <div className='bg-[#F8F8F8] w-[83px] items-center flex justify-center rounded-lg'>
-                      <button onClick={() => handleQuantityChange(index, -1)} className="font-Nunito font-extrabold px-3 py-1 rounded">-</button>
-                      <span className="mx-2 font-semibold font-Nunito">{item.quantity}</span>
-                      <button onClick={() => handleQuantityChange(index, 1)} className="px-3 py-1 rounded font-extrabold font-Nunito">+</button>
+                    <div className="bg-[#F8F8F8] w-[83px] items-center flex justify-center rounded-lg">
+                      <button
+                        onClick={() => handleQuantityChange(index, -1)}
+                        className="font-Nunito font-extrabold px-3 py-1 rounded"
+                      >
+                        -
+                      </button>
+                      <span className="mx-2 font-semibold font-Nunito">
+                        {item.quantity}
+                      </span>
+                      <button
+                        onClick={() => handleQuantityChange(index, 1)}
+                        className="px-3 py-1 rounded font-extrabold font-Nunito"
+                      >
+                        +
+                      </button>
                     </div>
-                    <img src='delete.svg' onClick={() => handleDeleteItem(index)} className="cursor-pointer px-2 py-1 ml-2" />
+                    <img
+                      src="delete.svg"
+                      onClick={() => handleDeleteItem(index)}
+                      className="cursor-pointer px-2 py-1 ml-2"
+                    />
                   </div>
                 </div>
               ))}
             </div>
-            <div className='border border-[#70513A30] h-auto mb-6 lg:mb-0'></div>
+            <div className="border border-[#70513A30] h-auto mb-6 lg:mb-0"></div>
             <div className="w-full lg:w-6/12">
-              <h3 className="text-[16px] font-extrabold font-Nunito mb-4">Cart Summary</h3>
-              <div className='bg-[#F8F8F8] w-full lg:w-10/12 p-6 rounded-lg'>
-                <div className='flex justify-between my-2'>
-                  <p className='text-[#909090] text-[12px] font-semibold font-Nunito'>TOTAL AMOUNT</p>
-                  <p className='font-bold font-Nunito text-[#606060] text-[14px]'>₹{calculateSubtotal()}</p>
+              <h3 className="text-[16px] font-extrabold font-Nunito mb-4">
+                Cart Summary
+              </h3>
+              <div className="bg-[#F8F8F8] w-full lg:w-10/12 p-6 rounded-lg">
+                <div className="flex justify-between my-2">
+                  <p className="text-[#909090] text-[12px] font-semibold font-Nunito">
+                    TOTAL AMOUNT
+                  </p>
+                  <p className="font-bold font-Nunito text-[#606060] text-[14px]">
+                    ₹{calculateSubtotal()}
+                  </p>
                 </div>
-                <div className='flex justify-between mb-2'>
-                  <p className='text-[#909090] text-[12px] font-semibold font-Nunito'>GST (12%) </p>
-                  <p className='font-bold font-Nunito text-[#606060] text-[14px]'>₹{gst.toFixed(2)}</p>
+                <div className="flex justify-between mb-2">
+                  <p className="text-[#909090] text-[12px] font-semibold font-Nunito">
+                    GST (12%){" "}
+                  </p>
+                  <p className="font-bold font-Nunito text-[#606060] text-[14px]">
+                    ₹{gst.toFixed(2)}
+                  </p>
                 </div>
                 {/* <div className='flex justify-between mb-2'>
                   <p className='text-[#909090] text-[12px] font-semibold font-Nunito'>SPECIAL OFFER </p>
                   <p className='font-bold font-Nunito text-[#606060] text-[14px]'>-₹{specialOffer}</p>
                 </div>  */}
-                <div className='flex justify-between mb-2'>
-                  <p className='text-[#909090] text-[12px] font-semibold font-Nunito'>DELIVERY FEE </p>
-                  <p className='font-bold font-Nunito text-[#606060] text-[14px]'>₹{delivery}</p>
+                <div className="flex justify-between mb-2">
+                  <p className="text-[#909090] text-[12px] font-semibold font-Nunito">
+                    DELIVERY FEE{" "}
+                  </p>
+                  <p className="font-bold font-Nunito text-[#606060] text-[14px]">
+                    ₹{delivery}
+                  </p>
                 </div>
-                <div className='flex justify-between p-4 mt-4 bg-[#EDEDED] rounded-lg'>
-                  <h4 className="text-[12px] font-extrabold font-Nunito">FINAL AMOUNT TO PAY</h4>
-                  <p className='text-[16px] font-extrabold font-Nunito'>₹{total.toFixed(2)}</p>
+                <div className="flex justify-between p-4 mt-4 bg-[#EDEDED] rounded-lg">
+                  <h4 className="text-[12px] font-extrabold font-Nunito">
+                    FINAL AMOUNT TO PAY
+                  </h4>
+                  <p className="text-[16px] font-extrabold font-Nunito">
+                    ₹{total.toFixed(2)}
+                  </p>
                 </div>
-                <div className='flex gap-1 mt-3'>
-                  <img src='saving.svg'></img>
-                  <p className='text-[#26A460] text-[14px] font-bold font-Nunito'>You saved ₹499 in this order!</p>
+                <div className="flex gap-1 mt-3">
+                  <img src="saving.svg"></img>
+                  <p className="text-[#26A460] text-[14px] font-bold font-Nunito">
+                    You saved ₹499 in this order!
+                  </p>
                 </div>
               </div>
-              <button 
-              
-                onClick={loggedin?handlePlaceOrder:handleSendOtp}
+              <button
+                onClick={loggedin ? handlePlaceOrder : handleSendOtp}
                 className="bg-[#332D21] text-white font-bold py-3 px-4 rounded-lg mt-6 w-full lg:w-10/12"
               >
                 {buttonPressed ? (
-              <span className="flex items-center justify-center">
-                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Placing...
-              </span>
-            ) : (
-              loggedin ? (
-                "Place your Order Now"
-              ) : (
-                "Login to Place your Order"
-              )
-            )}
+                  <span className="flex items-center justify-center">
+                    <svg
+                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                    Placing...
+                  </span>
+                ) : loggedin ? (
+                  "Place your Order Now"
+                ) : (
+                  "Login to Place your Order"
+                )}
               </button>
             </div>
           </div>
@@ -337,21 +432,42 @@ useEffect(() => {
             <p className="text-xl font-bold">Your cart is empty.</p>
           </div>
         )}
-      </div>  
+      </div>
 
       {showLogin && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <Login setShowLogin={setShowLogin} setShowOTPVerification={setShowOTPVerification} setInputValue={setInputValue} />
+          <Login
+            setShowLogin={setShowLogin}
+            setShowOTPVerification={setShowOTPVerification}
+            setInputValue={setInputValue}
+          />
         </div>
       )}
       {showOTPVerification && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <OTPVerification 
+          <OTPVerification
             setShowOTPVerification={setShowOTPVerification}
             onVerificationSuccess={handleVerificationSuccess}
-          
             setLoggedIn={setLoggedIn}
+            hasVerified={hasVerified}
+            setHasVerified={setHasVerified}
           />
+        </div>
+      )}
+
+      {hasVerified && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <VerificationSuccess
+        
+            setShowOTPVerification={setShowOTPVerification}
+            setShowAddressForm={setShowAddressForm}
+          ></VerificationSuccess>
+        </div>
+      )}
+
+      {showAddressForm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <AddressForm onClose={() => setShowAddressForm(false)} setHasVerified={setHasVerified} />
         </div>
       )}
 
