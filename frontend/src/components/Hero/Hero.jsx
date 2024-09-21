@@ -5,22 +5,22 @@ import { useSwipeable } from "react-swipeable";
 const Hero = () => {
   const slides = [
     {
-      url: "image.png",
+      url: "https://raw.githubusercontent.com/sanjvj/Annapoorna_images/refs/heads/main/Banner%20image%201.png",
       name: "Product 1",
       price: "₹1400/kg",
     },
     {
-      url: "https://img.freepik.com/premium-photo/bowl-colorful-balls-with-red-yellow-sponge-table_662214-166093.jpg?uid=R151607001&ga=GA1.1.1345988329.1724190548&semt=ais_hybrid",
+      url: "https://raw.githubusercontent.com/sanjvj/Annapoorna_images/refs/heads/main/Banner%20image%202.png",
       name: "Product 2",
       price: "₹1500/kg",
     },
     {
-      url: "https://img.freepik.com/free-photo/still-life-spanish-tortilla_23-2150166710.jpg?uid=R151607001&ga=GA1.1.1345988329.1724190548&semt=ais_hybrid",
+      url: "https://raw.githubusercontent.com/sanjvj/Annapoorna_images/refs/heads/main/Banner%20image%203.png",
       name: "Product 3",
       price: "₹1600/kg",
     },
     {
-      url: "https://img.freepik.com/premium-photo/indian-traditional-sweet-gulab-jamun-black-table_1234738-385633.jpg?uid=R151607001&ga=GA1.1.1345988329.1724190548&semt=ais_hybrid",
+      url: "https://raw.githubusercontent.com/sanjvj/Annapoorna_images/refs/heads/main/Banner%20image%204.png",
       name: "Product 4",
       price: "₹1700/kg",
     },
@@ -55,9 +55,9 @@ const Hero = () => {
   });
 
   return (
-    <div className="flex flex-col items-center h-[60vh] md:h-screen bg-gradient-to-b from-[#FFFFFF] to-[#FFF9EA] overflow-hidden">
+    <div className="flex flex-col items-center h-auto  md:h-[80vh] lg:h-screen bg-gradient-to-b from-[#FFFFFF] to-[#FFF9EA] overflow-hidden">
       {/* Text Section */}
-      <div className="w-full pt-[10px] md:pt-[32px] pb-[32px]" style={{ backgroundImage: 'url(background.svg)' }}>
+      <div className="w-full pt-[10px] pb-10 md:pt-[32px] pb-[32px]" style={{ backgroundImage: 'url(background.svg)' }}>
         <div className="gap-4 text-center md:mt-4">
           <h1 className="font-Philosopher text-[24px] md:text-[32px] font-black bg-gradient-to-r from-[#A5813B] to-[#8F6109] text-transparent bg-clip-text leading-[35.84px] pb-[12px]">
             Festivities are Flat <br />
@@ -72,18 +72,17 @@ const Hero = () => {
       {/* Image Section */}
       <div
         {...handlers}
-        className="relative flex items-center justify-center w-full h-full"
+        className="relative flex items-center justify-center w-full h-auto lg:h-screen bg-gradient-to-b from-[#FFFFFF] to-[#FFF9EA] overflow-hidden"
       >
-        <div
-          style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
-          className="absolute top-0 left-0 w-full h-full bg-center bg-cover"
-          alt="Decorative Image"
-          
+        <img
+          src={slides[currentIndex].url}
+          alt={slides[currentIndex].name}
+          className="w-full h-full object-contain md:object-cover"
         />
-        <div className="absolute top-8 left-8 bg-red-600 text-white text-xs font-bold rounded-full px-2 py-1 shadow-lg">
+        <div className="absolute top-2  lg:top-8 left-8 bg-red-600 text-white text-xs font-bold rounded-full px-2 py-1 shadow-lg">
           75% OFF
         </div>
-        <div className="absolute bottom-0 left-0 w-full bg-opacity-50 bg-[#876115] backdrop-blur-md flex justify-between items-center px-10 py-2 md:py-4">
+        {/* <div className="absolute bottom-0 left-0 w-full bg-opacity-50 bg-[#876115] backdrop-blur-md flex justify-between items-center px-10 py-2 md:py-4">
           <div>
             <h2 className="text-white font-semibold text-[16px] font-Nunito">{slides[currentIndex].name}</h2>
             <p className="text-white font-bold text-[14px] font-Nunito">{slides[currentIndex].price}</p>
@@ -92,8 +91,8 @@ const Hero = () => {
             <img src="Cart.svg" className="w-[20px] h-[20px]" alt="Cart Icon" />
             Add to cart
           </button>
-        </div>
-        <div className="absolute top-14 right-16 flex space-x-1">
+        </div> */}
+        <div className="absolute top-4 right-4 lg:top-14 lg:right-16 flex space-x-1">
           {slides.map((_, index) => (
             <div
               key={index}
